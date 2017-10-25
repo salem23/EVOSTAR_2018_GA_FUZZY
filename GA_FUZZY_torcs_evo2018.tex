@@ -1,0 +1,758 @@
+
+%%%%%%%%%%%%%%%%%%%%%%% file typeinst.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%5
+% This is the LaTeX source for the instructions to authors using
+% the LaTeX document class 'llncs.cls' for contributions to
+% the Lecture Notes in Computer Sciences series.
+% http://www.springer.com/lncs       Springer Heidelberg 2006/05/04
+%
+% It may be used as a template for your own input - copy it
+% to a new file with a new name and use it as the basis
+% for your article.
+%
+% NB: the document class 'llncs' has its own and detailed documentation, see
+% ftp://ftp.springer.de/data/pubftp/pub/tex/latex/llncs/latex2e/llncsdoc.pdf
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx,color,url}
+\usepackage[dvips]{epsfig}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{calc,patterns,snakes,decorations.pathmorphing,decorations.markings}
+\usetikzlibrary{positioning}
+
+\providecommand{\tabularnewline}{\\}
+
+
+
+
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+
+\usepackage{url}
+\urldef{\mailsa}\path|salemohammed@gmail.com|
+\urldef{\mailsb}\path|amorag@geneura.ugr.es, jjmerelo@gmail.com|
+\urldef{\mailsc}\path| fergunet@gmail.com|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+	\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+	
+	\mainmatter  % start of an individual contribution
+	
+	% first the title is needed
+	\title{Evolving TORCS Fuzzy driver using GA}
+	
+	
+	%\titlerunning{Driving in TORCS using modular fuzzy controllers}
+	
+	
+	
+	
+	\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
+	
+	
+	
+	%\authorrunning{M. Salem et al}
+	% (feature abused for this document to repeat the title also on left hand pages)
+	
+	% the affiliations are given next; don't give your e-mail address
+	% unless you accept that it will be published
+	\institute{University of Mascara, Algeria\\
+		\mailsa\\
+		Department of Architecture and Computer Technology
+		University of Granada, Spain\\
+		\mailsb\\
+		Universiy of C\'adiz, Spain
+		\\
+		\mailsc\\
+	}
+	
+	%
+	% NB: a more complex sample for affiliations and the mapping to the
+	% corresponding authors can be found in the file "llncs.dem"
+	% (search for the string "\mainmatter" where a contribution starts).
+	% "llncs.dem" accompanies the document class "llncs.cls".
+	%
+	
+	\toctitle{Driving in TORCS using modular fuzzy controllers}
+	\tocauthor{}
+	\maketitle
+	\begin{abstract}
+		
+		When driving a car it is essential to take into account all possible
+		factors;like in the TORCS simulated race game, the
+		objective is not only to avoid collisions, but to go faster and safely to win the race. Fuzzy based controller were usually used to design autonomous drivers by computing target speed or steer or both of them.
+		
+		The major drawback of these controllers , is that their membership function parameters are tuned by trial/error.
+		
+		In this work, we propose tu use genetic algorithm approach to find the optimal combination of the MFs parameters so to design a robust driver for racing car in a simulated race.\\
+		The obtained drivers were compared and  evaluated in practise and real races
+		giving good results mainly in tracks that have many turning points.
+	%%%
+	\keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
+	\end{abstract}
+	
+	%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   INTRODUCTION   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%
+	\section{Introduction}
+	\label{sec:intro}
+
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  STATE OF THE ART  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{State of the Art}
+	\label{sec:soa}
+\section{ TORCS Description: }
+	\label{sec:torcs}
+The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{8}.
+
+Its high degree of modularity and portability make it ideal for artificial research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS \ cite {11} engine. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation. \cite{24} The game allows different types of races from the practical single session to the championship \cite{10}.
+%%%%%%%%%%%%%%%%%%%%%%	
+	\begin{table}[ht!]
+		{\scriptsize
+			{\centering
+				\begin{tabular}{|p{2cm}|p{3cm}|p{3 cm}|p{3 cm}|}
+					\hline
+					{\textbf{Sensor} }&
+					{\textbf{Name} }&
+					{\textbf{Range} (unit)} &  
+					{\textbf{Data type}}\\ 
+					\hline
+					1 & angle & [-$\pi$,+$\pi$ ] & Double\\ 
+					\hline
+					2 & curLapTime & [0,+$\infty$] (s)	& Double\\ 
+					\hline 
+					3 & damage & [0,+$\infty$)(point)& Double\\ 
+					\hline 
+					4 & distFromStart & [0,+$\infty$) (m)& Double \\ 
+					\hline 
+					5 & distRaced &[0,+$\infty$) (m)& Double\\
+					\hline 
+					
+					6 & focus & [0,200] (m)& Double\\
+					\hline 
+					
+					7 & fuel & [0,+$\infty$) (l)& Double\\
+					
+					\hline
+					8 & gear & \{-1,0,1,.. 6\}g& Integer \\
+					
+					\hline
+					9 & lastLapTime &[0,+1] (s) & Double \\
+					
+					\hline
+					10 & opponents &[0,200] (m)& Double \\
+					
+					\hline
+					10 & racePos & \{1,2,...,N\} & Double \\
+					\hline
+					11 & rpm    & [0,+$\infty$) (rpm)   & Double \\
+					\hline  
+					13 & speedX & (-$\infty$,+$\infty$) (km/h) & Double\\
+					\hline  
+					14 & speedY &(-$\infty$,+$\infty$) (km/h)  & Double\\
+					\hline 
+					15 & speedZ & (-$\infty$,+$\infty$) (km/h) & Double \\
+					
+					\hline
+					16 & track &  [0,200 ] & Double\\ 
+					\hline
+					17 & trackPos & (-$\infty$,+$\infty$) & Double\\
+					
+					\hline
+					
+					18 & wheelSpinVel  & [0,+$\infty$) (rad/s) & Double\\
+					
+					\hline
+					19 & z &  (-$\infty$,+$\infty$) (m) & Double\\
+					
+					\hline
+					
+				\end{tabular}
+			}
+		}
+		\caption{Description of available sensors in TORCS \cite{Torcs3}.}
+		\label{t1}
+	\end{table}
+	
+	Every TORCS driver bot is controlled by means of a set of actuators: the steering wheel `Steer', the accelerator `accel', the brake pedal and the gearbox. In addition, a meta-action is available to request a restart of the race to the server. Table \ref{tab2} details the available actions/actuators and their representation.
+	
+	\begin{table}[ht!]
+		{\scriptsize
+			{\centering
+				\begin{tabular}{|p{3cm}|p{3 cm}|p{3 cm}|}
+					\hline
+					
+					{\textbf{Action} }&
+					{\textbf{Range} (unit)} &  
+					{\textbf{Data type}}\\ 
+					\hline
+					Acceleration & [0,+1] & Double\\ 
+					\hline
+					Brake & [0,+1]	& Double\\
+					\hline
+					Gear & -1..0..+6	& Double\\
+					\hline
+					Steer & [-1,+1]	& Double\\
+					\hline
+					Clutch & [-1,+1]	& Double\\
+					\hline
+				\end{tabular}
+			}
+		}
+		\caption{TORCS Actuators \cite{torcs2012}.}
+		\label{tab2}
+	\end{table}
+	
+	Hence, a controller is a program, which run inside TORCS, that automatically drives a car. It gets as input information about the current state of the car and its situation on the track. These collected data are used to compute actions to do in the next simulation tick; like steer, gear changes, acceleration or brake and clutch. A client may request a restart of the race by sending a special action on the server: Restart or shutdown \cite{manualTORCS}.
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%  FUZZY CONTROLLER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%
+	\section{Fuzzy Controller}
+	\label{sec:fuzzy_controller}
+	
+	The proposed controller has the same modular architecture as the simple driver, and has some common functions of this approach. 
+	However, the target speed and steering angle are computed by means of two modular and specialised fuzzy controllers, which consider five position sensors.
+	
+	In the following sections, each sub-controller is described.
+	
+	%-----------------------------------------------
+	
+	\subsection{Fuzzy target speed sub-controller}
+	
+	The first proposed fuzzy sub-controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: moving as faster as possible and secure the car. This estimation is based on fuzzy rules, so two general cases are considered, following the simple driver approach:
+	
+	\begin{itemize}
+		\item If the car is in a straight line, the target speed will take a maximum value (\textit{maxSpeed} km/h).
+		\item If it is close to a curve, the controller will decrease the current speed to a value included in the interval \textit{[minSpeed; maxSpeed]} km/h.
+	\end{itemize}
+	
+	Thus, in case the car is out of the track or near a curve, the brake system is activated, and ABS (Anti-Block System) and TCL (Traction Control Limit) will be loaded to avoid the car skidding. The obtained target speed will be used for computing the value of acceleration, following - as the simple driver do - the expression:
+	
+	\begin{equation}	
+	Gas(speed-Target_{speed})=-1+\frac{2}{1+e^{speed-Target_{speed}}}	
+	\end{equation}
+	
+	\textit{Gas} function refers to acceleration, \textit{speed} is the current speed of the car.
+	
+	This fuzzy controller has three input values and one output: the target speed (see Figure \ref{fig:AD}).
+	
+	\begin{figure}
+		\begin{center}
+			
+			\begin{tikzpicture}[box/.style={draw, fill=white!20,rounded corners,align=center,minimum height=3em, minimum width=5em},thick,->,>= latex]
+			
+			\node[box] (a0) {Fuzzy controller};
+			\node[left=of a0.160,font=\bfseries] (aux01) {$Front$};
+			\node[left=of a0.175,font=\bfseries] (aux02) {$M5$};
+			\node[left=of a0.195,font=\bfseries] (aux03) {$M10 $};
+			\node[right=of a0,font=\bfseries] (c0) {$Target_{speed}$};
+			\draw[thick,->,>= latex] (aux01) -- (a0.160);
+			\draw[thick,->,>= latex] (aux02) -- (a0.175);
+			\draw[thick,->,>= latex] (aux03) -- (a0.195);
+			\draw[thick,->,>= latex] (a0) -- (c0);
+			\node[box,below=of a0] (b) {Inference};
+			
+			\node[box, left=of b] (a) {Fuzzification};
+			
+			
+			\node[box,right=of b] (b1) {Defuzzification};
+			
+			
+			\draw[thick,->,>= latex] (a) -- (b);
+			\draw[thick,->,>= latex] (b) -- (b1);
+			
+			
+			
+			\draw[thick,->,>= latex] (a0.south west) -- (a.north west);
+			\draw[thick,->,>= latex] (a0.south east) -- (b1.north east);
+			
+			
+			\end{tikzpicture}
+			
+			%\includegraphics [width=10cm,height=4cm]{figures/c2/sif}
+		\end{center}
+		\caption{Fuzzy controller of target speed.}     % width is 8.4 cm.
+		\label{fig:AD}
+	\end{figure}
+	%
+	The controller presented in that figure is a Mamdani-based fuzzy system \cite{iancu2012} with trapezoidal Membership Functions (MF) for input variables, because it avoids sudden changes in input values. It considers three values among the 19 track sensors (see Figure \ref{fig34}):
+	
+	\begin{itemize}
+		\item Front = Track[9]: the front distance between the car and the border of the track (angle 0º).
+		\item M5 = max (Track[8], Track[10]): the max distance to the track limits in an angle of +5º and -5º with respect to Front.
+		\item M10 = max (Track[7], Track[11]): the max distance to the border in an angle of +10º and -10º.
+	\end{itemize}
+	
+	The set of sensors was chosen considering those used in previous works \cite{torcs2012}, but refining it after an exhaustive systematic experimentation phase. Thus, the final set of sensors are those which yielded the best results in a wider amount of tracks.
+	
+	\begin{figure}[ht!]
+		
+		\centering
+		\includegraphics[width=0.8\textwidth]{fig/sensor22-new.png}
+		\includegraphics[width=0.7\textwidth]{fig/front.png}
+		\begin{minipage}{10cm}
+			\centering
+			\caption{Inputs considered in the fuzzy sub-controllers.}
+			\label{fig34}
+		\end{minipage} 		
+	\end{figure}
+	
+	Each input variable is represented by three membership functions: Low, Medium and High. The description of fuzzy inputs and output are represented in Table \ref{tab:flouevar}.
+	
+	\begin{table}
+		\caption{Fuzzy variables description.}
+		\label{tab:flouevar}
+		\begin{tabular}{ |p{1.5cm}|p{2cm}|p{2cm}|p{2 cm}|p{1 cm}|p{1.5 cm}|p{1.5 cm}|}
+			\hline
+			{ \color{red} Variable }&
+			{ \color{red} Range }&
+			{ \color{red} Name}&  
+			{ \color{red} MF } &
+			{ \color{red} Low } &
+			{ \color{red} Medium }&
+			{ \color{red} High } 
+			
+			\\
+			\hline
+			\hline
+			Input & [0-100] m & Front & trapezoidal & [0-50] & [20-80] & [60-100]
+			\\
+			\hline
+			Input & [0-100] m & M5 & trapezoidal &[0-40] & [10-70] & [50-100] 
+			\\
+			\hline
+			Input & [0-100] m  & M10 & trapezoidal & [0-30] & [20-60] & [50-100]
+			\\
+			\hline 
+			Output & [0-200] m/s & TargetSpeed & singleton & / & / & /
+			\\
+			\hline 
+		\end{tabular} 
+	\end{table}
+	
+	The base of rules has been composed modelling the behaviour of a human expert driver, refining them also. Thus, this set is designed so that if the frontal distance is maximal, then the target speed should be the maximum. Its value should be lower when the frontal distance is shorter. 
+	The fuzzy rules are listed below:
+	
+	\begin{itemize}
+		\item IF Front is High THEN TargetSpeed is TS1
+		\item IF Front is Medium THEN TargetSpeed is TS2
+		\item IF Front is Low and M5 is High THEN TargetSpeed is TS3
+		\item IF Front is Low and M5 is Medium THEN TargetSpeed is TS4
+		\item IF Front is Low and M5 is Low and M10 is High THEN TargetSpeed is TS5
+		\item IF Front is Low and M5 is Low and M10 is Medium THEN TargetSpeed is TS6
+		\item IF Front is Low and M5 is Low and M10 is Low THEN TargetSpeed is TS7\\
+		
+		In addition, a crisp rule is added to rule base to obtain a maximum value of the target speed when the three input variables are as big as possible: 
+		\item IF Front = MAXDISTSPEED or M5 = MAXDISTSPEED or M10 = MAXDISTSPEED THEN TargetSpeed = MAXSPEED		
+	\end{itemize}
+	
+	MAXDISTSPEED is the a longest possible value for the track sensors, and MAXSPEED, which is related to the car's properties, is the maximal car speed. For example in the case of car-trb1 model, MAXSPEED=300.
+	
+	The output value is encoded by seven singletons TS1 to TS7, being respectively: 280, 240, 220, 180, 120, 60 and 30.
+	
+	%-----------------------------------------------
+	
+	\subsection{Fuzzy steering control sub-controller}	
+	
+	In addition to the speed sub-controller, another fuzzy approach has been applied to control the steering, estimating and determining the target position of the car. 
+	
+	The architecture of this sub-controller is similar to the one shown in Figure \ref{fig:AD}, but with the steering as output. The set of sensors considered are the same as in the speed case, described in Table \ref{tab:flouevar}.
+	
+	Then, if the car is in a straight line, it will set as target position half width of the race track (central position of the lane).	Whereas, if the car is near a right curve, it will approach the path leading to the right, with a space between the car and the border of the track to avoid the loss of control. The same approach is considered if the car is near a left curve.
+	
+	In order to detect the curves, the controller focuses on the sensor values (M10, M5, and Front). So, if the value on Front sensor is the longest, there is a straight road; whereas if the values of M5 and M10 with positive angles (+5 and +10) are the longest, there is right curve; and the other way round.
+	
+	The base of rules has been defined again modelling the behaviour of a human driver, so, for this controller is:
+	
+	\begin{itemize}		
+		\item IF Front is High THEN steer is S1
+		\item IF Front is Medium AND M10 is High THEN  steer is S2
+		\item IF Front is Medium AND M10 is Medium AND M5 is Medium THEN steer is S2
+		\item IF Front is Medium AND M10 is Medium AND M5 is Low THEN steer is S3
+		\item IF Front is Low AND M10 is High THEN steer is S3
+		\item IF Front is Low AND M10 is Medium AND M5 is Medium THEN steer is S4
+		\item IF Front is Low AND M10 is Medium AND M5 is Low THEN steer is S4
+	\end{itemize}	
+	
+	The values for S1 to S4 are respectively: 0, 0.25, 0.5, and 1.
+	When M10=Track[7] we will take negative values of the steer (sterr=-steer).
+	
+	Once the controllers have been described, they will be tested and compared with the standard one y several races. The obtained results are presented in the following section.
+	
+	
+\section{Optimizing the fuzzy controller with GA}
+
+A triangular membership function is given by:
+\begin{equation} 
+\mu_{A}(x)= \left \{
+\begin{array}{ll}
+0, & x \leq x_{1}\\
+\frac{x - x_{1}}{x_{2} - x_{1}}, &x_{1} \leq x \leq x_{2}  \\
+\frac{x_{3} - x}{x_{3} - x_{2}}, &x_{2} \leq x \leq x_{3}  \\
+0,& x_{3} \leq x 
+\end{array}
+\right.
+\end{equation}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.90]{fig/triangulaire}
+		\caption {Triangular MF}
+		\label{tri}
+	\end{center}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.95]{fig/codage}
+		\caption {Triangular MF parameters coding}
+		\label{co} 
+	\end{center}
+\end{figure}
+
+\begin{equation}\label{key}
+x_{1} \leq x_{2} \leq x_{3}
+\end{equation}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.95]{fig/vl}
+		\caption {Fuzzy partition with Triangular MFs}
+		\label{vl} 
+	\end{center}
+\end{figure}
+
+\begin{equation} 
+\begin{tabular}{l}
+$\mu_{A1}(x) =  \left \{
+\begin{array}{ll}   %{aligned}
+1,& x \leq x_{1}\\
+\frac{x_{2} - x}{x_{2} - x_{1}},& x_{1} \leq x \leq x_{2}\\
+0        , &x \textgreater x_{2}
+\end{array} 
+\right. $	\\
+$\mu_{Ai}(x)= \left \{
+\begin{array}{ll}
+0, &x \leq x_{i}\\
+\frac{x - x_{i-1}}{x_{i} - x_{i-1}},& x_{i-1} \leq x \leq x_{i},n=2,...,i-1\\
+\frac{x_{i+1} - x}{x_{i+1} - x_{i}}, & x_{i} \leq x \leq x_{i+1}\\
+0        , &x \textgreater x_{i+1}
+\end{array}
+\right.	$	\\		
+$\mu_{An}(x)= \left \{
+\begin{array}{ll}
+0, &x \leq x_{n-1}\\
+\frac{x - x_{n-1}}{x_{n} - x_{n-1}},& x_{n-1} \leq x \leq x_{n}\\
+1        , &x \textgreater x_{n}\\
+\end{array}
+\right.$
+\end{tabular}
+\end{equation}
+we have :
+\[ \textit{a} = x_{1} \leq x_{2} \leq ...\leq x_{n} = \textit{b} \]
+\begin{figure}[!h] 
+	\begin{center}
+		\includegraphics[scale=0.95]{fig/cotr}
+		\caption {Codage des \textit{n} points}
+		\label{cotr}
+	\end{center}
+\end{figure}
+\subsubsection{Trapezoidal MFs}
+
+\begin{equation}
+\mu_{A}(x)= \left \{
+\begin{array}{ll}
+\frac{x - x_{1}}{x_{2} - x_{1}},& x_{1} \leq x \leq x_{2}\\
+1 , &x_{2} \leq x \leq x_{3}\\
+\frac{x_{4} - x}{x_{4} - x_{3}},& x_{3} \leq x \leq x_{4}\\
+0        ,& ailleurs\\	
+\end{array}
+\right.
+\end{equation}
+																																																																																																																																																																																																																																																																																																																																																												
+\begin{figure}[!h] 
+	\begin{center}
+		\includegraphics[scale=0.95]{fig/trapese}
+		\caption {Trapezoidal MFs}
+		\label{trapeze}
+	\end{center}
+\end{figure}  
+
+
+with
+\begin{equation}
+x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
+\end{equation}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.95]{fig/pr}
+		\caption {Fuzzy partition  with trapezoidal MFs}
+		\label{prtr} 
+	\end{center}
+\end{figure}
+\begin{equation} 
+\begin{tabular}{l}
+$\mu_{A1}(x)=  \left \{
+\begin{array}{ll}
+1, &x_{1} \leq x \leq x_{2}\\
+\frac{x_{3} - x}{x_{3} - x_{2}}, &x_{2} \leq x \leq x_{3}\\
+0        , &x \textgreater x_{3}\\
+\end{array} 
+\right.$		\\ 	
+$\mu_{Ai}(x)= \left \{
+\begin{array}{ll} 
+0, &x \leq x_{2i-2}\\
+\frac{x - x_{2i-2}}{x_{2i-1} - x_{2i-2}}, &x_{2i-2} \leq x \leq x_{2i-1},n=2,...,i-1\\
+1, & x_{2i-1} \leq x \leq x_{2i}\\
+\frac{x_{2i+1} - x}{x_{2i+1} - x_{2i}},& x_{2i} \leq x \leq x_{2i+1}\\
+0  , &x \textgreater x_{2i+1}\\
+\end{array}  
+\right.	$		\\
+$\mu_{An}(x)= \left \{
+\begin{array}{ll} 
+0, &x \leq x_{2n-2}\\
+\frac{x - x_{2n-2}}{x_{2n-1} - x_{2n-2}},& x_{2n-2} \leq x \leq x_{2n-1}\\
+1 ,& x \textgreater x_{2n-1} 
+\end{array} 
+\right.$\\
+\label{e1}
+\end{tabular}
+\end{equation}
+\begin{figure}[!h] 
+	\begin{center}
+		\includegraphics[scale=0.95]{fig/at}
+		\caption {Trapezoidal-shaped MFs coding}
+		\label{at}
+	\end{center}
+\end{figure}
+with:
+\begin{equation}
+a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b 	
+\end{equation}		
+\subsection{Chromosomes}
+\begin{itemize}
+	\item []$0 = x_{11} \leq x_{12} \leq x_{13} \leq x_{14} \leq x_{15} \leq x_{16} = 100$
+	\item []$0 = x_{21} \leq x_{22} \leq x_{23} \leq x_{24} \leq x_{25} \leq x_{26} = 100$
+	\item []$0 = x_{31} \leq x_{32} \leq x_{33} \leq x_{34} \leq x_{35} \leq x_{36} = 100$
+\end{itemize}
+\begin{figure}[!h]	
+	\begin{center}
+		\includegraphics[width=13cm,height=3cm]{fig/cromosome}
+		\caption{Chromosome description}
+		\label{cromosome}	
+	\end{center}	
+\end{figure}
+\subsection{Fitness definition}
+
+\begin{description}
+	\item[fitness 1:]  
+	\begin{equation} \label{fit1}
+	\begin{array}{lllll}
+	%f_{cout} =  $min$ & \alpha & $. dammage$ + & $min$ &\beta & $. temps$ 
+	f_{1} =  Min & damage + & Min & RaceTime 
+	\end{array}
+	\end{equation}
+	\item[fitness 2:] 
+	\begin{equation} \label{fit2}
+	\begin{array}{llllll}
+	%f_{cout}= min &\alpha & $. dammage$ + & min &\beta & $. temps$ + & min &\gamma & .\frac{1}{vitesse}
+	f_{2}= Min & damage + & Min & RaceTime+ & Min & \frac{1}{MaxSpeed}
+	\end{array}
+	\end{equation}	
+\end{description}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=13cm,height=7cm]{fig/mo}
+	\end{center}
+	\caption{Optimization of fuzzy controller flowchart }
+\end{figure}	
+
+
+	
+	\section{Simulation Results}
+	\label{sec:results}
+	
+	In this section we present all the experiments that we performed in order to measure the performance of our controller, called \textit{AD (Automatic Driver)}.
+	We first, describe the methodology we have used and next, we present the experimental results of the implementation of the fuzzy driver, including opponents and using special criteria in each case.
+	
+	\subsection{Simulation settings}
+	
+	TORCS provides several tracks to choose which have been designed in order to test the performance of the controllers on different difficulty circuits and on different types of roads.
+	In our case, we chose the E-Track5 circuit
+	
+	
+	Table \ref{Tabtrack} presents the properties and description of selected track.
+	
+	\begin{table}
+		
+		\caption{Description of Selected track}
+		\label{Tabtrack}
+		\begin{tabular}{ |p{2cm}|p{2.2 cm}|}
+			\hline
+			\textbf{Track name}    & E-Track5	\\
+			\hline
+			\textbf{Shape}   
+			& \includegraphics[scale=0.3]{fig/track4.png}			
+			\\
+			\hline
+			\textbf{Track Type}   
+			& Oval
+			\\
+			\hline
+			
+			\textbf{Length}   
+			& 1621.73 m	\\
+			\hline
+			\textbf{Width}   
+			& 20.0 m\\
+			\hline
+		\end{tabular} 
+		
+	\end{table}
+	
+	The aim of this selection is to test the value of AD in a wide set of situations, in order to check its potential as a global controller.
+	
+	
+	% ----------------------------------------------
+	
+	\subsubsection{Cars settings.}
+	
+	The car considered is \textit{car1-tbr1} of SCR 1 Server, which is a NASCAR car part of the SCR Server team. It has a weight of 1150 KG, max fuel: 94 KG, length: 4.25m and width: 1.94m, with 300km/h as maximal speed.
+	This is a fair car, i.e. not the fastest, but a quite fast. Anyway, the obtained results represents the quality of the controllers and could be extrapolated to any other car.
+	
+	% ----------------------------------------------
+	
+	\subsubsection{Controllers settings.}
+	
+	We have tested the different sub-controller features in a separated way, in order to see which one has the highest influence on the success or failure of
+	AD. Thus, we have considered the following bots in the experiments:
+	
+\begin{enumerate}
+	\item AD: Fuzzy controller .
+	\item [- AGFC1:] GA-Fuzzy controller with fitness 1 \ref{fit1},
+	\item[- AGFC2:] GA-Fuzzy controller with fitness 2 \ref{fit2},
+\end{enumerate}	
+%
+
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\begin{table}[!h]	
+		\caption{GA parameters}
+		\label{parametre}
+		\begin{tabular}{|p{9.6cm}|p{5cm}|}
+			\hline \textbf{Population size} & 20 \\
+			\hline \textbf{Generations} & 50   \\
+			\hline \textbf{Crossover rate$\textit{P}_{\textit{c}}$} &  0.7 \\
+			\hline \textbf{Mutation rate $\textit{P}_{\textit{m}}$} &  0.3   \\ 		
+			\hline          
+		\end{tabular}	
+	\end{table}
+
+
+
+\subsection{GA-Fuzzy  controller in practice race}
+\begin{table}[!h]
+	\caption{Results of the three controllers in a 20 laps practice race}
+	\label{resultat20}
+	\begin{tabular}{|p{3.5 cm}|p{3.5 cm}|p{3.5 cm}|p{3.5 cm}|}
+		\hline
+		\multicolumn{4}{|c|}{{\large \textbf{E-Track 5}}}  \\ \hline
+		\hline \textbf{20 tours} & \textbf{AD} & \textbf{AGFC1} & \textbf{AGFC2}  \\
+		\hline Best Time         & 29:70 & 30:03 & 29:50 \\
+		\hline Topspeed          & 209 & 216 & 216\\
+		\hline Minspeed          & 168 & 148 & 182 \\
+		\hline Time Lastlap      & 29:79 &  30:03 & 29:50\\
+		\hline Best lap          & 19/20 &  20/20& 20/20\\
+		\hline Damages          & 936 & 0 & 0\\
+		%\hline Fuel              & 74:01       &  74:11                 &   \\
+		\hline Lap               & 20/20       &  20/20                 & 20/20  \\
+		\hline 
+		\hline
+		\multicolumn{4}{|c|}{{\large \textbf{E-Road}}}  \\ \hline
+		\hline \textbf{20 tours} & \textbf{AD} & \textbf{AGFC1} & \textbf{AGFC2}  \\
+		\hline Best Time         & 02:31:71    & 02:26:72       & 02:26:54  \\
+		\hline Topspeed          & 206         & 205            &  208 \\
+		\hline Minspeed          & 30          & 39             & 37  \\
+		\hline Time Lastlap      & 03:12:79    &  02:42:26      &  02:33:36 \\
+		\hline Best lap          & 02/20       & 02/20          &  02/20 \\
+		\hline Damages          &   0         & 0              & 0  \\
+		%\hline Fuel                &  & 61:01  &  52:61 \\
+		\hline Lap               &   20/20     & 20/20          & 20/20  \\
+		\hline 
+	\end{tabular}
+\end{table}
+
+
+\subsection{GA-Fuzzy controllers in a real race}
+\begin{table}[!h]
+	\caption{Results of AGFC1 in a real race}
+	\label{14}
+	\begin{tabular}{|p{2.3cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
+		\hline \textbf{E-track5} &   \textbf{AGFC1} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{contre tita 10}  \\
+		\hline \textbf{Ranking} & 3/6&4/6&1/5&5/6&2/6&6/6\\			
+		\hline \textbf{Temps total}	& 02:30:74\newline+35:70&02:30:74\newline+1lap&02:30:74&02:30:74\newline+1lap&02:30:74\newline+12:13&02:30:74\newline+1lap\\	
+		\hline \textbf{Best Lap}&35:65& 36:39&28:57&36:83&30:53&35:39\\	
+		\hline \textbf{Maxspeed}& 196&202&231&192&226&202\\	
+		\hline \textbf{Damages}& 0&0&0&603&0&471 \\	
+		\hline \textbf{Pit stops} & 0&0&0&0&0&0\\	 
+		\hline 
+	\end{tabular}
+\end{table}
+\begin{table}[!h]
+	\caption{Results of AGFC2 in a real race }
+	\label{15}
+	\begin{tabular}{|p{2.3cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
+		\hline \textbf{E-track5} & \textbf{AGFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+		\hline \textbf{Ranking} & 2/6&4/6&1/6&6/6&3/6&5/6\\			
+		\hline \textbf{Race Time}	& 02:30:83\newline +03:99&  02:30:83\newline+1lap&02:30:83&02:30:83\newline+1lap&02:30:83\newline+08:35&02:30:83\newline+1lap\\	
+		\hline \textbf{Best Time}& 29:82 &36:38&28:35&37:04&30:53&36:00\\	
+		\hline \textbf{Maxspeed}& 214&202&230&188&226&204\\	
+		\hline \textbf{Damages}& 0& 0 & 343&1230&0&668\\	
+		\hline \textbf{Pit stops} &0&0&0&0&0&0 \\ 
+		\hline 
+	\end{tabular}
+\end{table}
+\begin{table}[!h]
+	\caption{Results of AD in a real race}
+	\label{16}
+	\begin{tabular}{|p{2.3 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
+		\hline \textbf{E-track5} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+		\hline \textbf{Ranking} & 6/6&5/6&1/6&4/6&2/5&3/5\\			
+		\hline \textbf{Race Time}	& 02:31:83\newline+5laps&02:31:83\newline+1lap&02:31:83&02:31:83\newline+1lap&02:31:83\newline+21:32&02:31:83\newline+33:43 \\	
+		\hline \textbf{Best Time}& 00:00&37:25&28:60&36:28&31:47&35:84\\	
+		\hline \textbf{Maxspeed}& 111&202&230&189&225&202\\	
+		\hline \textbf{Damages}& 10786&465&5&0&2394&0 \\	
+		\hline \textbf{Pit stops} & 0&0&0&0&0&0\\ 
+		\hline 
+	\end{tabular}
+\end{table}
+
+
+
+	\section{Conclusions and Future Work} 
+\label{sec:conclusions}
+\newpage
+	\bibliographystyle{splncs03}
+	\bibliography{fuzzy_torcs}
+	
+	
+	
+	
+	
+	
+\end{document}
