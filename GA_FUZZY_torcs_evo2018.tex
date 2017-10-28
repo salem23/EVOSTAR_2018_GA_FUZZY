@@ -57,7 +57,7 @@
 	
 	
 	
-	\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
+	%\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
 	
 	
 	
@@ -66,15 +66,15 @@
 	
 	% the affiliations are given next; don't give your e-mail address
 	% unless you accept that it will be published
-	\institute{University of Mascara, Algeria\\
-		\mailsa\\
-		Department of Architecture and Computer Technology
-		University of Granada, Spain\\
-		\mailsb\\
-		Universiy of C\'adiz, Spain
-		\\
-		\mailsc\\
-	}
+%	\institute{University of Mascara, Algeria\\
+%		\mailsa\\
+%		Department of Architecture and Computer Technology
+		%University of Granada, Spain\\
+%		\mailsb\\
+%		Universiy of C\'adiz, Spain
+%		\\
+%		\mailsc\\
+%	}
 	
 	%
 	% NB: a more complex sample for affiliations and the mapping to the
@@ -83,7 +83,7 @@
 	% "llncs.dem" accompanies the document class "llncs.cls".
 	%
 	
-	\toctitle{Driving in TORCS using modular fuzzy controllers}
+	\toctitle{Evolving TORCS Fuzzy driver using GA}
 	\tocauthor{}
 	\maketitle
 	\begin{abstract}
@@ -95,7 +95,7 @@
 		The major drawback of these controllers , is that their membership function parameters are tuned by trial/error.
 		
 		In this work, we propose tu use genetic algorithm approach to find the optimal combination of the MFs parameters so to design a robust driver for racing car in a simulated race.\\
-		The obtained drivers were compared and  evaluated in practise and real races
+		The obtained drivers were compared and  evaluated in practice and real races
 		giving good results mainly in tracks that have many turning points.
 	%%%
 	\keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
@@ -106,6 +106,15 @@
 	%
 	\section{Introduction}
 	\label{sec:intro}
+Autonomous driving is a very interesting research topic supported by many vehicle manufacturers aiming to reduce fuel consumption and its efficient use, improve car safety and driver comfort and even to design real autonomous cars that can run in a desert and hostile environment. \\
+The Open Racing Car Simulator (TORCS) is a realistic racing simulator with a sophisticated engine used for many standalone racing competition challenges each year. This fact, combined with the large gaming community and the ability to compare controllers have made TORCS the most used simulator in the field of autonomous driving \cite{17}.
+
+Improved driving in TORCS was achieved using fuzzy logic in previous research where two fuzzy controllers were developed for steering (steer) calculation and the desired speed giving encouraging results but the major disadvantage of this approach is that the parameters of the membership functions of the controllers are defined by trial/error in the absence of experts to do so.
+
+Since this problem of parameter determination can be considered as an optimization problem, evolutionary algorithms are well placed to solve this it.
+
+In this work, we propose to apply the genetic algorithms to adjust the parameters of the fuzzy controller namely those of the membership functions for the two fuzzy controllers used in \cite{25}.
+The considered approach  requires the coding of chromosomes and the choice of a adequate cost function (fitness) due to the uncertainty and noisiness of the problem.
 
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  STATE OF THE ART  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -113,9 +122,9 @@
 	\label{sec:soa}
 \section{ TORCS Description: }
 	\label{sec:torcs}
-The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{8}.
+The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{torcs4}.
 
-Its high degree of modularity and portability make it ideal for artificial research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS \ cite {11} engine. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation. \cite{24} The game allows different types of races from the practical single session to the championship \cite{10}.
+Its high degree of modularity and portability make it ideal for artificial intelligence  research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS engine. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation games. \cite{24} The game allows different types of races from the practical single session to the championship \cite{torcs4}.
 %%%%%%%%%%%%%%%%%%%%%%	
 	\begin{table}[ht!]
 		{\scriptsize
@@ -232,61 +241,10 @@ Its high degree of modularity and portability make it ideal for artificial resea
 	
 	The first proposed fuzzy sub-controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: moving as faster as possible and secure the car. This estimation is based on fuzzy rules, so two general cases are considered, following the simple driver approach:
 	
-	\begin{itemize}
-		\item If the car is in a straight line, the target speed will take a maximum value (\textit{maxSpeed} km/h).
-		\item If it is close to a curve, the controller will decrease the current speed to a value included in the interval \textit{[minSpeed; maxSpeed]} km/h.
-	\end{itemize}
-	
-	Thus, in case the car is out of the track or near a curve, the brake system is activated, and ABS (Anti-Block System) and TCL (Traction Control Limit) will be loaded to avoid the car skidding. The obtained target speed will be used for computing the value of acceleration, following - as the simple driver do - the expression:
-	
-	\begin{equation}	
-	Gas(speed-Target_{speed})=-1+\frac{2}{1+e^{speed-Target_{speed}}}	
-	\end{equation}
-	
-	\textit{Gas} function refers to acceleration, \textit{speed} is the current speed of the car.
-	
-	This fuzzy controller has three input values and one output: the target speed (see Figure \ref{fig:AD}).
-	
-	\begin{figure}
-		\begin{center}
-			
-			\begin{tikzpicture}[box/.style={draw, fill=white!20,rounded corners,align=center,minimum height=3em, minimum width=5em},thick,->,>= latex]
-			
-			\node[box] (a0) {Fuzzy controller};
-			\node[left=of a0.160,font=\bfseries] (aux01) {$Front$};
-			\node[left=of a0.175,font=\bfseries] (aux02) {$M5$};
-			\node[left=of a0.195,font=\bfseries] (aux03) {$M10 $};
-			\node[right=of a0,font=\bfseries] (c0) {$Target_{speed}$};
-			\draw[thick,->,>= latex] (aux01) -- (a0.160);
-			\draw[thick,->,>= latex] (aux02) -- (a0.175);
-			\draw[thick,->,>= latex] (aux03) -- (a0.195);
-			\draw[thick,->,>= latex] (a0) -- (c0);
-			\node[box,below=of a0] (b) {Inference};
-			
-			\node[box, left=of b] (a) {Fuzzification};
-			
-			
-			\node[box,right=of b] (b1) {Defuzzification};
-			
-			
-			\draw[thick,->,>= latex] (a) -- (b);
-			\draw[thick,->,>= latex] (b) -- (b1);
-			
-			
-			
-			\draw[thick,->,>= latex] (a0.south west) -- (a.north west);
-			\draw[thick,->,>= latex] (a0.south east) -- (b1.north east);
-			
-			
-			\end{tikzpicture}
-			
-			%\includegraphics [width=10cm,height=4cm]{figures/c2/sif}
-		\end{center}
-		\caption{Fuzzy controller of target speed.}     % width is 8.4 cm.
-		\label{fig:AD}
-	\end{figure}
+	This fuzzy controller has three input values and one output: the target speed.
+
 	%
-	The controller presented in that figure is a Mamdani-based fuzzy system \cite{iancu2012} with trapezoidal Membership Functions (MF) for input variables, because it avoids sudden changes in input values. It considers three values among the 19 track sensors (see Figure \ref{fig34}):
+	The presented controller   is a Mamdani-based fuzzy system \cite{iancu2012} with trapezoidal Membership Functions (MF) for input variables, because it avoids sudden changes in input values. It considers three values among the 19 track sensors:
 	
 	\begin{itemize}
 		\item Front = Track[9]: the front distance between the car and the border of the track (angle 0º).
@@ -294,19 +252,6 @@ Its high degree of modularity and portability make it ideal for artificial resea
 		\item M10 = max (Track[7], Track[11]): the max distance to the border in an angle of +10º and -10º.
 	\end{itemize}
 	
-	The set of sensors was chosen considering those used in previous works \cite{torcs2012}, but refining it after an exhaustive systematic experimentation phase. Thus, the final set of sensors are those which yielded the best results in a wider amount of tracks.
-	
-	\begin{figure}[ht!]
-		
-		\centering
-		\includegraphics[width=0.8\textwidth]{fig/sensor22-new.png}
-		\includegraphics[width=0.7\textwidth]{fig/front.png}
-		\begin{minipage}{10cm}
-			\centering
-			\caption{Inputs considered in the fuzzy sub-controllers.}
-			\label{fig34}
-		\end{minipage} 		
-	\end{figure}
 	
 	Each input variable is represented by three membership functions: Low, Medium and High. The description of fuzzy inputs and output are represented in Table \ref{tab:flouevar}.
 	
@@ -598,7 +543,7 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 	Table \ref{Tabtrack} presents the properties and description of selected track.
 	
 	\begin{table}
-		
+		\centering
 		\caption{Description of Selected track}
 		\label{Tabtrack}
 		\begin{tabular}{ |p{2cm}|p{2.2 cm}|}
@@ -652,9 +597,10 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\begin{table}[!h]	
+		\centering
 		\caption{GA parameters}
 		\label{parametre}
-		\begin{tabular}{|p{9.6cm}|p{5cm}|}
+		\begin{tabular}{|p{4cm}|p{2cm}|}
 			\hline \textbf{Population size} & 20 \\
 			\hline \textbf{Generations} & 50   \\
 			\hline \textbf{Crossover rate$\textit{P}_{\textit{c}}$} &  0.7 \\
@@ -667,9 +613,10 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 %%%%%
 \subsection{GA-Fuzzy  controller in practice race}
 \begin{table}[!h]
+	\centering
 	\caption{Results of the three controllers in a 20 laps practice race}
 	\label{resultat20}
-	\begin{tabular}{|p{3.5 cm}|p{3.5 cm}|p{3.5 cm}|p{3.5 cm}|}
+	\begin{tabular}{|p{2 cm}|p{2 cm}|p{2 cm}|p{2 cm}|}
 		\hline
 		\multicolumn{4}{|c|}{{\large \textbf{E-Track 5}}}  \\ \hline
 		\hline \textbf{20 tours} & \textbf{AD} & \textbf{AGFC1} & \textbf{AGFC2}  \\
