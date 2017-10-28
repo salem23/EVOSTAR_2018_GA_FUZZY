@@ -1,4 +1,3 @@
-
 %%%%%%%%%%%%%%%%%%%%%%% file typeinst.tex %%%%%%%%%%%%%%%%%%%%%%%%%
 %5
 % This is the LaTeX source for the instructions to authors using
@@ -49,7 +48,7 @@
 	\mainmatter  % start of an individual contribution
 	
 	% first the title is needed
-	\title{Evolving TORCS Fuzzy driver using GA}
+	\title{Evolving a TORCS Fuzzy driver using Genetic Algorithms}
 	
 	
 	%\titlerunning{Driving in TORCS using modular fuzzy controllers}
@@ -57,8 +56,8 @@
 	
 	
 	
-	%\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
-	
+%	\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
+% Antonio - The submission is blind. ;)
 	
 	
 	%\authorrunning{M. Salem et al}
@@ -69,13 +68,14 @@
 %	\institute{University of Mascara, Algeria\\
 %		\mailsa\\
 %		Department of Architecture and Computer Technology
-		%University of Granada, Spain\\
+%		University of Granada, Spain\\
 %		\mailsb\\
 %		Universiy of C\'adiz, Spain
 %		\\
 %		\mailsc\\
 %	}
-	
+% Antonio - The submission is blind. ;)
+
 	%
 	% NB: a more complex sample for affiliations and the mapping to the
 	% corresponding authors can be found in the file "llncs.dem"
@@ -83,48 +83,46 @@
 	% "llncs.dem" accompanies the document class "llncs.cls".
 	%
 	
-	\toctitle{Evolving TORCS Fuzzy driver using GA}
-	\tocauthor{}
+%	\toctitle{Driving in TORCS using modular fuzzy controllers}
+%	\tocauthor{}
 	\maketitle
 	\begin{abstract}
 		
-		When driving a car it is essential to take into account all possible
-		factors;like in the TORCS simulated race game, the
-		objective is not only to avoid collisions, but to go faster and safely to win the race. Fuzzy based controller were usually used to design autonomous drivers by computing target speed or steer or both of them.
-		
-		The major drawback of these controllers , is that their membership function parameters are tuned by trial/error.
-		
-		In this work, we propose tu use genetic algorithm approach to find the optimal combination of the MFs parameters so to design a robust driver for racing car in a simulated race.\\
-		The obtained drivers were compared and  evaluated in practice and real races
-		giving good results mainly in tracks that have many turning points.
+		This work presents an evolutionary approach to optimise the parameters of Fuzzy-based controller for an autonomous driver for the open simulated car racing game (TORCS). The aim is to improve a modular fuzzy agent designed to determine the optimal target speed and steering angle during the race.
+These kind of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
+Thus, a real-coded Genetic Algorithm 
+% Antonio - TODO: check if it is real-coded. Extend the description of the algorithm.
+has been applied to find the best values for these parameters, which let us to design a robust driver for this racing simulator.
+The evolved drivers were compared and  evaluated in practise and realistic races, yielding very good results mainly in tracks that have many turning points, which are, in turn, the most difficult for any autonomous agent.
+% Antonio - TODO: describe the experiments performed and say something else about the results.
 	%%%
 	\keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
 	\end{abstract}
-	
+% Antonio - I have rewritten the abstract. It was very similar to the one of last year. ;)
+
 	%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   INTRODUCTION   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%
 	\section{Introduction}
 	\label{sec:intro}
-Autonomous driving is a very interesting research topic supported by many vehicle manufacturers aiming to reduce fuel consumption and its efficient use, improve car safety and driver comfort and even to design real autonomous cars that can run in a desert and hostile environment. \\
-The Open Racing Car Simulator (TORCS) is a realistic racing simulator with a sophisticated engine used for many standalone racing competition challenges each year. This fact, combined with the large gaming community and the ability to compare controllers have made TORCS the most used simulator in the field of autonomous driving \cite{17}.
 
-Improved driving in TORCS was achieved using fuzzy logic in previous research where two fuzzy controllers were developed for steering (steer) calculation and the desired speed giving encouraging results but the major disadvantage of this approach is that the parameters of the membership functions of the controllers are defined by trial/error in the absence of experts to do so.
-
-Since this problem of parameter determination can be considered as an optimization problem, evolutionary algorithms are well placed to solve this it.
-
-In this work, we propose to apply the genetic algorithms to adjust the parameters of the fuzzy controller namely those of the membership functions for the two fuzzy controllers used in \cite{25}.
-The considered approach  requires the coding of chromosomes and the choice of a adequate cost function (fitness) due to the uncertainty and noisiness of the problem.
-
+% Antonio: TODO - write the Introduction.
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  STATE OF THE ART  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{State of the Art}
+
+% Antonio: TODO - write the State of the art.
+
 	\label{sec:soa}
+
 \section{ TORCS Description: }
 	\label{sec:torcs}
-The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{torcs4}.
+% Antonio - TODO: Maybe reduce it (if we go beyond 16 pages). ;)
+The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{8}.
 
-Its high degree of modularity and portability make it ideal for artificial intelligence  research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS engine. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation games. \cite{24} The game allows different types of races from the practical single session to the championship \cite{torcs4}.
+Its high degree of modularity and portability make it ideal for artificial research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS \cite{11} engine. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation. \cite{24} The game allows different types of races from the practical single session to the championship \cite{10}.
+% Antonio - Check these references, they don't exist
+
 %%%%%%%%%%%%%%%%%%%%%%	
 	\begin{table}[ht!]
 		{\scriptsize
@@ -241,17 +239,81 @@ Its high degree of modularity and portability make it ideal for artificial intel
 	
 	The first proposed fuzzy sub-controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: moving as faster as possible and secure the car. This estimation is based on fuzzy rules, so two general cases are considered, following the simple driver approach:
 	
-	This fuzzy controller has three input values and one output: the target speed.
-
-	%
-	The presented controller   is a Mamdani-based fuzzy system \cite{iancu2012} with trapezoidal Membership Functions (MF) for input variables, because it avoids sudden changes in input values. It considers three values among the 19 track sensors:
-	
 	\begin{itemize}
-		\item Front = Track[9]: the front distance between the car and the border of the track (angle 0ยบ).
-		\item M5 = max (Track[8], Track[10]): the max distance to the track limits in an angle of +5ยบ and -5ยบ with respect to Front.
-		\item M10 = max (Track[7], Track[11]): the max distance to the border in an angle of +10ยบ and -10ยบ.
+		\item If the car is in a straight line, the target speed will take a maximum value (\textit{maxSpeed} km/h).
+		\item If it is close to a curve, the controller will decrease the current speed to a value included in the interval \textit{[minSpeed; maxSpeed]} km/h.
 	\end{itemize}
 	
+	Thus, in case the car is out of the track or near a curve, the brake system is activated, and ABS (Anti-Block System) and TCL (Traction Control Limit) will be loaded to avoid the car skidding. The obtained target speed will be used for computing the value of acceleration, following - as the simple driver do - the expression:
+	
+	\begin{equation}	
+	Gas(speed-Target_{speed})=-1+\frac{2}{1+e^{speed-Target_{speed}}}	
+	\end{equation}
+	
+	\textit{Gas} function refers to acceleration, \textit{speed} is the current speed of the car.
+	
+	This fuzzy controller has three input values and one output: the target speed (see Figure \ref{fig:AD}).
+	
+	\begin{figure}
+		\begin{center}
+			
+			\begin{tikzpicture}[box/.style={draw, fill=white!20,rounded corners,align=center,minimum height=3em, minimum width=5em},thick,->,>= latex]
+			
+			\node[box] (a0) {Fuzzy controller};
+			\node[left=of a0.160,font=\bfseries] (aux01) {$Front$};
+			\node[left=of a0.175,font=\bfseries] (aux02) {$M5$};
+			\node[left=of a0.195,font=\bfseries] (aux03) {$M10 $};
+			\node[right=of a0,font=\bfseries] (c0) {$Target_{speed}$};
+			\draw[thick,->,>= latex] (aux01) -- (a0.160);
+			\draw[thick,->,>= latex] (aux02) -- (a0.175);
+			\draw[thick,->,>= latex] (aux03) -- (a0.195);
+			\draw[thick,->,>= latex] (a0) -- (c0);
+			\node[box,below=of a0] (b) {Inference};
+			
+			\node[box, left=of b] (a) {Fuzzification};
+			
+			
+			\node[box,right=of b] (b1) {Defuzzification};
+			
+			
+			\draw[thick,->,>= latex] (a) -- (b);
+			\draw[thick,->,>= latex] (b) -- (b1);
+			
+			
+			
+			\draw[thick,->,>= latex] (a0.south west) -- (a.north west);
+			\draw[thick,->,>= latex] (a0.south east) -- (b1.north east);
+			
+			
+			\end{tikzpicture}
+			
+			%\includegraphics [width=10cm,height=4cm]{figures/c2/sif}
+		\end{center}
+		\caption{Fuzzy controller of target speed.}     % width is 8.4 cm.
+		\label{fig:AD}
+	\end{figure}
+	%
+	The controller presented in that figure is a Mamdani-based fuzzy system \cite{iancu2012} with trapezoidal Membership Functions (MF) for input variables, because it avoids sudden changes in input values. It considers three values among the 19 track sensors (see Figure \ref{fig34}):
+	
+	\begin{itemize}
+		\item Front = Track[9]: the front distance between the car and the border of the track (angle 0บ).
+		\item M5 = max (Track[8], Track[10]): the max distance to the track limits in an angle of +5บ and -5บ with respect to Front.
+		\item M10 = max (Track[7], Track[11]): the max distance to the border in an angle of +10บ and -10บ.
+	\end{itemize}
+	
+	The set of sensors was chosen considering those used in previous works \cite{torcs2012}, but refining it after an exhaustive systematic experimentation phase. Thus, the final set of sensors are those which yielded the best results in a wider amount of tracks.
+	
+	\begin{figure}[ht!]
+		
+		\centering
+		\includegraphics[width=0.8\textwidth]{fig/sensor22-new.png}
+		\includegraphics[width=0.7\textwidth]{fig/front.png}
+		\begin{minipage}{10cm}
+			\centering
+			\caption{Inputs considered in the fuzzy sub-controllers.}
+			\label{fig34}
+		\end{minipage} 		
+	\end{figure}
 	
 	Each input variable is represented by three membership functions: Low, Medium and High. The description of fuzzy inputs and output are represented in Table \ref{tab:flouevar}.
 	
@@ -350,7 +412,7 @@ A triangular membership function is given by:
 \right.
 \end{equation}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[scale=0.90]{fig/triangulaire}
 		\caption {Triangular MF}
@@ -359,7 +421,7 @@ A triangular membership function is given by:
 \end{figure}
 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[scale=0.95]{fig/codage}
 		\caption {Triangular MF parameters coding}
@@ -371,7 +433,7 @@ A triangular membership function is given by:
 x_{1} \leq x_{2} \leq x_{3}
 \end{equation}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[scale=0.95]{fig/vl}
 		\caption {Fuzzy partition with Triangular MFs}
@@ -385,7 +447,7 @@ $\mu_{A1}(x) =  \left \{
 \begin{array}{ll}   %{aligned}
 1,& x \leq x_{1}\\
 \frac{x_{2} - x}{x_{2} - x_{1}},& x_{1} \leq x \leq x_{2}\\
-0        , &x \textgreater x_{2}
+0        , &x > x_{2}
 \end{array} 
 \right. $	\\
 $\mu_{Ai}(x)= \left \{
@@ -393,21 +455,21 @@ $\mu_{Ai}(x)= \left \{
 0, &x \leq x_{i}\\
 \frac{x - x_{i-1}}{x_{i} - x_{i-1}},& x_{i-1} \leq x \leq x_{i},n=2,...,i-1\\
 \frac{x_{i+1} - x}{x_{i+1} - x_{i}}, & x_{i} \leq x \leq x_{i+1}\\
-0        , &x \textgreater x_{i+1}
+0        , &x > x_{i+1}
 \end{array}
 \right.	$	\\		
 $\mu_{An}(x)= \left \{
 \begin{array}{ll}
 0, &x \leq x_{n-1}\\
 \frac{x - x_{n-1}}{x_{n} - x_{n-1}},& x_{n-1} \leq x \leq x_{n}\\
-1        , &x \textgreater x_{n}\\
+1        , &x > x_{n}\\
 \end{array}
 \right.$
 \end{tabular}
 \end{equation}
 we have :
 \[ \textit{a} = x_{1} \leq x_{2} \leq ...\leq x_{n} = \textit{b} \]
-\begin{figure}[!h] 
+\begin{figure}[!ht] 
 	\begin{center}
 		\includegraphics[scale=0.95]{fig/cotr}
 		\caption {Codage des \textit{n} points}
@@ -423,11 +485,12 @@ we have :
 1 , &x_{2} \leq x \leq x_{3}\\
 \frac{x_{4} - x}{x_{4} - x_{3}},& x_{3} \leq x \leq x_{4}\\
 0        ,& ailleurs\\	
+% Antonio - What are ailleurs?
 \end{array}
 \right.
 \end{equation}
 																																																																																																																																																																																																																																																																																																																																																												
-\begin{figure}[!h] 
+\begin{figure}[!ht] 
 	\begin{center}
 		\includegraphics[scale=0.95]{fig/trapese}
 		\caption {Trapezoidal MFs}
@@ -441,7 +504,7 @@ with
 x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
 \end{equation}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[scale=0.95]{fig/pr}
 		\caption {Fuzzy partition  with trapezoidal MFs}
@@ -454,7 +517,7 @@ $\mu_{A1}(x)=  \left \{
 \begin{array}{ll}
 1, &x_{1} \leq x \leq x_{2}\\
 \frac{x_{3} - x}{x_{3} - x_{2}}, &x_{2} \leq x \leq x_{3}\\
-0        , &x \textgreater x_{3}\\
+0        , &x > x_{3}\\
 \end{array} 
 \right.$		\\ 	
 $\mu_{Ai}(x)= \left \{
@@ -463,20 +526,20 @@ $\mu_{Ai}(x)= \left \{
 \frac{x - x_{2i-2}}{x_{2i-1} - x_{2i-2}}, &x_{2i-2} \leq x \leq x_{2i-1},n=2,...,i-1\\
 1, & x_{2i-1} \leq x \leq x_{2i}\\
 \frac{x_{2i+1} - x}{x_{2i+1} - x_{2i}},& x_{2i} \leq x \leq x_{2i+1}\\
-0  , &x \textgreater x_{2i+1}\\
+0  , &x > x_{2i+1}\\
 \end{array}  
 \right.	$		\\
 $\mu_{An}(x)= \left \{
 \begin{array}{ll} 
 0, &x \leq x_{2n-2}\\
 \frac{x - x_{2n-2}}{x_{2n-1} - x_{2n-2}},& x_{2n-2} \leq x \leq x_{2n-1}\\
-1 ,& x \textgreater x_{2n-1} 
+1 ,& x > x_{2n-1} 
 \end{array} 
 \right.$\\
 \label{e1}
 \end{tabular}
 \end{equation}
-\begin{figure}[!h] 
+\begin{figure}[!ht] 
 	\begin{center}
 		\includegraphics[scale=0.95]{fig/at}
 		\caption {Trapezoidal-shaped MFs coding}
@@ -493,7 +556,7 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 	\item []$0 = x_{21} \leq x_{22} \leq x_{23} \leq x_{24} \leq x_{25} \leq x_{26} = 100$
 	\item []$0 = x_{31} \leq x_{32} \leq x_{33} \leq x_{34} \leq x_{35} \leq x_{36} = 100$
 \end{itemize}
-\begin{figure}[!h]	
+\begin{figure}[!ht]	
 	\begin{center}
 		\includegraphics[width=13cm,height=3cm]{fig/cromosome}
 		\caption{Chromosome description}
@@ -519,7 +582,7 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 	\end{equation}	
 \end{description}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=13cm,height=7cm]{fig/mo}
 	\end{center}
@@ -543,7 +606,7 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 	Table \ref{Tabtrack} presents the properties and description of selected track.
 	
 	\begin{table}
-		\centering
+		
 		\caption{Description of Selected track}
 		\label{Tabtrack}
 		\begin{tabular}{ |p{2cm}|p{2.2 cm}|}
@@ -596,11 +659,10 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\begin{table}[!h]	
-		\centering
+	\begin{table}[!ht]	
 		\caption{GA parameters}
 		\label{parametre}
-		\begin{tabular}{|p{4cm}|p{2cm}|}
+		\begin{tabular}{|p{9.6cm}|p{5cm}|}
 			\hline \textbf{Population size} & 20 \\
 			\hline \textbf{Generations} & 50   \\
 			\hline \textbf{Crossover rate$\textit{P}_{\textit{c}}$} &  0.7 \\
@@ -612,11 +674,10 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 
 %%%%%
 \subsection{GA-Fuzzy  controller in practice race}
-\begin{table}[!h]
-	\centering
+\begin{table}[!ht]
 	\caption{Results of the three controllers in a 20 laps practice race}
 	\label{resultat20}
-	\begin{tabular}{|p{2 cm}|p{2 cm}|p{2 cm}|p{2 cm}|}
+	\begin{tabular}{|p{3.5 cm}|p{3.5 cm}|p{3.5 cm}|p{3.5 cm}|}
 		\hline
 		\multicolumn{4}{|c|}{{\large \textbf{E-Track 5}}}  \\ \hline
 		\hline \textbf{20 tours} & \textbf{AD} & \textbf{AGFC1} & \textbf{AGFC2}  \\
@@ -646,7 +707,7 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 
 
 \subsection{GA-Fuzzy controllers in a real race}
-\begin{table}[!h]
+\begin{table}[!ht]
 	\caption{Results of AGFC1 in a real race}
 	\label{14}
 	\begin{tabular}{|p{2.3cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
@@ -660,7 +721,7 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 		\hline 
 	\end{tabular}
 \end{table}
-\begin{table}[!h]
+\begin{table}[!ht]
 	\caption{Results of AGFC2 in a real race }
 	\label{15}
 	\begin{tabular}{|p{2.3cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
@@ -674,7 +735,7 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 		\hline 
 	\end{tabular}
 \end{table}
-\begin{table}[!h]
+\begin{table}[!ht]
 	\caption{Results of AD in a real race}
 	\label{16}
 	\begin{tabular}{|p{2.3 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
