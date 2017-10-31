@@ -89,7 +89,7 @@
 	\begin{abstract}
 		
 		This work presents an evolutionary approach to optimise the parameters of Fuzzy-based controller for an autonomous driver for the open simulated car racing game (TORCS). The aim is to improve a modular fuzzy agent designed to determine the optimal target speed and steering angle during the race.
-These kind of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
+These kinds of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
 Thus, a real-coded Genetic Algorithm 
 % Antonio - TODO: check if it is real-coded. Extend the description of the algorithm.
 has been applied to find the best values for these parameters, which let us to design a robust driver for this racing simulator.
@@ -108,13 +108,13 @@ The evolved drivers were compared and  evaluated in practise and realistic races
 
 % Antonio: TODO - write the Introduction.
 Autonomous driving is a very interesting research topic supported by many vehicle manufacturers aiming to reduce fuel consumption and its efficient use, improve car safety and driver comfort and even to design real autonomous cars that can run in a desert and hostile environment. \\
-The Open Racing Car Simulator (TORCS) is a realistic racing simulator with a sophisticated engine used for many standalone racing competition challenges each year. This fact, combined with the large gaming community and the ability to compare controllers have made TORCS the most used simulator in the field of autonomous driving \cite{17}.
+The Open Racing Car Simulator (TORCS) is a realistic racing simulator with a sophisticated engine used for many standalone racing competition challenges each year. This fact, combined with the large gaming community and the ability to compare controllers have made TORCS the most used simulator in the field of autonomous driving \cite{manualTORCS}.
 
 Improved driving in TORCS was achieved using fuzzy logic in previous research where two fuzzy controllers were developed for steering (steer) calculation and the desired speed giving encouraging results but the major disadvantage of this approach is that the parameters of the membership functions of the controllers are defined by trial/error in the absence of experts to do so.
 
 Since this problem of parameter determination can be considered as an optimization problem, evolutionary algorithms are well placed to solve this it.
 
-In this work, we propose to apply the genetic algorithms to adjust the parameters of the fuzzy controller namely those of the membership functions for the two fuzzy controllers used in \cite{25}.
+In this work, we propose to apply the genetic algorithms to adjust the parameters of the fuzzy controller namely those of the membership functions for the two fuzzy controllers used in \cite{evo17}.
 The considered approach  requires the coding of chromosomes and the choice of a adequate cost function (fitness) due to the uncertainty and noisiness of the problem.
 
 
@@ -129,9 +129,9 @@ The considered approach  requires the coding of chromosomes and the choice of a 
 \section{ TORCS Description: }
 	\label{sec:torcs}
 % Antonio - TODO: Maybe reduce it (if we go beyond 16 pages). ;)
-The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{8}.
+The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{manualTORCS}.
 
-Its high degree of modularity and portability make it ideal for artificial research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS \cite{11} engine. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation. \cite{24} The game allows different types of races from the practical single session to the championship \cite{10}.
+Its high degree of modularity and portability make it ideal for artificial research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS  engine\cite{WebTORCS}. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation\cite{manualTORCS}.  The game allows different types of races from the practical single session to the championship \cite{manualTORCS}.
 % Antonio - Check these references, they don't exist
 
 %%%%%%%%%%%%%%%%%%%%%%	
@@ -351,91 +351,27 @@ The base of rules has been defined again modelling the behaviour of a human driv
 \end{itemize}	
 
 The values for S1 to S4 are respectively: 0, 0.25, 0.5, and 1.
-When M10=Track[7] we will take negative values of the steer (sterr=-steer).
+When M10=Track[7] we will take negative values of the steer (steer=-steer).
 
 Once the controllers have been described, they will be tested and compared with the standard one y several races. The obtained results are presented in the following section.
 
 
 	
-\section{Optimizing the fuzzy controller with GA}
+\section{Optimizing the fuzzy controllers with GA}
 
-A triangular membership function is given by:
-\begin{equation} 
-\mu_{A}(x)= \left \{
-\begin{array}{ll}
-0, & x \leq x_{1}\\
-\frac{x - x_{1}}{x_{2} - x_{1}}, &x_{1} \leq x \leq x_{2}  \\
-\frac{x_{3} - x}{x_{3} - x_{2}}, &x_{2} \leq x \leq x_{3}  \\
-0,& x_{3} \leq x 
-\end{array}
-\right.
-\end{equation}
-
+Difficulties in designing fuzzy controllers of TORCS  have led us to move towards the use of genetic algorithms because of their global exploration characteristic in a complex environment.\\
+The proposed optimization approach to find the optimal parameters of the membership functions of the two sub-controllers \cite{evo17} (see Figure \ref{fig:ga}). An initial  population is drawn randomly and each solution is evaluated through TORCS to get the optimal one.
 \begin{figure}[!ht]
+	\label{fig:ga}
 	\begin{center}
-		\includegraphics[scale=0.90]{fig/triangulaire}
-		\caption {Triangular MF}
-		\label{tri}
+		\includegraphics[width=13cm,height=7cm]{fig/mo}
 	\end{center}
-\end{figure}
-
-
-\begin{figure}[!ht]
-	\begin{center}
-		\includegraphics[scale=0.95]{fig/codage}
-		\caption {Triangular MF parameters coding}
-		\label{co} 
-	\end{center}
-\end{figure}
-
-\begin{equation}\label{key}
-x_{1} \leq x_{2} \leq x_{3}
-\end{equation}
-
-\begin{figure}[!ht]
-	\begin{center}
-		\includegraphics[scale=0.95]{fig/vl}
-		\caption {Fuzzy partition with Triangular MFs}
-		\label{vl} 
-	\end{center}
-\end{figure}
-
-\begin{equation} 
-\begin{tabular}{l}
-$\mu_{A1}(x) =  \left \{
-\begin{array}{ll}   %{aligned}
-1,& x \leq x_{1}\\
-\frac{x_{2} - x}{x_{2} - x_{1}},& x_{1} \leq x \leq x_{2}\\
-0        , &x > x_{2}
-\end{array} 
-\right. $	\\
-$\mu_{Ai}(x)= \left \{
-\begin{array}{ll}
-0, &x \leq x_{i}\\
-\frac{x - x_{i-1}}{x_{i} - x_{i-1}},& x_{i-1} \leq x \leq x_{i},n=2,...,i-1\\
-\frac{x_{i+1} - x}{x_{i+1} - x_{i}}, & x_{i} \leq x \leq x_{i+1}\\
-0        , &x > x_{i+1}
-\end{array}
-\right.	$	\\		
-$\mu_{An}(x)= \left \{
-\begin{array}{ll}
-0, &x \leq x_{n-1}\\
-\frac{x - x_{n-1}}{x_{n} - x_{n-1}},& x_{n-1} \leq x \leq x_{n}\\
-1        , &x > x_{n}\\
-\end{array}
-\right.$
-\end{tabular}
-\end{equation}
-we have :
-\[ \textit{a} = x_{1} \leq x_{2} \leq ...\leq x_{n} = \textit{b} \]
-\begin{figure}[!ht] 
-	\begin{center}
-		\includegraphics[scale=0.95]{fig/cotr}
-		\caption {Codage des \textit{n} points}
-		\label{cotr}
-	\end{center}
-\end{figure}
-\subsubsection{Trapezoidal MFs}
+	\caption{Optimization of fuzzy controller flowchart }
+\end{figure}	
+\subsection{Genetic algorithm settings}
+The designed fuzzy controllers have trapezoidal membership functions given by \ref{eq:trapmf}.
+In a fuzzy controller, fuzzy rules are applied to linguistic terms. These terms, which qualify a linguistic variable, are defined through membership functions. The parameters to be optimized are thus defined in two steps: first, the parameters of each membership function must be defined, then all the parameters of the membership functions that constitute the fuzzy partition of the linguistic variable \cite{ThangG08}.
+A trapezoidal membership function in a finite universe of discourse \textit{[a, b]} can be defined by:
 
 \begin{equation}
 \mu_{A}(x)= \left \{
@@ -443,40 +379,46 @@ we have :
 \frac{x - x_{1}}{x_{2} - x_{1}},& x_{1} \leq x \leq x_{2}\\
 1 , &x_{2} \leq x \leq x_{3}\\
 \frac{x_{4} - x}{x_{4} - x_{3}},& x_{3} \leq x \leq x_{4}\\
-0        ,& ailleurs\\	
+0        ,& else\\	
 % Antonio - What are ailleurs?
+% Mohammed - it was in french, sorry
 \end{array}
 \right.
+\label{eq:trapmf}
 \end{equation}
-																																																																																																																																																																																																																																																																																																																																																												
+with:
+\begin{equation}
+x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
+\end{equation}
+This MF function is defined by four parameters $x_{1}$, $x_{2}$, $x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a, b]} (See Figure \ref{fig:trapeze}).																			
 \begin{figure}[!ht] 
 	\begin{center}
 		\includegraphics[scale=0.95]{fig/trapese}
 		\caption {Trapezoidal MFs}
-		\label{trapeze}
-	\end{center}
-\end{figure}  
-
-
-with
-\begin{equation}
-x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
-\end{equation}
-
-\begin{figure}[!ht]
-	\begin{center}
-		\includegraphics[scale=0.95]{fig/pr}
-		\caption {Fuzzy partition  with trapezoidal MFs}
-		\label{prtr} 
+		\label{fig:trapeze}
 	\end{center}
 \end{figure}
+The input  linguistic variables \textit{Front, Max5 and Max10}  are represented by five trapezoidal membership functions (See Table {tab:flouevar}).
+More generally, a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). In this case, the representation is given by the figure \ref{fig:at}
+\begin{figure}[!ht] 
+	\begin{center}
+		\includegraphics[scale=0.95]{fig/at}
+		\caption {Trapezoidal-shaped MFs coding}
+		\label{fig:at}
+	\end{center}
+\end{figure}
+with:
+\begin{equation}
+a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b 	
+\end{equation}		
+
 \begin{equation} 
 \begin{tabular}{l}
 $\mu_{A1}(x)=  \left \{
 \begin{array}{ll}
 1, &x_{1} \leq x \leq x_{2}\\
 \frac{x_{3} - x}{x_{3} - x_{2}}, &x_{2} \leq x \leq x_{3}\\
-0        , &x > x_{3}\\
+0        , &x \textgreater x_{3}\\
 \end{array} 
 \right.$		\\ 	
 $\mu_{Ai}(x)= \left \{
@@ -485,31 +427,27 @@ $\mu_{Ai}(x)= \left \{
 \frac{x - x_{2i-2}}{x_{2i-1} - x_{2i-2}}, &x_{2i-2} \leq x \leq x_{2i-1},n=2,...,i-1\\
 1, & x_{2i-1} \leq x \leq x_{2i}\\
 \frac{x_{2i+1} - x}{x_{2i+1} - x_{2i}},& x_{2i} \leq x \leq x_{2i+1}\\
-0  , &x > x_{2i+1}\\
+0  , &x \textgreater x_{2i+1}\\
 \end{array}  
 \right.	$		\\
 $\mu_{An}(x)= \left \{
 \begin{array}{ll} 
 0, &x \leq x_{2n-2}\\
 \frac{x - x_{2n-2}}{x_{2n-1} - x_{2n-2}},& x_{2n-2} \leq x \leq x_{2n-1}\\
-1 ,& x > x_{2n-1} 
+1 ,& x \textgreater x_{2n-1} 
 \end{array} 
 \right.$\\
-\label{e1}
+\label{eq:e1}
 \end{tabular}
 \end{equation}
-\begin{figure}[!ht] 
-	\begin{center}
-		\includegraphics[scale=0.95]{fig/at}
-		\caption {Trapezoidal-shaped MFs coding}
-		\label{at}
-	\end{center}
-\end{figure}
-with:
-\begin{equation}
-a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b 	
-\end{equation}		
-\subsection{Chromosomes}
+	
+As we have just seen, a linguistic variable is represented by a number of parameters that depend both on the number and type of used membership functions  \cite{ThangG08}. The choice of coding to use for these different parameters depends both on the desired precision on the values and on their range of values \cite{ThangG08}.
+
+When the number of parameters is reduced and their ranges of variations is well defined, a genetic algorithm with a binary coding is largely sufficient to find the optimal parameters. On the other hand, if the number of parameters becomes important, and the variation interval of each parameter is not well known, the real coding is the most appropriate \cite{elsayed13}. 
+Since our work requires some precision and the variation interval of each parameter is not well known, we used the real coding.
+
+Usually, the chromosomes of the first population are initialized with random values. We initialized the membership function parameters with random values in their range of variation \cite{3}. the figure \ref {fig:cromosome} illustrates the structure of the chromosome.
+with  :
 \begin{itemize}
 	\item []$0 = x_{11} \leq x_{12} \leq x_{13} \leq x_{14} \leq x_{15} \leq x_{16} = 100$
 	\item []$0 = x_{21} \leq x_{22} \leq x_{23} \leq x_{24} \leq x_{25} \leq x_{26} = 100$
@@ -519,36 +457,43 @@ a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b
 	\begin{center}
 		\includegraphics[width=13cm,height=3cm]{fig/cromosome}
 		\caption{Chromosome description}
-		\label{cromosome}	
+		\label{fig: cromosome}	
 	\end{center}	
 \end{figure}
+Tournament based selection is used to select chromosomes for genetic operators while simple arithmetic two point  crossover is chosen with non uniform mutation.
+
 \subsection{Fitness definition}
+
+The fitness function for optimizing the structure of a fuzzy controller is highly dependent on the application in which the controller is involved. It is therefore not possible to give a general formulation of this function that can adapt to all the peculiarities of a problem. However, we can specify some rules to choose the best evaluation function \cite{elsayed13}.
+
+The fuzzy controller can aims to: 
+\begin{description}
+	\item  Minimize the damage of the car$damage$.
+	\item  Minimize the overall race time $RaceTime$.
+	\item  Maximize the TopSpeed $MaxSpeed$.		
+\end{description}
+From this goals, we can derive two possible fitness functions:
 
 \begin{description}
 	\item[fitness 1:]  
 	\begin{equation} \label{fit1}
 	\begin{array}{lllll}
-	%f_{cout} =  $min$ & \alpha & $. dammage$ + & $min$ &\beta & $. temps$ 
-	f_{1} =  Min & damage + & Min & RaceTime 
+	%f_{cout} =  $min$ & \alpha & $. damage$ + & $min$ &\beta & $. temps$ 
+	f_{1} =  Min & damage + &\alpha  Min & RaceTime 
 	\end{array}
 	\end{equation}
 	\item[fitness 2:] 
 	\begin{equation} \label{fit2}
 	\begin{array}{llllll}
 	%f_{cout}= min &\alpha & $. dammage$ + & min &\beta & $. temps$ + & min &\gamma & .\frac{1}{vitesse}
-	f_{2}= Min & damage + & Min & RaceTime+ & Min & \frac{1}{MaxSpeed}
+	f_{2}= Min & damage + &\alpha Min & RaceTime+ & Min & \beta \frac{1}{MaxSpeed}
 	\end{array}
 	\end{equation}	
 \end{description}
-
-\begin{figure}[!ht]
-	\begin{center}
-		\includegraphics[width=13cm,height=7cm]{fig/mo}
-	\end{center}
-	\caption{Optimization of fuzzy controller flowchart }
-\end{figure}	
-
-
+with $\alpha$ and $\beta$ are two weighting parameters.\\
+To evaluate the candidate controllers, we will make them compete in a 20 laps race and collect output values ($damage$, $RaceTime$ and $MaxSpeed$) to compute the fitness. 
+  		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\section{Simulation Results}
 	\label{sec:results}
