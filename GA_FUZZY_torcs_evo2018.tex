@@ -116,11 +116,14 @@ The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is a realistic racing simu
 One of the most efficient controllers so far applied in this environment are fuzzy-based ones, as they simulate in part the human reasoning when driving. In this line, the authors presented previously an approach in which two specialised fuzzy controllers were combined to decide the car's steering angle and desired speed in every single point during a race \cite{evo17_blind}. 
 % Antonio - citation to our previous work without authors nor title since this is a blind revision process
 % Antonio - Mohammed, was these factors computed every small amount of time or just in some parts of the track, such as in every curve?
+% Mohammed - They are computed every race tick ( we have any previous knowledge about the track parts: straight or curves)
+
 The obtained results were promising, but the performance of the autonomous driver showed some flaws in difficult tracks - where `external' factors affected the asphalt - and against the most competitive rivals.
 We argue here that the major disadvantage of this approach is that the parameters of the controllers' fuzzy membership functions were defined following a trial/error process in the absence of experts to do so.
 
-Thus, in this work we consider the selection of the best values for these parameters as an optimisation problem, so we have applied an evolutionary algorithm to obtain them. Concretely, we propose to apply a real-coded Genetic Algorithm (GA) \cite{GAs_Goldberg89} 
+Thus, in this work we consider the selection of the best values for these parameters as an optimisation problem, so we have applied an evolutionary algorithm to obtain them. Concretely, we propose to apply a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} 
 % Antonio - Look for a citation to a real-coded GA?
+% Mohammed- Done
 with this purpose. The considered approach requires - in addition to a good codification of solutions and selection of operators - the choice of an adequate cost function (fitness), due to the uncertainty and noisiness of the problem itself, so two different implementations have been studied.
 
 % Antonio - TODO: Comment about the obtained results
@@ -131,7 +134,38 @@ with this purpose. The considered approach requires - in addition to a good codi
 
 % Antonio: TODO - write the State of the art.
 
+Evolutionary algorithms have been used by several researchers in driving a racing car in TORCS simulator.
+Authors of \cite{AutogenEvo2011} have  applied a single-objective and a multi-objective
+real-coded genetic algorithm to the automatic generation of tracks for high-end
+racing games while  \cite{Montecarlo2016} proposes a new framework of applying Monte Carlo Tree Search to the simulated car racing by  building the search tree in a discretized game-state space and then determine the action from the selected target game state to avoid the need to discretize the action space. \\
 
+Another application of evolutionary algorithms was to determine the optimal trajectory of a lap in a known circuit \cite{drivingGA2008}  but their approach suffers from  problem that the obtained trajectory 
+in the evolving process depends highly on the initial state of the car. In the same context, \cite{GaRaceLine2010} tried to design a novel approach to compute the racing line
+without any human intervention using genetic algorithm to find the best trade-off between
+the minimization of two conflicting objectives: the length and
+the curvature of the racing line.\\
+
+Floreano et al., \cite{Floreano2004}, used a GA for tuning up a neural network which visually
+recognizes edges, corners and height, resembling strategies observed in simple
+insects which obtained results that performed equal or better than well trained
+human drivers tested on the same circuits. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In \cite{SAES2012}, the authors design a competitive driving controller in TORCS  by optimizing the
+parameters of an autonomous car controller using self adaptive
+evolutionary strategies (SAESs) which co?evolve solutions and mutation steps for each parameter.
+
+%FUZZY + EAs
+EAs have been also used to optimize the fuzzy set parameters, although the maximum values of the sets may not be achieved following this approach \cite{PerezEvolvingFuzzy09}. In that work, the authors obtain improved fuzzy models to infer the acceleration and turning angle, but they are not specialized as the proposed here.
+
+In \cite{Guadarrama2008}, a fuzzy rule-based car controller for Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Indeed, two fuzzy controllers were designed: the first one to compute the acceleration using the velocity and distance and the second one to get the turning angle. But their approach was applied to a simpler simulator than TORCS.
+
+Onieva et al.,\cite{LFAG}  proposed a
+parameterized modular architecture with a fuzzy system
+and a genetic algorithm in the
+design of fuzzy logic controllers for steering wheel management
+that can reproduce human driver behaviour but it didn't take the target speed in account.\\
+In this paper, we propose to optimise the membership functions parameters  of two fuzzy controllers that compute the steer and the target speed of the car in the track for TORCS. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{ TORCS Description: }
@@ -471,7 +505,7 @@ As we have just seen, a linguistic variable is represented by a number of parame
 When the number of parameters is reduced and their ranges of variations are well defined, a GA with a binary coding is largely sufficient to find their optimal values. On the other hand, if the number of parameters becomes important, and their variation interval is not well known, the real coding is the most appropriate \cite{elsayed13}. 
 Since our work requires some precision and the variation interval of each parameter is not well known, we have considered a real coding implementation.
 
-Usually, the chromosomes of the first population are initialized with random values, however we initialized the membership function parameters randomly but inside their range of variation \cite{3}, in order to start from feasible values. 
+Usually, the chromosomes of the first population are initialized with random values, however we initialized the membership function parameters randomly but inside their range of variation \cite{GAs_Goldberg89}, in order to start from feasible values. 
 % Antonio - another citation is missing.
 The figure \ref {fig:cromosome} illustrates the structure of the chromosome.
 with  :
