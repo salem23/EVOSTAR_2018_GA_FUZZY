@@ -43,10 +43,10 @@
 
 \begin{document}
 	
-	\mainmatter  % start of an individual contribution
+\mainmatter  % start of an individual contribution
 	
 	% first the title is needed
-	\title{Evolving a TORCS Fuzzy driver using Genetic Algorithms}
+\title{Evolving a TORCS Fuzzy driver using Genetic Algorithms}
 	
 	
 	%\titlerunning{Driving in TORCS using modular fuzzy controllers}
@@ -92,14 +92,26 @@
 	\maketitle
 	\begin{abstract}
 		
-		This work presents an evolutionary approach to optimize the parameters of Fuzzy-based controller for an autonomous driver for the open simulated car racing game (TORCS). The aim is to improve a modular fuzzy agent designed to determine the optimal target speed and steering angle during the race.
-These kinds of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
-Thus, a real-coded Genetic Algorithm 
+          This work presents an evolutionary approach to optimize the
+          parameters of Fuzzy-based controller for an autonomous
+          driver for the open simulated car racing game (TORCS). Using
+          volution, we intend to improve a modular fuzzy agent
+          designed to determine the optimal target speed and steering
+          angle during the race. The challenge in this kind of fuzzy
+          systems is the design of the membership functions, which is
+          usually done through a trial and error process,
+%          These kinds of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
+in this paper, a real-coded Genetic Algorithm 
 % Antonio - TODO: Extend the description of the algorithm.
-has been applied to find the best values for these parameters, which let us to design a robust driver for this racing simulator.
-The evolved drivers were compared and  evaluated in practise and realistic races, yielding very good results mainly in tracks that have many turning points, which are, in turn, the most difficult for any autonomous agent.
+has been applied to find the best values for these parameters,
+obtaining a robust design for the TORCS controller.
+The evolved drivers were compared and  evaluated in practise and
+realistic races, yielding very good results mainly in tracks that have
+many turning points, which are, in turn, the most difficult for any
+autonomous agent. 
 % Antonio - TODO: describe the experiments performed and say something else about the results.
-	%%%
+%%%
+% What do you mean by "in practice *and* realistic races". - JJ
 	\keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
 	\end{abstract}
 % Antonio - I have rewritten the abstract. It was very similar to the one of last year. ;)
