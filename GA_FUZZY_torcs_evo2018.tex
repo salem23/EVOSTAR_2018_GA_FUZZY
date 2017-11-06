@@ -95,20 +95,21 @@
           This work presents an evolutionary approach to optimize the
           parameters of Fuzzy-based controller for an autonomous
           driver for the open simulated car racing game (TORCS). Using
-          volution, we intend to improve a modular fuzzy agent
+          evolution, we intend to improve a modular fuzzy agent
           designed to determine the optimal target speed and steering
           angle during the race. The challenge in this kind of fuzzy
           systems is the design of the membership functions, which is
-          usually done through a trial and error process,
+          usually done through a trial and error process.
 %          These kinds of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
-in this paper, a real-coded Genetic Algorithm 
+In this paper, a real-coded Genetic Algorithm 
 % Antonio - TODO: Extend the description of the algorithm.
 has been applied to find the best values for these parameters,
 obtaining a robust design for the TORCS controller.
-The evolved drivers were compared and  evaluated in practise and
+The evolved drivers were compared %Pablo: compared with other controllers? Explain
+and  evaluated in practise and
 realistic races, yielding very good results mainly in tracks that have
 many turning points, which are, in turn, the most difficult for any
-autonomous agent. 
+autonomous agent. %Is this true? If this is explained in next sections, do not forget to add a reference to validate it.
 % Antonio - TODO: describe the experiments performed and say something else about the results.
 %%%
 % What do you mean by "in practice *and* realistic races". - JJ
@@ -198,21 +199,23 @@ human drivers tested on the same circuits.
 % previous paragraph - JJ
 In \cite{SAES2012}, the authors design a competitive driving controller in TORCS  by optimizing the
 parameters of an autonomous car controller using self adaptive
-evolutionary strategies (SAESs) which co-evolve solutions and mutation steps for each parameter.
+evolutionary strategies (SAESs) which co-evolve solutions and mutation steps for each parameter. %Pablo: how we can use this referene to validate ours? Which is our selling-point/differenciation?
 
 % FUZZY + EAs
 % Always "narrate" the SoA relating every paragraph with the previous one
-EAs have been also used to optimize the fuzzy set parameters, although the maximum values of the sets may not be achieved following this approach \cite{PerezEvolvingFuzzy09}. In that work, the authors obtain improved fuzzy models to infer the acceleration and turning angle, but they are not specialized as the proposed here.
+EAs have been also used to optimize fuzzy set parameters, %Pablo: In TORCS?
+although the maximum values of the sets may not be achieved following this approach \cite{PerezEvolvingFuzzy09}. %Pablo: why?
+In that work, the authors obtain improved fuzzy models to infer the acceleration and turning angle, but they are not specialized as the proposed here. %Pablo: try to explain it better
 
-In \cite{Guadarrama2008}, a fuzzy rule-based car controller for Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Indeed, two fuzzy controllers were designed: the first one to compute the acceleration using the velocity and distance and the second one to get the turning angle. But their approach was applied to a simpler simulator than TORCS.
+In \cite{Guadarrama2008}, a fuzzy rule-based car controller for Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Indeed, two fuzzy controllers were designed: the first one to compute the acceleration using the velocity and distance and the second one to get the turning angle. But their approach was applied to a simpler simulator than TORCS. %Pablo: Explain why our approach is better, because TORCS is more complicated
 
 Onieva et al.,\cite{LFAG}  proposed a
 parametrized modular architecture with a fuzzy system
 and a genetic algorithm in the
 design of fuzzy logic controllers for steering wheel management
-that can reproduce human driver behaviour but it didn't take the
+that can reproduce human driver behaviour but it did not take the %Pablo: changed "didn't" to "did not". Remember not to use acronyms! :)
 target speed in account. % Say something about how we are going to
-                         % improve on that - JJ
+                         % improve on that - JJ. Pablo: and link with the next paragraph
 In this paper, we propose to optimize the membership functions parameters  of two fuzzy controllers that compute the steer and the target speed of the car in the track for TORCS. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
