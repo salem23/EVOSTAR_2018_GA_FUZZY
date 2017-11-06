@@ -172,10 +172,12 @@ with this purpose. The considered approach requires - in addition to a good codi
 % Antonio: TODO - write the State of the art.
 % Revise the state of the art so that it tells something, and is not only "this guy does this, while that guy does that". It has to establish the "state of the art", what is being done in the area so that we prove that it's an improvement. 
 
-Evolutionary algorithms have been used by several researchers in driving a racing car in TORCS simulator.
+Evolutionary algorithms have been used by several researchers in
+driving a racing car in TORCS simulator.
+% Name the authors, don't simply say "authors of" - JJ
 Authors of \cite{AutogenEvo2011} have  applied a single-objective and a multi-objective
 real-coded genetic algorithm to the automatic generation of tracks for high-end
-racing games while  \cite{Montecarlo2016} proposes a new framework of applying Monte Carlo Tree Search to the simulated car racing by  building the search tree in a discretized game-state space and then determine the action from the selected target game state to avoid the need to discretize the action space. \\
+racing games while  \cite{Montecarlo2016} proposes a new framework of applying Monte Carlo Tree Search to the simulated car racing by  building the search tree in a discretized game-state space and then determine the action from the selected target game state to avoid the need to discretize the action space. 
 
 Another application of evolutionary algorithms was to determine the optimal trajectory of a lap in a known circuit \cite{drivingGA2008}  but their approach suffers from  problem that the obtained trajectory 
 in the evolving process depends highly on the initial state of the car. In the same context, \cite{GaRaceLine2010} tried to design a novel approach to compute the racing line
@@ -188,12 +190,18 @@ recognizes edges, corners and height, resembling strategies observed in simple
 insects which obtained results that performed equal or better than well trained
 human drivers tested on the same circuits. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make a statement about the "state of the art", like "in general, EAs
+% have obtained good results with the constraint of the underlying
+% controller that is being optimiize - JJ
 
+% If you are introducing another topic, you have to relate with the
+% previous paragraph - JJ
 In \cite{SAES2012}, the authors design a competitive driving controller in TORCS  by optimizing the
 parameters of an autonomous car controller using self adaptive
 evolutionary strategies (SAESs) which co?evolve solutions and mutation steps for each parameter.
 
-%FUZZY + EAs
+% FUZZY + EAs
+% Always "narrate" the SoA relating every paragraph with the previous one
 EAs have been also used to optimize the fuzzy set parameters, although the maximum values of the sets may not be achieved following this approach \cite{PerezEvolvingFuzzy09}. In that work, the authors obtain improved fuzzy models to infer the acceleration and turning angle, but they are not specialized as the proposed here.
 
 In \cite{Guadarrama2008}, a fuzzy rule-based car controller for Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Indeed, two fuzzy controllers were designed: the first one to compute the acceleration using the velocity and distance and the second one to get the turning angle. But their approach was applied to a simpler simulator than TORCS.
@@ -202,7 +210,9 @@ Onieva et al.,\cite{LFAG}  proposed a
 parametrized modular architecture with a fuzzy system
 and a genetic algorithm in the
 design of fuzzy logic controllers for steering wheel management
-that can reproduce human driver behaviour but it didn't take the target speed in account.\\
+that can reproduce human driver behaviour but it didn't take the
+target speed in account. % Say something about how we are going to
+                         % improve on that - JJ
 In this paper, we propose to optimize the membership functions parameters  of two fuzzy controllers that compute the steer and the target speed of the car in the track for TORCS. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
