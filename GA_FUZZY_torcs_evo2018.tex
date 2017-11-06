@@ -92,7 +92,7 @@
 	\maketitle
 	\begin{abstract}
 		
-		This work presents an evolutionary approach to optimise the parameters of Fuzzy-based controller for an autonomous driver for the open simulated car racing game (TORCS). The aim is to improve a modular fuzzy agent designed to determine the optimal target speed and steering angle during the race.
+		This work presents an evolutionary approach to optimize the parameters of Fuzzy-based controller for an autonomous driver for the open simulated car racing game (TORCS). The aim is to improve a modular fuzzy agent designed to determine the optimal target speed and steering angle during the race.
 These kinds of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
 Thus, a real-coded Genetic Algorithm 
 % Antonio - TODO: Extend the description of the algorithm.
@@ -110,7 +110,7 @@ The evolved drivers were compared and  evaluated in practise and realistic races
 	\label{sec:intro}
 
 % Antonio: TODO - write the Introduction.
-Autonomous driving is a very interesting research topic recently supported by many vehicle manufacturers. The final aim is to create real self-driving cars that can move in everyday roads or, for instance, in a desert or hostile environment. This objective is complemented with the reduction of fuel consumption and the maximisation of its efficient use, along with the car safety and the driver comfort.
+Autonomous driving is a very interesting research topic recently supported by many vehicle manufacturers. The final aim is to create real self-driving cars that can move in everyday roads or, for instance, in a desert or hostile environment. This objective is complemented with the reduction of fuel consumption and the maximization of its efficient use, along with the car safety and the driver comfort.
 
 The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is a realistic racing simulator with a sophisticated engine used for many standalone racing competition challenges every year. This fact, combined with the large gaming community and the ability to compare controllers have made TORCS the most used simulator in the field of autonomous driving [***,***,***].
 % Antonio - add some references about research in TORCS (from those commented in the State of the art)
@@ -124,7 +124,7 @@ One of the most efficient controllers so far applied in this environment are fuz
 The obtained results were promising, but the performance of the autonomous driver showed some flaws in difficult tracks - where `external' factors affected the asphalt - and against the most competitive rivals. 
 We argue here that the major disadvantage of this approach is that the parameters of the controllers' fuzzy membership functions were defined following a trial/error process in the absence of experts to do so.
 
-Thus, in this work we consider the selection of the best values for these parameters as an optimisation problem, so we have applied an evolutionary algorithm to obtain them. Concretely, we propose to apply a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} 
+Thus, in this work we consider the selection of the best values for these parameters as an optimization problem, so we have applied an evolutionary algorithm to obtain them. Concretely, we propose to apply a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} 
 % Antonio - Look for a citation to a real-coded GA?
 % Mohammed- Done
 with this purpose. The considered approach requires - in addition to a good codification of solutions and selection of operators - the choice of an adequate cost function (fitness), due to the uncertainty and noisiness of the problem itself, so two different implementations have been studied.
@@ -165,11 +165,11 @@ EAs have been also used to optimize the fuzzy set parameters, although the maxim
 In \cite{Guadarrama2008}, a fuzzy rule-based car controller for Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Indeed, two fuzzy controllers were designed: the first one to compute the acceleration using the velocity and distance and the second one to get the turning angle. But their approach was applied to a simpler simulator than TORCS.
 
 Onieva et al.,\cite{LFAG}  proposed a
-parameterized modular architecture with a fuzzy system
+parametrized modular architecture with a fuzzy system
 and a genetic algorithm in the
 design of fuzzy logic controllers for steering wheel management
 that can reproduce human driver behaviour but it didn't take the target speed in account.\\
-In this paper, we propose to optimise the membership functions parameters  of two fuzzy controllers that compute the steer and the target speed of the car in the track for TORCS. 
+In this paper, we propose to optimize the membership functions parameters  of two fuzzy controllers that compute the steer and the target speed of the car in the track for TORCS. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{ TORCS Description: }
@@ -605,17 +605,15 @@ Genetic algorithms are used to optimize the parameters of the fuzzy controller d
 			\hline          
 		\end{tabular}	
 	\end{table}
-The evolution of Fitness $f_2$ are presented in Figure  \ref{[fig:fit2}, where we could see how the GA converges to the optimal solution along the generations.
+The evolution of Fitness $f_2$ are presented in Figure  \ref{fig:fit2}, where we could see how the GA converges to the optimal solution along the generations.
 \begin{figure}[!h]	
 	\begin{center}
-		\label{[fig:fit2evo}
+		\label{fig:fit2}
 		\includegraphics[width=15cm,height=4cm]{fig/fit2}
 		\caption{Fitness 2 evolution for 50 generations}	
 	\end{center}	
 \end{figure}
 After the genetic algorithm ended obtaining the optimal solution, we represented the resulted membership functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
-
-
 
 
 \begin{figure}%
@@ -684,7 +682,7 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 	\end{tabular}
 \end{table}
 From the table, we can see that the fuzzy controllers optimized by genetic algorithms have given the best results minimizing the global race time and damages ($0$ in  the two GA based fuzzy controllers ) while the AD controller has finished the practice race with some damages.
-We notice also that the GFC controller has run with a higher topspeed then GFC1. This is due to to the inclusion of Topspeed in the fitness confirming that GFC2 is the best controller.
+We notice also that the GFC controller has run with a higher top speed then GFC1. This is due to to the inclusion of Topspeed in the fitness confirming that GFC2 is the best controller.
 
 \subsection{GA-Fuzzy controllers in a real race}
 The considered fuzzy controllers have been used in real race with five controllers from each team integrated with TORCS. The Table \ref{tab:adreal}, \ref{tab:gfc1real}, \ref{tab:gfc2real} illustrate the results obtained in a five laps real race. We note that the obtained ranking by the controllers $GFC1$,   $GFC2$ was third and second respectively. 
@@ -745,8 +743,14 @@ Nevertheless, these results can be improved by extending the evaluation of popul
 In other hand, we can also try to optimize and tune automatically the rule base of the fuzzy controller.
 
 
+\section*{Acknowledgments}
 
-\newpage
+% This work has been supported in part by: Ministerio espa\~{n}ol de
+% Econom\'{\i}a y Competitividad under project TIN2014-56494-C4-3-P
+% (UGR-EPHEMECH).
+Hidden for double blind\\
+Taking this much space.
+
 	\bibliographystyle{splncs03}
 	\bibliography{fuzzy_torcs}
 	
