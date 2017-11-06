@@ -112,23 +112,45 @@ autonomous agent.
 % Antonio - TODO: describe the experiments performed and say something else about the results.
 %%%
 % What do you mean by "in practice *and* realistic races". - JJ
-	\keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
-	\end{abstract}
+\end{abstract}
+
+\keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
+
 % Antonio - I have rewritten the abstract. It was very similar to the one of last year. ;)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   INTRODUCTION   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%
-	\section{Introduction}
-	\label{sec:intro}
+\section{Introduction}
+\label{sec:intro}
 
 % Antonio: TODO - write the Introduction.
-Autonomous driving is a very interesting research topic recently supported by many vehicle manufacturers. The final aim is to create real self-driving cars that can move in everyday roads or, for instance, in a desert or hostile environment. This objective is complemented with the reduction of fuel consumption and the maximization of its efficient use, along with the car safety and the driver comfort.
+Autonomous driving is a very interesting research topic recently
+supported by many vehicle manufacturers. The final aim is to create
+real self-driving cars that can move in everyday roads and streets or, for
+that matter, in a desert or hostile environment. This objective is
+complemented with the reduction of fuel consumption and the
+maximization of its efficient use, along with the car safety and the
+driver comfort in some cases; all these improvemets with the implied
+constraint that no accidents should take place.  
 
-The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is a realistic racing simulator with a sophisticated engine used for many standalone racing competition challenges every year. This fact, combined with the large gaming community and the ability to compare controllers have made TORCS the most used simulator in the field of autonomous driving [***,***,***].
+Optimization in car racing games can be situated in that context, with
+solutions obtained there having utility beyond the game itself; this
+explains the popularity of car racing games challenges, which are
+usually performed using game simulators. The Open Racing Car Simulator
+(TORCS) \cite{WebTORCS} is a realistic racing simulator with a
+sophisticated engine used for many standalone racing competition
+challenges every year. This fact, combined with the large gaming
+community and the ability to compare controllers, have made TORCS the
+most used simulator in the field of autonomous driving [***,***,***]. 
 % Antonio - add some references about research in TORCS (from those commented in the State of the art)
 % But don't leave that that way. Either you add them, or put the comment, but don't leave it that way - JJ
 
-One of the most efficient controllers so far applied in this environment are fuzzy-based ones, as they simulate in part the human reasoning when driving. In this line, the authors presented previously an approach in which two specialised fuzzy controllers were combined to decide the car's steering angle and desired speed in every single point during a race \cite{evo17_blind}. 
+Many kind of controllers have been used in this simulator, but one of the most efficient controllers so far are fuzzy-based ones, as they simulate in part the human
+reasoning when driving. % More references here - JJ
+In this line, the authors presented previously
+an approach in which two specialised fuzzy controllers were combined
+to decide the car's steering angle and desired speed in every single
+point during a race \cite{evo17_blind}.  
 % Antonio - citation to our previous work without authors nor title since this is a blind revision process
 % Antonio - Mohammed, was these factors computed every small amount of time or just in some parts of the track, such as in every curve?
 % Mohammed - They are computed every race tick ( we have any previous knowledge about the track parts: straight or curves)
