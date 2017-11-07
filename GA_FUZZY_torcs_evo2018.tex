@@ -146,10 +146,11 @@ usually performed using game simulators. The Open Racing Car Simulator
 sophisticated engine used for many standalone racing competition
 challenges every year. This fact, combined with the large gaming
 community and the ability to compare controllers, have made TORCS the
-most used simulator in the field of autonomous driving \cite{LFAG, Guadarrama2008, SAES2012, Floreano2004}. 
+most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}. 
 % Antonio - add some references about research in TORCS (from those commented in the State of the art)
 % But don't leave that that way. Either you add them, or put the comment, but don't leave it that way - JJ
 % Mohammed -done
+% Great :-) - JJ
 Many kinds of controllers have been used in this simulator, but one of the most efficient controllers so far are fuzzy-based ones, as they simulate in part the human
 reasoning when driving \cite{CarRacing_Pelta09,PerezEvolvingFuzzy09,torcs2012}. % More references here - JJ %Mohammed- done
 In this line, the authors presented previously
@@ -666,7 +667,9 @@ Genetic algorithms are used to optimize the parameters of the fuzzy controller d
 			\hline \textbf{Mutation rate $\textit{P}_{\textit{m}}$} &  0.3   \\ 		
 			\hline          
 		\end{tabular}	
-	\end{table}
+              \end{table}
+
+% All this should have to be eliminated. Either you show the average evolution for several experiments. You also _have_ to do several experiments - JJ              
 The evolution of Fitness $f_2$ are presented in Figure  \ref{fig:fit2}, where we could see how the GA converges to the optimal solution along the generations.
 \begin{figure}[!h]	
 	\begin{center}
@@ -674,8 +677,10 @@ The evolution of Fitness $f_2$ are presented in Figure  \ref{fig:fit2}, where we
 		\includegraphics[width=15cm,height=4cm]{fig/fit2}
 		\caption{Fitness 2 evolution for 50 generations}	
 	\end{center}	
-\end{figure}
-After the genetic algorithm ended obtaining the optimal solution, we represented the resulted membership functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
+      \end{figure}
+      
+      After the genetic algorithm ended obtaining the optimal solution, we represented the resulted membership functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
+      % These should be examples of results. You can't publish results with a single experiment - JJ
 
 
 \begin{figure}%
