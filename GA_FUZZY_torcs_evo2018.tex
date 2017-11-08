@@ -46,7 +46,7 @@
 \mainmatter  % start of an individual contribution
 	
 	% first the title is needed
-\title{Evolving a TORCS Fuzzy driver using Genetic Algorithms}
+\title{Evolving a TORCS Modular Fuzzy Driver using Genetic Algorithms}
 	
 	
 	%\titlerunning{Driving in TORCS using modular fuzzy controllers}
@@ -56,7 +56,7 @@
 	
 %	\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
 % Antonio - The submission is blind. ;)
-\author{First Author \inst{1} \and Second Author \inst{2} and Third Author \inst{3}}	
+\author{First Author \inst{1}, Second Author \inst{2}, Third Author \inst{3}}	
 	
 	%\authorrunning{M. Salem et al}
 	% (feature abused for this document to repeat the title also on left hand pages)
@@ -93,19 +93,13 @@
 	\begin{abstract}
 		
 This work presents an evolutionary approach to optimize the parameters of a Fuzzy-based autonomous driver for the open simulated car racing game (TORCS). Using evolution, we intend to improve a modular fuzzy agent designed to determine the optimal target speed and steering angle during the race. The challenge in this kind of fuzzy systems is the design of the membership functions, which is usually done through a trial and error process.
-% These kind of controllers have a big drawback, which is their membership function parameters are tuned by a trial-error process.
 In this paper, an adapted real-coded Genetic Algorithm - with two different fitness functions - has been applied to find the best values for these parameters, obtaining a robust design for the TORCS controller.
-The evolved drivers were tested and evaluated competing against other TORCS controllers in practice and real races.
+The evolved drivers were tested and evaluated competing against other TORCS controllers in practice (without rivals) and real races.
 %Pablo: compared with other controllers? Explain
 % Antonio - Now it's clear I think
 The improved fuzzy-controllers yield a very good performance, mainly in tracks that have many turning points, which are, in turn, the most difficult for any
-autonomous agent. Thus, this is a real enhancing of the starting fuzzy-controllers which had several difficulties to drive in this kind of tracks.
-% Antonio - Ihave rewritten this. Mohammed, check if this is true. ;)
-
-%Is this true? If this is explained in next sections, do not forget to add a reference to validate it.
-% Mohammed- The fuzzy controller in the previous paper is designed so to detect turns and break late makind a trade-off between safety and maximise the speed
-%%%
-
+autonomous agent. Thus, this is a real enhancement of the starting fuzzy-controllers which had several difficulties to drive in this kind of circuits.
+% Antonio - I have rewritten this. Mohammed, check if this is true. ;)
 \end{abstract}
 
 \keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
@@ -137,10 +131,8 @@ community and the ability to compare controllers, have made TORCS the
 most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}. 
 
 Many kinds of controllers have been used in this simulator, but one of the most efficient controllers so far are fuzzy-based ones, as they simulate in part the human reasoning when driving \cite{CarRacing_Pelta09,PerezEvolvingFuzzy09,torcs2012}. 
-In this line, the authors presented previously
-an approach in which two specialised fuzzy controllers were combined
-to decide the car's steering angle and desired speed in every single
-point (or tick) during a race \cite{evo17_blind}.  
+
+In this line, the authors presented previously an approach in which two specialised fuzzy controllers were combined to decide the car's steering angle and desired speed in every single point (or tick) during a race \cite{evo17_blind}.  
 % Antonio - Mohammed, was these factors computed every small amount of time or just in some parts of the track, such as in every curve?
 % Mohammed - They are computed every race tick ( we have any previous knowledge about the track parts: straight or curves)
 % Antonio - Ok, written. ;)
@@ -151,62 +143,72 @@ We argue here that the major disadvantage of this approach is that the parameter
 Thus, in this work we consider the selection of the best values for these parameters as an optimization problem, so we have applied an evolutionary algorithm to obtain them. Concretely, we propose to apply a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} with this purpose. The considered approach requires, in addition to a good codification of solutions and selection of operators, the choice of an adequate cost function (fitness), due to the uncertainty and noisiness of the problem itself. So two different proposals have been studied.
 
 The genetic-fuzzy based controller has been evaluated in a practice race - without rivals - first, and then in a real race against different drivers in TORCS.
-The results show that the proposed approach can successfully evolve the fuzzy controller membership parameters giving good performances in terms of damage avoidance and race time. Thus, this suggest that genetic algorithms with the proposed fitness are well-suited for finding the best trade-off between the two objectives of any racing controller: damage and speed.
-% Antonio - What about the improvement with regard the previous controller? 
-%           I mean, are the evolutionary obtained controllers better than the 
-%           original one (the controller presented in our previous paper)?
+The obtained results show that the enhanced controllers (one per fitness function) perform both much better than the original fuzzy controller (previously presented) in the practice race, increasing the top speed while they are not damaged, and obtaining a very good lap time.
+In addition, they compete very well against tough rivals, getting a rank 2 or 3 in the race with a time close to the winner and a very low received damage.
+
+So, we can conclude from these results that the proposed approach successfully evolves the fuzzy controller membership parameters giving good performances in terms of damage avoidance and race time. This suggest that GAs with the proposed fitness functions are well-suited for finding the best trade-off between the two objectives of any racing controller: damage and speed.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  STATE OF THE ART  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{State of the Art}
 \label{sec:soa}
 
-% Antonio: TODO - write the State of the art.
-% Revise the state of the art so that it tells something, and is not only "this guy does this, while that guy does that". It has to establish the "state of the art", what is being done in the area so that we prove that it's an improvement. 
+% Revise the state of the art so that it tells something, and is not only "this guy does this, while that guy does that". It has to establish the "state of the art", what is being done in the area so that we prove that it's an improvement.
 
-Evolutionary algorithms have been used by several researchers in
-driving a racing car in TORCS simulator.
-% Name the authors, don't simply say "authors of" - JJ
-Loiacono et al \cite{AutogenEvo2011} have  applied a single-objective and a multi-objective
-real-coded genetic algorithm to the automatic generation of tracks for high-end
-racing games while  \cite{Montecarlo2016} proposes a new framework of applying Monte Carlo Tree Search to the simulated car racing by  building the search tree in a discretized game-state space and then determine the action from the selected target game state to avoid the need to discretize the action space. 
+% Antonio - I have tried to improve the SotA, but there are still some missing clarifications
 
-Another application of evolutionary algorithms was to determine the optimal trajectory of a lap in a known circuit \cite{drivingGA2008}  but their approach suffers from  problem that the obtained trajectory 
-in the evolving process depends highly on the initial state of the car. In the same context, \cite{GaRaceLine2010} tried to design a novel approach to compute the racing line
-without any human intervention using genetic algorithm to find the best trade-off between
+Evolutionary algorithms have been used by several researchers in many different ways in the car racing simulator TORCS.
+
+For instance, Loiacono et al \cite{AutogenEvo2011} applied a single-objective and a multi-objective real-coded GA to the automatic generation of tracks for high-end racing games. 
+%while \cite{Montecarlo2016} proposes a new framework of applying Monte Carlo Tree Search to the simulated car racing by  building the search tree in a discretized game-state space and then determine the action from the selected target game state to avoid the need to discretize the action space. 
+% Antonio - Not an EA. ;)
+
+Floreano et al. \cite{Floreano2004}, used a GA for tuning up a neural network which visually recognizes edges, corners and height, resembling strategies observed in simple insects which obtained results that performed equal or better than well trained human drivers tested on the same circuits. 
+
+Another application of evolutionary algorithms was to determine the optimal trajectory of a lap in a known circuit \cite{drivingGA2008}, but this approach suffers from the problem that the obtained trajectory in the evolving process strongly depends on the initial state of the car. 
+In the same context, the authors in \cite{GaRaceLine2010} tried to design a novel approach to compute the optimal racing line without any human intervention, using a GA to find the best trade-off between
 the minimization of two conflicting objectives: the length and
 the curvature of the racing line.
 
-Floreano et al. \cite{Floreano2004}, used a GA for tuning up a neural network which visually
-recognizes edges, corners and height, resembling strategies observed in simple
-insects which obtained results that performed equal or better than well trained
-human drivers tested on the same circuits. 
+However, definitely, the most prolific area of application of EAs inside TORCS, has been the optimization of autonomous controllers for car driving, i.e. conducting a meta-optimization process.
+Thus, EAs have been applied to `refine' the parameters which define the driver's behaviour \cite{ButzCMAES09,SAES2012}, or to improve the structure/architecture of the models \cite{evol,neurone}, working offline, or online (during the game) \cite{TanOnline08,Cardamone_Online_NN}. 
+
+% FUZZY + EAs
+Our approach is focused in this line, proposing the application of an off-line genetic algorithm for the improvement of the parameters which determine the behaviour of a controller for TORCS. However, we have focused on a Fuzzy-based model, as it is one of the best options for modelling human-like decisions (and actions). Some others authors have also used this kind of technique in the literature.
+
+For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Two fuzzy controllers were designed (acceleration and turning angle). But this approach was applied to a simpler simulator than TORCS. 
+%Pablo: Explain why our approach is better, because TORCS is more complicated
+
+Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized like the proposed here.
+% Antonio - please Mohammed, explain this better
+
+Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behaviour but it did not take the target speed in account. 
+% Say something about how we are going to improve on that - JJ. Pablo: and link with the next paragraph
+
+In this paper, we propose to optimize the parameters of the membership functions of two specialized fuzzy controllers for TORCS, which compute the steering angle and the target speed of the car in the track. 
+% Antonio - why is this proposal better than the previous ones?
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Thus, in \cite{SAES2012}, the authors design a competitive driving controller in TORCS  by optimizing the parameters of an autonomous car controller using self adaptive evolutionary strategies (SAESs) which co-evolve solutions and mutation steps for each parameter. 
+%Pablo: how we can use this referene to validate ours? Which is our selling-point/differenciation?
+
+
 % Make a statement about the "state of the art", like "in general, EAs
 % have obtained good results with the constraint of the underlying
 % controller that is being optimiize - JJ
 
 % If you are introducing another topic, you have to relate with the
 % previous paragraph - JJ
-In \cite{SAES2012}, the authors design a competitive driving controller in TORCS  by optimizing the
-parameters of an autonomous car controller using self adaptive
-evolutionary strategies (SAESs) which co-evolve solutions and mutation steps for each parameter. %Pablo: how we can use this referene to validate ours? Which is our selling-point/differenciation?
 
-% FUZZY + EAs
 % Always "narrate" the SoA relating every paragraph with the previous one
-EAs have been also used to optimize fuzzy set parameters, %Pablo: In TORCS?
-although the maximum values of the sets may not be achieved following this approach \cite{PerezEvolvingFuzzy09}. %Pablo: why?
-In that work, the authors obtain improved fuzzy models to infer the acceleration and turning angle, but they are not specialized as the proposed here. %Pablo: try to explain it better
+%EAs have been also used to optimize fuzzy set parameters, %Pablo: In TORCS?
+%although the maximum values of the sets may not be achieved following this approach \cite{PerezEvolvingFuzzy09}. %Pablo: why?
+%In that work, the authors obtain improved fuzzy models to infer the acceleration and turning angle, but they are not specialized as the proposed here. %Pablo: try to explain it better
 
-In \cite{Guadarrama2008}, a fuzzy rule-based car controller for Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Indeed, two fuzzy controllers were designed: the first one to compute the acceleration using the velocity and distance and the second one to get the turning angle. But their approach was applied to a simpler simulator than TORCS. %Pablo: Explain why our approach is better, because TORCS is more complicated
 
-Onieva et al.,\cite{LFAG}  proposed a
-parametrized modular architecture with a fuzzy system
-and a genetic algorithm in the
-design of fuzzy logic controllers for steering wheel management
-that can reproduce human driver behaviour but it did not take the %Pablo: changed "didn't" to "did not". Remember not to use acronyms! :)
-target speed in account. % Say something about how we are going to
-                         % improve on that - JJ. Pablo: and link with the next paragraph
-In this paper, we propose to optimize the membership functions parameters  of two fuzzy controllers that compute the steer and the target speed of the car in the track for TORCS. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{ TORCS Description: }
@@ -630,7 +632,7 @@ This section is dedicated to the performance evaluation of our fuzzy-genetic con
 	\item[GFC1:] GA-Fuzzy controller with fitness 1 \ref{fit1},
 	\item[GFC2:] GA-Fuzzy controller with fitness 2 \ref{fit2},
 	\item[AD]: Fuzzy controller \cite{evo17} .
-\end{itemize}}
+\end{itemize}
 %
 Genetic algorithms are used to optimize the parameters of the fuzzy controller developed in \cite{evo17} with the parameters in Table \ref{tab:parametre}:
 	
