@@ -383,17 +383,22 @@ It is a Mamdani-based fuzzy system \cite{iancu2012} with three trapezoidal Membe
 
 The base of rules was composed modelling the behaviour of a human expert driver. Thus, this set is designed to maximize the car speed depending on the distance to the track border. The fuzzy rules are:
 
+
 \begin{itemize}
-	\item IF Front is High THEN TargetSpeed is TS1
-	\item IF Front is Medium THEN TargetSpeed is TS2
-	\item IF Front is Low and M5 is High THEN TargetSpeed is TS3
-	\item IF Front is Low and M5 is Medium THEN TargetSpeed is TS4
-	\item IF Front is Low and M5 is Low and M10 is High THEN TargetSpeed is TS5
-	\item IF Front is Low and M5 is Low and M10 is Medium THEN TargetSpeed is TS6
-	\item IF Front is Low and M5 is Low and M10 is Low THEN TargetSpeed is TS7\\
-	
+{\small
+	\item \texttt{IF Front is High THEN TargetSpeed is TS1}
+	\item \texttt{IF Front is Medium THEN TargetSpeed is TS2}
+	\item \texttt{IF Front is Low and M5 is High THEN TargetSpeed is TS3}
+	\item \texttt{IF Front is Low and M5 is Medium THEN TargetSpeed is TS4}
+	\item \texttt{IF Front is Low and M5 is Low and M10 is High THEN TargetSpeed is TS5}
+	\item \texttt{IF Front is Low and M5 is Low and M10 is Medium THEN TargetSpeed is TS6}
+	\item \texttt{IF Front is Low and M5 is Low and M10 is Low THEN TargetSpeed is TS7}\\
+}
+
 In addition, a crisp rule is added to obtain a maximum value of the target speed when the three input variables are as big as possible:\\
-	\item IF Front = MAXDISTSPEED or M5 = MAXDISTSPEED or M10 = MAXDISTSPEED THEN TargetSpeed = MAXSPEED		
+{\small	
+\item \texttt{IF Front = MAXDISTSPEED or M5 = MAXDISTSPEED or M10 = MAXDISTSPEED THEN TargetSpeed = MAXSPEED}
+}
 \end{itemize}
 
 MAXDISTSPEED is the longest possible value for the track sensors, and MAXSPEED is the maximal speed for the specific car. 
@@ -413,15 +418,17 @@ In order to detect the curves, the controller focuses on the sensor values (M10,
 
 The base of rules has been defined again modelling the behaviour of a human driver, so, for this controller:
 
+{\small
 \begin{itemize}		
-	\item IF Front is High THEN steer is S1
-	\item IF Front is Medium AND M10 is High THEN  steer is S2
-	\item IF Front is Medium AND M10 is Medium AND M5 is Medium THEN steer is S2
-	\item IF Front is Medium AND M10 is Medium AND M5 is Low THEN steer is S3
-	\item IF Front is Low AND M10 is High THEN steer is S3
-	\item IF Front is Low AND M10 is Medium AND M5 is Medium THEN steer is S4
-	\item IF Front is Low AND M10 is Medium AND M5 is Low THEN steer is S4
+	\item \texttt{IF Front is High THEN steer is S1}
+	\item \texttt{IF Front is Medium AND M10 is High THEN  steer is S2}
+	\item \texttt{IF Front is Medium AND M10 is Medium AND M5 is Medium THEN steer is S2}
+	\item \texttt{IF Front is Medium AND M10 is Medium AND M5 is Low THEN steer is S3}
+	\item \texttt{IF Front is Low AND M10 is High THEN steer is S3}
+	\item \texttt{IF Front is Low AND M10 is Medium AND M5 is Medium THEN steer is S4}
+	\item \texttt{IF Front is Low AND M10 is Medium AND M5 is Low THEN steer is S4}
 \end{itemize}	
+}
 
 The values for S1 to S4 are respectively: 0, 0.25, 0.5, and 1.
 When M10=Track[7] we will take negative values of the steer (steer=-steer).
@@ -446,7 +453,8 @@ The followed process is depicted in Figure \ref{fig:ga}, in which, as it can be 
 	\begin{center}
 		\includegraphics[width=11cm]{fig/flowchart}
 	\end{center}
-	\caption{Optimization of fuzzy controller flowchart.}
+	\caption{Optimization of a fuzzy controller flowchart. The evaluation of an individual is performed by: putting the parameter values on the two sub-controllers, launching a race in TORCS with this configuration, obtaining the resulting values of Damage, Top Speed and best Lap Time and using these values for the computation of the fitness of the individual.}
+% Antonio - I would change 'Client' by 'Controller' or 'Driver' (Mohammed? Pablo?)
 \end{figure}	
 
 Indeed, the GA starts by creating the initial population with random values for the parameters in the defined range $[0,100]$. The fitness of each candidate solution is computed by injecting its gene values to the parameters of the membership functions of the two fuzzy sub-controllers. The defined autonomous controller is used to drive a car in a 20 laps race in TORCS 
@@ -456,15 +464,15 @@ and the results (Top speed, Damage, and Race time)
 are used to compute the fitness value.
 
 %***********************************************
-\subsection{Genetic algorithm settings}
+\subsection{Genetic Algorithm settings}
 %
 As previously stated, the designed fuzzy controllers have trapezoidal membership functions given by \ref{eq:trapmf}.
 In such a controller, fuzzy rules are applied to linguistic terms. These terms, which qualify a linguistic variable, are defined through membership functions, which, in turn, depend on a set of parameters that `describes' their shape (and operation).
-% Antonio - please Mohammed check this text I have added. ;)
- %Mohammed- ok
-The parameters to be optimized are  those of all the membership functions that constitute the fuzzy partition of the linguistic variable \cite{ThangG08}.
-% Antonio - this sentence seems to be incompleted.
- %Mohammed- fixed out
+
+The parameters to be optimized are those of all the membership functions that constitute the fuzzy partition of the linguistic variable \cite{ThangG08}.
+
+The input linguistic variables in our problem, \textit{Front, Max5} and \textit{Max10}, are represented by three trapezoidal membership functions (See Table \ref{tab:flouevar}).
+
 A trapezoidal membership function in a finite universe of discourse \textit{[a, b]} can be defined by:
 
 \begin{equation}
@@ -485,13 +493,12 @@ x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
 This MF function is defined by four parameters $x_{1}$, $x_{2}$, $x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a, b]} (See Figure \ref{fig:trapeze}).																			
 \begin{figure}[!ht] 
 	\begin{center}
-		\includegraphics[scale=0.95]{fig/trapese}
+		\includegraphics[scale=0.8]{fig/trapese}
 		\caption {Trapezoidal MFs}
 		\label{fig:trapeze}
 	\end{center}
 \end{figure}
 
-The input linguistic variables in our problem, \textit{Front, Max5} and \textit{Max10}, are represented by three trapezoidal membership functions (See Table \ref{tab:flouevar}).
 More generally, a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). In this case, the representation is given by the figure \ref{fig:at}
 \begin{figure}[!ht] 
 	\begin{center}
@@ -539,9 +546,7 @@ As we have just seen, a linguistic variable is represented by a number of parame
 When the number of parameters is reduced and their ranges of variations are well defined, a GA with a binary coding is largely sufficient to find their optimal values. On the other hand, if the number of parameters becomes important, and their variation interval is not well known, the real coding is the most appropriate \cite{elsayed13}. 
 Since our work requires some precision and the variation interval of each parameter is not well known, we have considered a real coding implementation.
 
-The chromosomes of the first population are initialized with random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17_blind}. 
-
-Figure \ref {fig:cromosome} illustrates the structure of the chromosome.
+In that GA, every individual is a vector of 18 values/parameters, 6 per variable. Figure \ref {fig:cromosome} illustrates the structure of the chromosome.
 %with  :
 %% Antonio - Is something missing here? 
 %\begin{itemize}
@@ -557,7 +562,8 @@ Figure \ref {fig:cromosome} illustrates the structure of the chromosome.
 	\end{center}	
 \end{figure}
 
-Tournament based selection has been used to elect chromosomes as parents for genetic operators, while simple arithmetic two point crossover is chosen with non uniform mutation \cite{GAs_Goldberg89}.
+The initialization of the chromosomes (first population) is performed assigning random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17_blind}.
+Tournament based selection has been used to elect chromosomes as parents for genetic operators, while simple arithmetic two point crossover and non uniform mutation \cite{GAs_Goldberg89} have been chosen.
 % Antonio - Mohammed: we should include a reference to any operator. Moreover, it would be great if we can justify why these operators have been selected (instead of others).
 
 %***********************************************
@@ -575,29 +581,27 @@ The fuzzy controller should aim to:
 From this goals, we can derive two possible fitness functions:
 
 \begin{description}
-	\item[fitness 1:]  
+	\item[Fitness 1:]  
 	\begin{equation} \label{fit1}
 	\begin{array}{lllll}
 	%f_{cout} =  $min$ & \alpha & $. damage$ + & $min$ &\beta & $. temps$ 
-	f_{1} =  Min & damage + &\alpha  Min & RaceTime 
+	f_{1} =  Min & damage + &\alpha \dot Min & RaceTime 
 	\end{array}
 	\end{equation}
-	\item[fitness 2:] 
+	\item[Fitness 2:] 
 	\begin{equation} \label{fit2}
 	\begin{array}{llllll}
 	%f_{cout}= min &\alpha & $. dammage$ + & min &\beta & $. temps$ + & min &\gamma & .\frac{1}{vitesse}
-	f_{2}= Min & damage + &\alpha Min & RaceTime+ & Min & \beta \frac{1}{MaxSpeed}
+	f_{2}= Min & damage + &\alpha \dot Min & RaceTime + & Min & \beta \frac{1}{MaxSpeed}
 	\end{array}
 	\end{equation}	
 \end{description}
 
 Being $\alpha$ and $\beta$ two weighting parameters to prioritize the importance of the different objectives.
-To evaluate the candidate controllers during the evolutionary process, we will make each of them compete in a 20 laps race in E-Track5 circuit 
-% Antonio - Mohammed: which kind of race? which track, which conditions, which  
-%                     rivals?
+To evaluate the candidate controllers during the evolutionary process, we will make each of them compete in a 20 laps race in a medium difficulty circuit against a medium level rival.
+% Antonio - Mohammed: which kind of race (practice or with rivals)? which kind of track? why this track?, which conditions (weather)?, which rivals?
 %           This is very important to be mentioned and explained (why have these %           features been selected to correctly evaluate a controller). ;)
-and collect the obtained output values ($damage$, $RaceTime$ and $MaxSpeed$) to compute the fitness.
-
+Then, the obtained output values ($damage$, $RaceTime$ and $MaxSpeed$) are collected to compute the corresponding fitness value.
 
   		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  SIMULATION RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -607,27 +611,30 @@ and collect the obtained output values ($damage$, $RaceTime$ and $MaxSpeed$) to 
 	
 This section is dedicated to the performance evaluation of our fuzzy-genetic controller, called \textit{FGC}.
 	We first, describe the methodology we have used and next, we present the experimental results of the optimization of the fuzzy-genetic driver and using special criteria in each case.
+% Antonio - Mohammed: what are the special criteria?
+
+%***********************************************
+\subsection{Simulation settings}
 	
-	\subsection{Simulation settings}
-	
-	TORCS provides several tracks and cars to choose between. In our case, we chose the E-Track5 circuit for its multiple turns and the \textit{car1-tbr1} car of SCR 1 Server\cite{evo17_blind}.\\
-	% 
-	We have evaluated the fuzzy-genetic controller with the two proposed fitness functions, in order to see which one is appropriate to give the best performances. Thus, we have considered the following bots in the experiments:
+	TORCS provides several tracks and cars to choose between. In our case, we have selected the E-Track5 circuit as it is a quite complex one (it has multiple turns). \textit{car1-tbr1} car has been considered as a rival in that track of SCR 1 Server \cite{evo17_blind}. According to previous experiments, this is a quite tough competitor which will lead our controller to be improved to deal with difficult opponents.
+% Antonio - Mohammed: is that the rival for all the evaluation?
+
+We have evaluated the fuzzy-genetic controller with the two proposed fitness functions, in order to see which one is appropriate to give the best performances. Thus, we have considered the following bots in the experiments:
 	
 \begin{itemize}
-	\item[GFC1:] GA-Fuzzy controller with fitness 1 \ref{fit1},
-	\item[GFC2:] GA-Fuzzy controller with fitness 2 \ref{fit2},
-	\item[AD]: Fuzzy controller \cite{evo17_blind} .
+\item \textbf{GFC1}: GA-Fuzzy controller with fitness 1 (Equation \ref{fit1}).
+\item \textbf{GFC2}: GA-Fuzzy controller with fitness 2 (Equation \ref{fit2}).
+\item \textbf{AD}: Fuzzy controller \cite{evo17_blind}.
 \end{itemize}
-%
-Genetic algorithms are used to optimize the parameters of the fuzzy controller developed in \cite{evo17_blind} with the parameters in Table \ref{tab:parametre}:
+
+20 runs of the GA have been conducted in each case, with the configuration shown in Table \ref{tab:GA_config}.
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\begin{table}[!ht]	
 		\centering
 		\caption{GA parameters}
-		\label{tab:parametre}
+		\label{tab:GA_config}
 		\begin{tabular}{|p{3.6cm}|p{3cm}|}
 			\hline \textbf{Population size} & 20 \\
 			\hline \textbf{Generations} & 50   \\
@@ -636,19 +643,21 @@ Genetic algorithms are used to optimize the parameters of the fuzzy controller d
 			\hline          
 		\end{tabular}	
               \end{table}
+            
+As an example, the evolution of the best Fitness 2 ($f_2$) in the run of the best individual, is presented in Figure \ref{fig:fit2}. It can be clearly seen how the GA converges to the optimal solution along the generations.
+% Antonio - Maybe we should also show an example of the evolution of Fitness 1
 
-% All this should have to be eliminated. Either you show the average evolution for several experiments. You also _have_ to do several experiments - JJ              
-The evolution of Fitness $f_2$ are presented in Figure  \ref{fig:fit2}, where we could see how the GA converges to the optimal solution along the generations.
 \begin{figure}[!ht]	
 	\begin{center}
 		\label{fig:fit2}
 		\includegraphics[width=15cm,height=4cm]{fig/fit2}
-		\caption{Fitness 2 evolution for 50 generations}	
+		\caption{Example of Fitness 2 evolution for 50 generations}
 	\end{center}	
       \end{figure}
       
-      After the genetic algorithm ended obtaining the optimal solution, we represented the resulted membership functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
-      % These should be examples of results. You can't publish results with a single experiment - JJ
+After the GA ended obtaining the optimal solution, we represented the resulted membership functions of the best individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
+% These should be examples of results. You can't publish results with a single experiment - JJ
+% ANtonio - I have commented these are examples and the best results. ;)
 
 
 \begin{figure}%
@@ -669,7 +678,7 @@ The evolution of Fitness $f_2$ are presented in Figure  \ref{fig:fit2}, where we
 		\label{fig:fmax51}%
 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFMAX5}}%
 	\subfigure[with Fitness 2]{%
-		\label{fig:Fmax52}%
+		\label{fig:fmax52}%
 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFMAX52}}%
 	\caption{Max5 input MFs with GA}
 	\label{fig:mfmax5}%
@@ -687,11 +696,13 @@ The evolution of Fitness $f_2$ are presented in Figure  \ref{fig:fit2}, where we
 		\label{fig:MFMAX10}%
 \end{figure}
 
+% Antonio - TO DO: Mohammed, please comment something interesting or curious about the obtained Membership Functions. you can compare them with the initial ones (those of the initial Fuzzy Controller).
 
-
-%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{GA-Fuzzy  controller in practice race} 
-The genetic based fuzzy controllers obtained from the last section are tested in practice race where the two controllers $GFC1$ and $GFC2$ and $AD$ (fuzzy controller) will run each one for 20 laps in E-Track 5 which we used in the evolution approach and tested in E-Road track. The results are in Table \ref{resultat20}.
+
+The genetic based fuzzy controllers obtained from the last section are tested in a practice race where these two evolved controllers, named $GFC1$ and $GFC2$, together with the initial fuzzy controller, $AD$, will run each one for 20 laps in E-Track5 circuit (the one used during the evolution) and after they will be tested also in apractice race in an unknown track for them as E-Road. The obtained results are in Table \ref{resultat20}.
+
 \begin{table}[!ht]
 	\centering
 	\caption{Results of the three controllers in a 20 laps practice race}
@@ -716,13 +727,15 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 		\hline 
 	\end{tabular}
 \end{table}
+% Antonio - TO DO: improve the format and size of this table.
+
 From the table, we can see that the fuzzy controllers optimized by genetic algorithms have given the best results minimizing the global race time and damages ($0$ in  the two GA based fuzzy controllers ) while the AD controller has finished the practice race with some damages.
-We notice also that the GFC controller has run with a higher top speed then GFC1. This is due to to the inclusion of Topspeed in the fitness confirming that GFC2 is the best controller.
+We notice also that the GFC controller has run with a higher top speed then GFC1. This is due to the inclusion of TopSpeed in the fitness confirming that GFC2 is the best controller.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{GA-Fuzzy controllers in a real race}
-The considered fuzzy controllers have been used in real race with five controllers from each team integrated with TORCS. The Table \ref{tab:adreal}, \ref{tab:gfc1real}, \ref{tab:gfc2real} illustrate the results obtained in a five laps real race. We note that the obtained ranking by the controllers $GFC1$,   $GFC2$ was third and second respectively. 
-While  the point of view of race time, GFC2 has a better time than GFC1. For the damage, GFC1 and GFC2 finished the race without recording any damage On the other hand, the AD controller was not able to avoid high damages in the track.
 
+Every fuzzy controller has been tested separately from the others in real race against five standard controllers from each team integrated with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and \ref{tab:adreal} illustrate their performance in a 5 laps real race. 
 
 \begin{table}[!ht]
 	\caption{Results of GFC1 in a real race}
@@ -764,9 +777,12 @@ While  the point of view of race time, GFC2 has a better time than GFC1. For the
 	\end{tabular}
 \end{table}
 
+We note that the obtained ranking by the controllers $GFC1$,   $GFC2$ was third and second respectively. 
+While  the point of view of race time, GFC2 has a better time than GFC1. For the damage, GFC1 and GFC2 finished the race without recording any damage On the other hand, the AD controller was not able to avoid high damages in the track.
+% Antonio - TO DO: improve the analysis of results.
 
-
-	\section{Conclusions and Future Work} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions and Future Work} 
 \label{sec:conclusions}
 
 In this work, we presented a genetic approach to optimize and improve an existing fuzzy driver for TORCS simulator, which combines two sub-controllers, one to calculate the target speed and the other for the direction (steer).
