@@ -320,65 +320,50 @@ Every TORCS driver bot is controlled by means of a set of actuators \cite{Torcs3
 %		\label{table:TORCS_actuators}
 %	\end{table}
 	
-Hence, a controller is a program, which runs inside TORCS, that automatically drives a car. It gets as input information about the current state of the car and its situation on the track (sensors). These collected data are used to decide actions (from the list) to do in the next simulation tick.
+Hence, a controller is a program, which runs inside TORCS, that automatically drives a car. It gets as input information about the current state of the car and its situation on the track (sensors). These collected data are used to decide actions to perform in the next simulation tick.
 	
 	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%  FUZZY CONTROLLER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%  FUZZY CONTROLLER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\section{Fuzzy Controller}
 	\label{sec:fuzzy_controller}
-	
-The proposed controller has the same modular architecture as the simple driver, and has some common functions of this approach. 
-However, the target speed and steering angle are computed by means of two modular and specialised fuzzy controllers, which consider five position sensors.
 
-In the following sections, each sub-controller is described.
+% Antonio - I reduce and rewrite this section as it is the same as in previus work.
+
+The initial proposed controller \cite{evo17_blind} has the same modular architecture as the simple driver of TORCS, however, the target speed and steering angle are computed by means of two modular and specialised fuzzy sub-controllers, which consider five position sensors. This is the controller which will be improved by means of a GA.
+
+The two sub-controllers are summarized in the following subsections.
 
 %-----------------------------------------------
 
 \subsection{Fuzzy target speed sub-controller}
 
-The first proposed fuzzy sub-controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: moving as faster as possible and secure the car. This estimation is based on fuzzy rules, so two general cases are considered, following the simple driver approach:
+This controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: moving as fast as possible and be safe. 
 
+This estimation is based on two general cases: if the car is in a straight line, the target speed will take a maximum value (\textit{maxSpeed} km/h). However, if it is close to a curve, the controller will decrease the current speed to a value included in the interval \textit{[minSpeed, maxSpeed]} km/h.
+
+This fuzzy controller has an output, the speed, and three input values:
 \begin{itemize}
-	\item If the car is in a straight line, the target speed will take a maximum value (\textit{maxSpeed} km/h).
-	\item If it is close to a curve, the controller will decrease the current speed to a value included in the interval \textit{[minSpeed; maxSpeed]} km/h.
+	\item Front = Track[9]: front distance to the track border (angle 0º).
+	\item M5 = max (Track[8], Track[10]): max distance to the track border in an angle of +5º and -5º with respect to Front.
+	\item M10 = max (Track[7], Track[11]): max distance to track border in an angle of +10º and -10º.
 \end{itemize}
 
-Thus, in case the car is out of the track or near a curve, the brake system is activated, and ABS (Anti-Block System) and TCL (Traction Control Limit) will be loaded to avoid the car skidding. The obtained target speed will be used for computing the value of acceleration, following - as the simple driver do - the expression:
-
-\begin{equation}	
-Gas(speed-Target_{speed})=-1+\frac{2}{1+e^{speed-Target_{speed}}}	
-\end{equation}
-
-\textit{Gas} function refers to acceleration, \textit{speed} is the current speed of the car.
-
-This fuzzy controller has three input values and one output: the target speed .
-The presented controller is a Mamdani-based fuzzy system \cite{iancu2012} with trapezoidal Membership Functions (MF) for input variables, because it avoids sudden changes in input values. It considers three values among the 19 track sensors:
-
-\begin{itemize}
-	\item Front = Track[9]: the front distance between the car and the border of the track (angle 0º).
-	\item M5 = max (Track[8], Track[10]): the max distance to the track limits in an angle of +5º and -5º with respect to Front.
-	\item M10 = max (Track[7], Track[11]): the max distance to the border in an angle of +10º and -10º.
-\end{itemize}
-
-
-Each input variable is represented by three membership functions: Low, Medium and High. The description of fuzzy inputs and output are represented in Table \ref{tab:flouevar}.
+It is a Mamdani-based fuzzy system \cite{iancu2012} with three trapezoidal Membership Functions (MF) for every input variable. The description of these fuzzy inputs and output are represented in Table \ref{tab:flouevar}.
 
 \begin{table}
+		{\scriptsize
 	\caption{Fuzzy variables description.}
 	\label{tab:flouevar}
 	\begin{tabular}{ |p{1.5cm}|p{2cm}|p{2cm}|p{2 cm}|p{1 cm}|p{1.5 cm}|p{1.5 cm}|}
 		\hline
-		{ \color{red} Variable }&
-		{ \color{red} Range }&
-		{ \color{red} Name}&  
-		{ \color{red} MF } &
-		{ \color{red} Low } &
-		{ \color{red} Medium }&
-		{ \color{red} High } 
-		
-		\\
-		\hline
+		{ \textbf{Variable}}&
+		{ \textbf{Range}}&
+		{ \textbf{Name}}&  
+		{ \textbf{MF}} &
+		{ \textbf{Low}} &
+		{ \textbf{Medium}}&
+		{ \textbf{High}} \\
 		\hline
 		Input & [0-100] m & Front & trapezoidal & [0-50] & [20-80] & [60-100]
 		\\
@@ -393,10 +378,10 @@ Each input variable is represented by three membership functions: Low, Medium an
 		\\
 		\hline 
 	\end{tabular} 
+}
 \end{table}
 
-The base of rules has been composed modelling the behaviour of a human expert driver, refining them also. Thus, this set is designed so that if the frontal distance is maximal, then the target speed should be the maximum. Its value should be lower when the frontal distance is shorter. 
-The fuzzy rules are listed below:
+The base of rules was composed modelling the behaviour of a human expert driver. Thus, this set is designed to maximize the car speed depending on the distance to the track border. The fuzzy rules are:
 
 \begin{itemize}
 	\item IF Front is High THEN TargetSpeed is TS1
@@ -407,30 +392,26 @@ The fuzzy rules are listed below:
 	\item IF Front is Low and M5 is Low and M10 is Medium THEN TargetSpeed is TS6
 	\item IF Front is Low and M5 is Low and M10 is Low THEN TargetSpeed is TS7\\
 	
-	In addition, a crisp rule is added to rule base to obtain a maximum value of the target speed when the three input variables are as big as possible: 
+In addition, a crisp rule is added to obtain a maximum value of the target speed when the three input variables are as big as possible:\\
 	\item IF Front = MAXDISTSPEED or M5 = MAXDISTSPEED or M10 = MAXDISTSPEED THEN TargetSpeed = MAXSPEED		
 \end{itemize}
 
-MAXDISTSPEED is the a longest possible value for the track sensors, and MAXSPEED, which is related to the car's properties, is the maximal car speed. For example in the case of car-trb1 model, MAXSPEED=300.
-
+MAXDISTSPEED is the longest possible value for the track sensors, and MAXSPEED is the maximal speed for the specific car. 
 The output value is encoded by seven singletons TS1 to TS7, being respectively: 280, 240, 220, 180, 120, 60 and 30.
 
 %-----------------------------------------------
 
 \subsection{Fuzzy steering control sub-controller}	
 
-In addition to the speed sub-controller, another fuzzy approach has been applied to control the steering, estimating and determining the target position of the car. 
+The second fuzzy controller aims to control the steering, estimating and determining the target position of the car. 
 
-The architecture of this sub-controller is similar to the speed sub-controller, but with the steering as output. 
-% Antonio - This figure is not in this paper. ;)
-% Mohammed - fixed out
-The set of sensors considered are the same as in the speed case, described in Table \ref{tab:flouevar}.
+The structure of this sub-controller is similar to the speed one, but, obviously, with the steering as output. Thus, the set of sensors considered is the same as in the speed case (in Table \ref{tab:flouevar}).
 
-Then, if the car is in a straight line, it will set as target position half width of the race track (central position of the lane).	Whereas, if the car is near a right curve, it will approach the path leading to the right, with a space between the car and the border of the track to avoid the loss of control. The same approach is considered if the car is near a left curve.
+Then, as general rules: if the car is in a straight line, it will set as target position half width of the race track (central position of the lane). Whereas, if the car is near a right curve, it will approach the path leading to the right, with a space between the car and the border of the track to avoid the loss of control. The same approach is considered if the car is near a left curve.
 
 In order to detect the curves, the controller focuses on the sensor values (M10, M5, and Front). So, if the value on Front sensor is the longest, there is a straight road; whereas if the values of M5 and M10 with positive angles (+5 and +10) are the longest, there is right curve; and the other way round.
 
-The base of rules has been defined again modelling the behaviour of a human driver, so, for this controller is:
+The base of rules has been defined again modelling the behaviour of a human driver, so, for this controller:
 
 \begin{itemize}		
 	\item IF Front is High THEN steer is S1
@@ -445,34 +426,34 @@ The base of rules has been defined again modelling the behaviour of a human driv
 The values for S1 to S4 are respectively: 0, 0.25, 0.5, and 1.
 When M10=Track[7] we will take negative values of the steer (steer=-steer).
 
-Once the controllers have been described, they will be tested and compared with the standard one y several races. The obtained results are presented in the following section.
+These controllers were defined with our own criteria, but they could be far from being optimal, so, in the following section we apply a Genetic Algorithm for their improvement.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  OPTIMISING WITH GAS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 \section{Optimizing the fuzzy controllers with GA}
+\label{sec:GA_optimization}
 
-Designing a fuzzy controller for TORCS racing needs a human expert to define the membership functions parameters and the rule base, this expert even if he exists, he could not provide an exact repartition of the fuzzy membership functions values over the universe of discourse. These difficulties 
-% Antonio - Which difficulties? Comment them. %Mohammed- done
- have led us to move towards the use of Genetic Algorithms (GAs) \cite{GAs_Goldberg89} because of their global exploration characteristic in a complex environment, as this problem plots.
+Designing an optimal fuzzy controller for TORCS racing needs a human expert to define the membership functions parameters and the rule base. This expert, even if he exists, could not provide an exact repartition of the fuzzy membership functions values over the universe of discourse. 
 
-The proposed optimization approach aims to find the optimal parameters of the membership functions of the two sub-controllers \cite{evo17_blind}. 
-An initial population is drawn randomly and each solution is evaluated using TORCS 
-% Antonio - What does 'evolved through TORCS' means? Please, explain it better.
- %Mohammed- fixed out
-to get the optimal one.
-Indeed, the genetic algorithm starts by  creating the start population randomly in the defined range $[0 100]$ and the fitness of each candidate solution  is computed first,  by injecting its values to the two fuzzy sub-controllers so to get the membership functions parameters. The obtained fuzzy controllers are used to drive a car in a 20 laps race in TORCS and the  results ( Damage, Race time and Top speed) are used to get the fitness value (see Figure \ref{fig:ga}).
+This difficulty have led us to move towards the use of Genetic Algorithms (GAs) \cite{GAs_Goldberg89} because of their global exploration characteristic in a complex environment, as this problem plots.
 
-% Antonio - This is the main part of the work, you must explain completely (and very well) the GA procedure. ;)
- %Mohammed- fixed out
+The proposed optimization approach aims to find the optimal parameters of the membership functions of the two sub-controllers previously introduced. 
+
+The followed process is depicted in Figure \ref{fig:ga}, in which, as it can be seen, the GA uses TORCS for the evaluation of every individual during the evolutionary process.
+
 \begin{figure}[!ht]
 	\label{fig:ga}
 	\begin{center}
-		\includegraphics[width=13cm]{fig/flowchart}
+		\includegraphics[width=11cm]{fig/flowchart}
 	\end{center}
-	\caption{Optimization of fuzzy controller flowchart }
-% Antonio - Please, explain deeper the figure. It's not easy to understand
- %Mohammed- fixed out
+	\caption{Optimization of fuzzy controller flowchart.}
 \end{figure}	
+
+Indeed, the GA starts by creating the initial population with random values for the parameters in the defined range $[0,100]$. The fitness of each candidate solution is computed by injecting its gene values to the parameters of the membership functions of the two fuzzy sub-controllers. The defined autonomous controller is used to drive a car in a 20 laps race in TORCS 
+% Antonio - Mohammed, qué tipo de carrera? con rivales? sin rivales? en una pista únicamente? que tipo de pista? por qué esa pista?
+and the results (Top speed, Damage, and Race time) 
+% Antonio - Mohammed, Lap time o race time? En la figura pone LapTime.
+are used to compute the fitness value.
 
 %***********************************************
 \subsection{Genetic algorithm settings}
