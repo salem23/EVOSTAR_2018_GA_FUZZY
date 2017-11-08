@@ -211,111 +211,116 @@ In this paper, we propose to optimize the parameters of the membership functions
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{ TORCS Description: }
-	\label{sec:torcs}
-% Antonio - TODO: Maybe reduce it (if we go beyond 16 pages). ;)
-The Open Racing Car Simulator (TORCS) is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. TORCS allows the user to control one of the robots through an input device such as keyboard, mouse or joystick \cite{manualTORCS}.
+\section{TORCS Description}
+\label{sec:torcs}
+% Antonio - I have reduced it, as we have now more than 16 pages. We could remove the tables if needed.
+The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. 
 
-Its high degree of modularity and portability make it ideal for artificial research. Indeed, a number of competitions and research-based papers have already appeared that make use of the TORCS  engine\cite{WebTORCS}. Because of these features, the simulator has become popular and interesting as it provides real-time driving simulation\cite{manualTORCS}.  The game allows different types of races from the practical single session to the championship \cite{manualTORCS}.
+Its high degree of modularity and portability, together with the realistic and real-time driving simulation, make it an ideal testbed for artificial intelligence research, as it can be seen in the literature. 
+The game offers different types of races from the practical single session to the championship.
+
+There is a large set of sensors \cite{Torcs3} which the car can consider during a race, such as distances to track borders, to rivals, current fuel, current gear, position in the race, speed, or damage, among others.
 
 %%%%%%%%%%%%%%%%%%%%%%	
-	\begin{table}[ht!]
-		{\scriptsize
-			{\centering
-				\begin{tabular}{|p{2cm}|p{3cm}|p{3 cm}|p{3 cm}|}
-					\hline
-					{\textbf{Sensor} }&
-					{\textbf{Name} }&
-					{\textbf{Range} (unit)} &  
-					{\textbf{Data type}}\\ 
-					\hline
-					1 & angle & [-$\pi$,+$\pi$ ] & Double\\ 
-					\hline
-					2 & curLapTime & [0,+$\infty$] (s)	& Double\\ 
-					\hline 
-					3 & damage & [0,+$\infty$)(point)& Double\\ 
-					\hline 
-					4 & distFromStart & [0,+$\infty$) (m)& Double \\ 
-					\hline 
-					5 & distRaced &[0,+$\infty$) (m)& Double\\
-					\hline 
-					
-					6 & focus & [0,200] (m)& Double\\
-					\hline 
-					
-					7 & fuel & [0,+$\infty$) (l)& Double\\
-					
-					\hline
-					8 & gear & \{-1,0,1,.. 6\}g& Integer \\
-					
-					\hline
-					9 & lastLapTime &[0,+1] (s) & Double \\
-					
-					\hline
-					10 & opponents &[0,200] (m)& Double \\
-					
-					\hline
-					10 & racePos & \{1,2,...,N\} & Double \\
-					\hline
-					11 & rpm    & [0,+$\infty$) (rpm)   & Double \\
-					\hline  
-					13 & speedX & (-$\infty$,+$\infty$) (km/h) & Double\\
-					\hline  
-					14 & speedY &(-$\infty$,+$\infty$) (km/h)  & Double\\
-					\hline 
-					15 & speedZ & (-$\infty$,+$\infty$) (km/h) & Double \\
-					
-					\hline
-					16 & track &  [0,200 ] & Double\\ 
-					\hline
-					17 & trackPos & (-$\infty$,+$\infty$) & Double\\
-					
-					\hline
-					
-					18 & wheelSpinVel  & [0,+$\infty$) (rad/s) & Double\\
-					
-					\hline
-					19 & z &  (-$\infty$,+$\infty$) (m) & Double\\
-					
-					\hline
-					
-				\end{tabular}
-			}
-		}
-		\caption{Description of available sensors in TORCS \cite{Torcs3}.}
-		\label{t1}
-	\end{table}
+%	\begin{table}[ht!]
+%		{\scriptsize
+%			{\centering
+%				\begin{tabular}{|p{2cm}|p{3cm}|p{3 cm}|p{3 cm}|}
+%					\hline
+%					{\textbf{Sensor} }&
+%					{\textbf{Name} }&
+%					{\textbf{Range} (unit)} &  
+%					{\textbf{Data type}}\\ 
+%					\hline
+%					1 & angle & [-$\pi$,+$\pi$ ] & Double\\ 
+%					\hline
+%					2 & curLapTime & [0,+$\infty$] (s)	& Double\\ 
+%					\hline 
+%					3 & damage & [0,+$\infty$)(point)& Double\\ 
+%					\hline 
+%					4 & distFromStart & [0,+$\infty$) (m)& Double \\ 
+%					\hline 
+%					5 & distRaced &[0,+$\infty$) (m)& Double\\
+%					\hline 
+%					
+%					6 & focus & [0,200] (m)& Double\\
+%					\hline 
+%					
+%					7 & fuel & [0,+$\infty$) (l)& Double\\
+%					
+%					\hline
+%					8 & gear & \{-1,0,1,.. 6\}g& Integer \\
+%					
+%					\hline
+%					9 & lastLapTime &[0,+1] (s) & Double \\
+%					
+%					\hline
+%					10 & opponents &[0,200] (m)& Double \\
+%					
+%					\hline
+%					10 & racePos & \{1,2,...,N\} & Double \\
+%					\hline
+%					11 & rpm    & [0,+$\infty$) (rpm)   & Double \\
+%					\hline  
+%					13 & speedX & (-$\infty$,+$\infty$) (km/h) & Double\\
+%					\hline  
+%					14 & speedY &(-$\infty$,+$\infty$) (km/h)  & Double\\
+%					\hline 
+%					15 & speedZ & (-$\infty$,+$\infty$) (km/h) & Double \\
+%					
+%					\hline
+%					16 & track &  [0,200 ] & Double\\ 
+%					\hline
+%					17 & trackPos & (-$\infty$,+$\infty$) & Double\\
+%					
+%					\hline
+%					
+%					18 & wheelSpinVel  & [0,+$\infty$) (rad/s) & Double\\
+%					
+%					\hline
+%					19 & z &  (-$\infty$,+$\infty$) (m) & Double\\
+%					
+%					\hline
+%					
+%				\end{tabular}
+%			}
+%		}
+%		\caption{Description of available sensors in TORCS \cite{Torcs3}.}
+%		\label{table:TORCS_sensors}
+%	\end{table}
 	
-	Every TORCS driver bot is controlled by means of a set of actuators: the steering wheel `Steer', the accelerator `accel', the brake pedal and the gearbox. In addition, a meta-action is available to request a restart of the race to the server. Table \ref{tab2} details the available actions/actuators and their representation.
+Every TORCS driver bot is controlled by means of a set of actuators \cite{Torcs3}: the steering wheel `Steer', the accelerator `accel', the brake pedal and the gearbox. 
+
+%Table \ref{table:TORCS_actuators} details the available actions/actuators and their representation.
+%	
+%	\begin{table}[ht!]
+%		{\scriptsize
+%			{\centering
+%				\begin{tabular}{|p{3cm}|p{3 cm}|p{3 cm}|}
+%					\hline
+%					
+%					{\textbf{Action} }&
+%					{\textbf{Range} (unit)} &  
+%					{\textbf{Data type}}\\ 
+%					\hline
+%					Acceleration & [0,+1] & Double\\ 
+%					\hline
+%					Brake & [0,+1]	& Double\\
+%					\hline
+%					Gear & -1..0..+6	& Double\\
+%					\hline
+%					Steer & [-1,+1]	& Double\\
+%					\hline
+%					Clutch & [-1,+1]	& Double\\
+%					\hline
+%				\end{tabular}
+%			}
+%		}
+%		\caption{TORCS Actuators \cite{torcs2012}.}
+%		\label{table:TORCS_actuators}
+%	\end{table}
 	
-	\begin{table}[ht!]
-		{\scriptsize
-			{\centering
-				\begin{tabular}{|p{3cm}|p{3 cm}|p{3 cm}|}
-					\hline
-					
-					{\textbf{Action} }&
-					{\textbf{Range} (unit)} &  
-					{\textbf{Data type}}\\ 
-					\hline
-					Acceleration & [0,+1] & Double\\ 
-					\hline
-					Brake & [0,+1]	& Double\\
-					\hline
-					Gear & -1..0..+6	& Double\\
-					\hline
-					Steer & [-1,+1]	& Double\\
-					\hline
-					Clutch & [-1,+1]	& Double\\
-					\hline
-				\end{tabular}
-			}
-		}
-		\caption{TORCS Actuators \cite{torcs2012}.}
-		\label{tab2}
-	\end{table}
-	
-	Hence, a controller is a program, which run inside TORCS, that automatically drives a car. It gets as input information about the current state of the car and its situation on the track. These collected data are used to compute actions to do in the next simulation tick; like steer, gear changes, acceleration or brake and clutch. A client may request a restart of the race by sending a special action on the server: Restart or shutdown \cite{manualTORCS}.
+Hence, a controller is a program, which runs inside TORCS, that automatically drives a car. It gets as input information about the current state of the car and its situation on the track (sensors). These collected data are used to decide actions (from the list) to do in the next simulation tick.
 	
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%  FUZZY CONTROLLER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -554,9 +559,8 @@ When the number of parameters is reduced and their ranges of variations are well
 Since our work requires some precision and the variation interval of each parameter is not well known, we have considered a real coding implementation.
 
 The chromosomes of the first population are initialized with random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17_blind}. 
-% Antonio - another citation is missing.
- %Mohammed- fixed out
-The figure \ref {fig:cromosome} illustrates the structure of the chromosome.
+
+Figure \ref {fig:cromosome} illustrates the structure of the chromosome.
 %with  :
 %% Antonio - Is something missing here? 
 %\begin{itemize}
@@ -572,8 +576,8 @@ The figure \ref {fig:cromosome} illustrates the structure of the chromosome.
 	\end{center}	
 \end{figure}
 
-Tournament based selection has been used to select chromosomes as parents for genetic operators, while simple arithmetic two point crossover is chosen with non uniform mutation \cite{GAs_Goldberg89}.
-% Antonio - we should include a reference to any operator. Moreover, it would be great if we can justify why these operators have been selected (instead of others).
+Tournament based selection has been used to elect chromosomes as parents for genetic operators, while simple arithmetic two point crossover is chosen with non uniform mutation \cite{GAs_Goldberg89}.
+% Antonio - Mohammed: we should include a reference to any operator. Moreover, it would be great if we can justify why these operators have been selected (instead of others).
 
 %***********************************************
 \subsection{Fitness definition}
@@ -608,7 +612,8 @@ From this goals, we can derive two possible fitness functions:
 
 Being $\alpha$ and $\beta$ two weighting parameters to prioritize the importance of the different objectives.
 To evaluate the candidate controllers during the evolutionary process, we will make each of them compete in a 20 laps race in E-Track5 circuit 
-% Antonio - which kind of race? which track, which conditions, which rivals?
+% Antonio - Mohammed: which kind of race? which track, which conditions, which  
+%                     rivals?
 %           This is very important to be mentioned and explained (why have these %           features been selected to correctly evaluate a controller). ;)
 and collect the obtained output values ($damage$, $RaceTime$ and $MaxSpeed$) to compute the fitness.
 
@@ -624,17 +629,17 @@ This section is dedicated to the performance evaluation of our fuzzy-genetic con
 	
 	\subsection{Simulation settings}
 	
-	TORCS provides several tracks and cars to choose between. In our case, we chose the E-Track5 circuit for its multiple turns and the \textit{car1-tbr1} car of SCR 1 Server\cite{evo17}.\\
+	TORCS provides several tracks and cars to choose between. In our case, we chose the E-Track5 circuit for its multiple turns and the \textit{car1-tbr1} car of SCR 1 Server\cite{evo17_blind}.\\
 	% 
 	We have evaluated the fuzzy-genetic controller with the two proposed fitness functions, in order to see which one is appropriate to give the best performances. Thus, we have considered the following bots in the experiments:
 	
 \begin{itemize}
 	\item[GFC1:] GA-Fuzzy controller with fitness 1 \ref{fit1},
 	\item[GFC2:] GA-Fuzzy controller with fitness 2 \ref{fit2},
-	\item[AD]: Fuzzy controller \cite{evo17} .
+	\item[AD]: Fuzzy controller \cite{evo17_blind} .
 \end{itemize}
 %
-Genetic algorithms are used to optimize the parameters of the fuzzy controller developed in \cite{evo17} with the parameters in Table \ref{tab:parametre}:
+Genetic algorithms are used to optimize the parameters of the fuzzy controller developed in \cite{evo17_blind} with the parameters in Table \ref{tab:parametre}:
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -653,7 +658,7 @@ Genetic algorithms are used to optimize the parameters of the fuzzy controller d
 
 % All this should have to be eliminated. Either you show the average evolution for several experiments. You also _have_ to do several experiments - JJ              
 The evolution of Fitness $f_2$ are presented in Figure  \ref{fig:fit2}, where we could see how the GA converges to the optimal solution along the generations.
-\begin{figure}[!h]	
+\begin{figure}[!ht]	
 	\begin{center}
 		\label{fig:fit2}
 		\includegraphics[width=15cm,height=4cm]{fig/fit2}
