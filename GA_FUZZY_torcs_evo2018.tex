@@ -732,7 +732,8 @@ The best solution obtained with each fitness function from these runs have been 
 		\label{fig:MFMAX10}%
 \end{figure}
 
-The shapes of the obtained memberships are completely different from those obtained by Trial/Error in the previous work \cite{evo17_blind} where the Medium linguistic variable of the new functions has bigger range.
+The shapes of the obtained memberships are completely different from those obtained by Trial/Error in the previous work \cite{evo17_blind} where the Medium linguistic variable of the new functions has bigger range which make the controller very sensitive to the middle distances of the inputs like a the real driver where most of the cases the car distance from the borders is in that range.
+The other remark from the obtained  membership functions  is the dimension of the common range between the LOW and MEDIUM  which provide a higher diversity in output values.
 % Antonio - Yes, but this can be seen in the figure. I meant you should say something interesting as if the new MFs give a higher relevance to one of the ranges (LOW, MEDIUM, HIGH), and what does this mean from the point of view of the controller. ;D
 %Mohammed- working on it
 
@@ -746,10 +747,10 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 	\centering
 	\caption{Results of the three controllers in a 20 laps practice race}
 	\label{resultat20}
-	\begin{tabular}{|c|p{3 cm}|p{2cm}|p{2cm}|}
+	\begin{tabular}{|p{3cm}|c|c|c|}
 		\hline
 		\multicolumn{4}{|c|}{\textbf{E-Track 5}}  \\
-		\hline \textbf{RESULTS} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}  \\
+		\hline \textbf{Results} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}  \\
 		\hline Best Lap Time         & 29:70 & 30:03 & 29:50 \\
 		\hline Top Speed          & 209 & 216 & 216\\
 		\hline Min Speed          & 168 & 148 & 182 \\
@@ -760,7 +761,7 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 		\multicolumn{4}{|c|}{\textbf{E-Road}}  \\ 
 		\hline \textbf{Results} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}  \\
 		\hline Best Lap Time         & 02:31:71    & 02:26:72       & 02:26:54  \\
-		\hline Top Speed          & 206         & 205            &  208 \\
+		\hline Top Speed& 206& 205 &  208 \\
 		\hline Min Speed          & 30          & 39             & 37  \\
 		\hline Last Lap Time       & 03:12:79    &  02:42:26      &  02:33:36 \\
 		\hline Damage          &   0         & 0              & 0  \\
@@ -770,12 +771,12 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 % Antonio - Mohammed, please check the values of the first track (E-Track 5) as the best lap and the last lap times are always the same (for the 3 controllers).
 %Mohammed- The second controller  obtained the best lap in the last one, for the other , I corrected it
 From the table, we can see that the fuzzy controllers optimized by the GA have given the best results, minimizing the global race time and damages ($0$ in the two GA-based fuzzy controllers), while the AD controller has finished the practice race with many damages.
-The consideration of a new track for the controllers as E-Road (quite long and difficult), has proved their value in the adaptation to other tracks different fro the one used for `training' (optimizing).
+The consideration of a new track for the controllers as E-Road (quite long and difficult), has proved their value in the adaptation to other tracks different from the one used for `training' (optimizing).
 
-GFC2 controller has run with a higher Speed (considering overall Top Speed and Min Speed) than GFC1 in the two tracks. This is a positive consequence of the inclusion of $TopSpeed$ variable in the fitness computation.
+GFC2 controller has run with a higher Speed (considering overall Top Speed and Min Speed) than GFC1 in the two tracks. This is a positive consequence of the inclusion of $TopSpeed$ variable in the fitness computation so the GA based fuzzy controller has optimized the speed of the car due to early braking and detection of turns and their curving angles. This ability  of the GA-fuzzy controller collaborates to overall race time minimization and the final ranking.
 
 % Antonio - add more comments on the results
-%Mohammed- working on it
+%Mohammed- done
 According to these results, we can conclude that GFC2 is the best controller.
 
 
@@ -786,9 +787,10 @@ According to these results, we can conclude that GFC2 is the best controller.
 Every fuzzy controller has been tested separately from the others in a real race against five standard controllers from each team integrated with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and \ref{tab:adreal} illustrate their performance in a 5 laps real race. 
 
 \begin{table}[!ht]
+		\centering
 	\caption{Results of GFC1 in a real race (5 laps)}
 	\label{tab:gfc1real}
-	\begin{tabular}{|p{2.3cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
+	\begin{tabular}{|p{2.3cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.5 cm}|}
 		\hline \textbf{E-Track5} &   \textbf{GFC1} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
 		\hline \textbf{Ranking} & 3/6&4/6&1/6&5/6&2/6&6/6\\			
 		\hline \textbf{Race Time}	& 02:30:74\newline+35:70&02:30:74\newline +1 lap &02:30:74&02:30:74\newline +1 lap &02:30:74\newline+12:13&02:30:74\newline+1 lap\\	
@@ -799,9 +801,10 @@ Every fuzzy controller has been tested separately from the others in a real race
 	\end{tabular}
 \end{table}
 \begin{table}[!ht]
+	\centering
 	\caption{Results of GFC2 in a real race (5 laps)}
 	\label{tab:gfc2real}
-	\begin{tabular}{|p{2.3cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
+	\begin{tabular}{|p{2.3cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.5 cm}|}
 		\hline \textbf{E-Track5} & \textbf{GFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
 		\hline \textbf{Ranking} & 2/6&4/6&1/6&6/6&3/6&5/6\\			
 		\hline \textbf{Race Time}	& 02:30:83\newline +03:99&  02:30:83\newline+1 lap&02:30:83&02:30:83\newline+1 lap&02:30:83\newline+08:35&02:30:83\newline+1 lap\\	
@@ -812,9 +815,10 @@ Every fuzzy controller has been tested separately from the others in a real race
 	\end{tabular}
 \end{table}
 \begin{table}[!ht]
+		\centering
 	\caption{Results of AD in a real race}
 	\label{tab:adreal}
-	\begin{tabular}{|p{2.3 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|p{1.75 cm}|}
+	\begin{tabular}{|p{2.3 cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.5 cm}|}
 		\hline \textbf{E-Track5} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
 		\hline \textbf{Ranking} & 6/6&5/6&1/6&4/6&2/6&3/6\\			
 		\hline \textbf{Race Time}	& 02:31:83\newline+5laps&02:31:83\newline+1 lap&02:31:83&02:31:83\newline+1 lap&02:31:83\newline+21:32&02:31:83\newline+33:43 \\	
@@ -826,9 +830,15 @@ Every fuzzy controller has been tested separately from the others in a real race
 \end{table}
 
 We note that the obtained ranking by the controllers $GFC1$,   $GFC2$ was third and second respectively. 
-While  the point of view of race time, GFC2 has a better time than GFC1. For the damage, GFC1 and GFC2 finished the race without recording any damage On the other hand, the AD controller was not able to avoid high damages in the track.
+Regarding the race time, GFC2 has a better time than GFC1 while GFC1 and GFC2 finished the race without recording any damage.
+On the other hand, the AD controller was not able to avoid high damages in the track.
+These results are a confirmation of the good optimization done by the genetic algorithms and mainly  when the Top Speed was considered in the fitness. 
+The obtained results in real race with opponents from tough teams from TORCS are encouraging even the optimization process was in practice races.
+This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track\cite{evo17_blind}. 
+The enhancement  of that driver by the optimal values of the membership function values,  allows it to detect and overtake the opponents with no damage or stuck.
+ 
 % Antonio - TO DO: improve the analysis of results.
-%Mohammed- working on it
+%Mohammed- done
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and Future Work} 
 \label{sec:conclusions}
