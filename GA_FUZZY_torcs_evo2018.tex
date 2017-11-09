@@ -175,9 +175,9 @@ For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a 
 %Pablo: Explain why our approach is better, because TORCS is more complicated
 % Mohammed- In TORCS controllers has less time to make a driving action , also it is more realistic than others by considering  traction, friction .....
 
-Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized like the proposed here.
+Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized like the proposed here because their controller does not compute the target speed, it just produce the acceleration value without any indication of speed.
 % Antonio - please Mohammed, explain this better. What does this mean?
-
+%Mohammed- done
 Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behaviour, but it did not take the target speed into account unlike our previous controller \cite{evo17_blind} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process. 
 In this paper, we propose to optimize these parameters using a real coded genetic algorithm aiming to improve the performance of the original fuzzy controller.
 
@@ -551,9 +551,9 @@ The initialization of the chromosomes (first population) is performed assigning 
 Tournament based selection has been used to elect 
 % Antonio - I put 'elect' for not repeating 'selection' and 'select'. ;D
 %Mohammed - Sorry, )-:
-chromosomes as parents for genetic operators, while simple arithmetic two point crossover and non uniform mutation \cite{GAs_Goldberg89} have been chosen.
+chromosomes as parents for genetic operators, while simple arithmetic two point crossover \cite{crossGA2017} and non uniform mutation \cite{mutation1997} have been chosen.
 % Antonio - Mohammed: we should include a reference to any operator. Moreover, it would be great if we can justify why these operators have been selected (instead of others).
-
+%mohammed- citations added
 
 %***********************************************
 
@@ -734,7 +734,7 @@ The best solution obtained with each fitness function from these runs have been 
 
 The shapes of the obtained memberships are completely different from those obtained by Trial/Error in the previous work \cite{evo17_blind} where the Medium linguistic variable of the new functions has bigger range.
 % Antonio - Yes, but this can be seen in the figure. I meant you should say something interesting as if the new MFs give a higher relevance to one of the ranges (LOW, MEDIUM, HIGH), and what does this mean from the point of view of the controller. ;D
-
+%Mohammed- working on it
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -753,12 +753,12 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 		\hline Best Lap Time         & 29:70 & 30:03 & 29:50 \\
 		\hline Top Speed          & 209 & 216 & 216\\
 		\hline Min Speed          & 168 & 148 & 182 \\
-		\hline Last Lap Time       & 29:79 &  30:03 & 29:50\\
+		\hline Last Lap Time       & 29:79 &  30:03 & 29:94\\
 		\hline Damage          & 936 & 0 & 0\\
 		\hline 
 		\hline
 		\multicolumn{4}{|c|}{\textbf{E-Road}}  \\ 
-		\hline \textbf{RESULTS} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}  \\
+		\hline \textbf{Results} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}  \\
 		\hline Best Lap Time         & 02:31:71    & 02:26:72       & 02:26:54  \\
 		\hline Top Speed          & 206         & 205            &  208 \\
 		\hline Min Speed          & 30          & 39             & 37  \\
@@ -768,14 +768,14 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 	\end{tabular}
 \end{table}
 % Antonio - Mohammed, please check the values of the first track (E-Track 5) as the best lap and the last lap times are always the same (for the 3 controllers).
-
+%Mohammed- The second controller  obtained the best lap in the last one, for the other , I corrected it
 From the table, we can see that the fuzzy controllers optimized by the GA have given the best results, minimizing the global race time and damages ($0$ in the two GA-based fuzzy controllers), while the AD controller has finished the practice race with many damages.
 The consideration of a new track for the controllers as E-Road (quite long and difficult), has proved their value in the adaptation to other tracks different fro the one used for `training' (optimizing).
 
 GFC2 controller has run with a higher Speed (considering overall Top Speed and Min Speed) than GFC1 in the two tracks. This is a positive consequence of the inclusion of $TopSpeed$ variable in the fitness computation.
 
 % Antonio - add more comments on the results
-
+%Mohammed- working on it
 According to these results, we can conclude that GFC2 is the best controller.
 
 
@@ -828,7 +828,7 @@ Every fuzzy controller has been tested separately from the others in a real race
 We note that the obtained ranking by the controllers $GFC1$,   $GFC2$ was third and second respectively. 
 While  the point of view of race time, GFC2 has a better time than GFC1. For the damage, GFC1 and GFC2 finished the race without recording any damage On the other hand, the AD controller was not able to avoid high damages in the track.
 % Antonio - TO DO: improve the analysis of results.
-
+%Mohammed- working on it
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and Future Work} 
 \label{sec:conclusions}
