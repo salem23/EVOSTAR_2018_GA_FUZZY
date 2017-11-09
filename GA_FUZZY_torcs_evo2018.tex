@@ -550,6 +550,7 @@ In that GA, every individual is a vector of 18 values/parameters, 6 per variable
 The initialization of the chromosomes (first population) is performed assigning random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17_blind}.
 Tournament based selection has been used to elect 
 % Antonio - I put 'elect' for not repeating 'selection' and 'select'. ;D
+%Mohammed - Sorry, )-:
 chromosomes as parents for genetic operators, while simple arithmetic two point crossover and non uniform mutation \cite{GAs_Goldberg89} have been chosen.
 % Antonio - Mohammed: we should include a reference to any operator. Moreover, it would be great if we can justify why these operators have been selected (instead of others).
 
@@ -637,9 +638,10 @@ We have evaluated the fuzzy-genetic controller with the two proposed fitness fun
 \end{table}
 % Antonio - Mohammed, what about the values of alpha and beta? Put them and explain why they have took those values.
 
-The results of these runs are shown in Table \ref{tab:runsresults}.
+The weighting values $\alpha$
+ and $\beta$ are chosen to be $1$  and $10*MaxSpeed$ respectively where $MaxSpeed $ is the maximum value of speed that \textit{car1-tbr1}  could take ($MaxSpeed=300$) \cite{evo17_blind}, this choise is motivated by the fact to normalize the Top speed values and make them in the same level as other fitness terms.
+ The results of these runs are shown in Table \ref{tab:runsresults}.
 % Antonio - Comment the obtained values.
-
 \begin{table}[ht]
 	\centering\small
 	\caption{ Results of 10 runs of GA with the two fitness functions. Best values marked in boldface.}
@@ -650,36 +652,45 @@ The results of these runs are shown in Table \ref{tab:runsresults}.
 			\cline{2-8}
 			& Min fit. 1 & $LapTime$ & $Damage$ & Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
 			\hline
-			1 &46.42& 33.42& 13&30.98 & 30.98& 0& 234\\
+			1 &46.42& 33.42& 13& 43.8005 & 30.98& 0& 234\\
 			
-			2 &31.09& 31.09& 0& 40.87& 29.87& 11& 278\\
+			2 &31.09& 31.09& 0& 51.6614& 29.87& 11& 278\\
 			
-			3 &\textbf{29.44}& 29.44& 0&\textbf{29.25} & 29.25& 0& 286\\
+			3 &\textbf{29.44}& 29.44& 0&\textbf{39.7395} & 29.25& 0& 286\\
 			
-			4 &31.12& 31.12& 0& 47.64& 31.64& 16& 233\\
+			4 &31.12& 31.12& 0& 60.5155& 31.64& 16& 233\\
 			
-			5 &39.63& 31.63&8&  30.05 & 30.05& 0& 257\\
+			5 &39.63& 31.63&8&  41.7232 & 30.05& 0& 257\\
+	            	
+			6 &30.21& 30.21& 0&  41.8588 & 30.14& 0& 256\\
 			
-			6 &30.21& 30.21& 0& 30.14 & 30.14& 0& 256\\
+			7 &29.73& 29.73& 0& 40.3140 &29.12& 0& 268\\
 			
-			7 &29.73& 29.73& 0& 29.12 &29.12& 0& 268\\
+			8 &37.29& 31.29&6& 40.8510 & 30.75& 0& 297\\
+  			
+			9 &34.07& 30.07& 4 & 40.8596 &29.99& 0& 276\\
 			
-			8 &37.29& 31.29&6& 30.75 & 30.75& 0& 297\\
-			
-			9 &34.07& 30.07& 4 & 29.99 &29.99& 0& 276\\
-			
-			10&29.88& 29.88& 0& 29.63 &29.63& 0& 288\\
+			10&29.88& 29.88& 0& 40.0467&29.63& 0& 288\\
 			\hline
-			Mean & 00.00 & & & & & &\\
-			St. Dev. & $\pm$0.00 & & & & & &\\
+			Mean &33.8880 &30.7880 &3.10&   44.1370&  30.1420 &   2.70&267.3000\\ 
+			St. Dev.&5.6153&1.1879&4.5814&6.7349&0.7834 &5.8128  & 22.0356\\
 			\hline
 		\end{tabular}
 	}\label{tab:runsresults}
 \end{table}
+
+ From The Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution(We used the same random start population to compare the two fitness functions).\\
+ The worst values are obtained by $1^{st}$ Run for fitness 1 and $4^{th}$ run for the second fitness, thee bad values are produced by the damage when the car was in stuck or chocked with the track corner.
+ The second fitness has given  higher Top Speed values  which minimize the Laptime and makes the controller operates at higher performances ( late breaking in turns which maximize the Top Speed).
+ % Mohammed - I was waiting for Table approval to comment.
 %Mohammed - ( Table shows 10 from 20 )  to reduce space.
 % Antonio - Mohammed, please compute mean and standard deviation and add them as an additional row on the table. I have marked minimum values in bold.
+%Mohammed- Done
+
 % Antonio - Mohammed, the values for Fitness 2 must be wrong. They are the same as LapTime + Damage (as in Fitness 1), however, TopSpeed must be also considered in the calculation. Unless BETA=0, but in that case Fitness 1 = Fitness 2 which will not have sense.
 
+%Mohammed- that's right , I had forgotten \beta in computing fitness from saved file results
+%Mohammed - done
 The best solution obtained with each fitness function from these runs have been considered to be tested. We represented the resulted membership functions of these two optimal individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
 % These should be examples of results. You can't publish results with a single experiment - JJ
 % Antonio - I have commented these are examples and the best results. ;)
