@@ -780,7 +780,7 @@ We represented the resulted membership functions of these two optimal individual
 	\caption{Front input MFs with GA}
 	\label{fig:mffront}
 \end{figure}
-
+%
 \begin{figure}%
 	\centering
 	\subfigure[with Fitness 1]{%
@@ -792,7 +792,7 @@ We represented the resulted membership functions of these two optimal individual
 	\caption{Max5 input MFs with GA}
 	\label{fig:mfmax5}%
 \end{figure}
-
+%
 \begin{figure}%
 	\centering
 	\subfigure[with Fitness 1]{%
@@ -813,9 +813,15 @@ The other remark from the obtained  membership functions is the dimension of the
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{GA-Fuzzy controller in practice race} 
-
-The genetic based fuzzy controllers obtained from the last section are tested in a practice race where these two evolved controllers, named $GFC1$ and $GFC2$, together with the initial fuzzy controller, $AD$, will run each one for 20 laps in E-Track5 circuit (the one used during the evolution) and after they will be tested also in a practice race in an unknown track for them as E-Road. The obtained results are presented in Table \ref{resultat20}.
+The two best genetic based fuzzy controllers obtained in the previous
+experiments, one per fitness function and thus named $GFC1$ and
+$GFC2$, are going to be tested
+in a practice race together with the $AD$ fuzzy controller which we
+have considered as a base line. They will run
+each one for 20 laps in E-Track5 circuit, which was the one used during the
+evolution; then, they will be tested also in a practice race in
+E-Road, a track they had not encountered previously. The obtained results are presented
+in Table \ref{resultat20}. 
 
 \begin{table}[!ht]
 	\centering
@@ -845,6 +851,8 @@ The genetic based fuzzy controllers obtained from the last section are tested in
 % Antonio - Mohammed, please check the values of the first track (E-Track 5) as the best lap and the last lap times are always the same (for the 3 controllers).
 %Mohammed- The second controller  obtained the best lap in the last one, for the other , I corrected it
 % Antonio - Great. :)
+% They are still too similar. Since there are 20 laps, you should
+% perform a statistical test of difference between GFC1 and 2. - JJ
 
 From the table, we can see that the fuzzy controllers optimized by the GA have given the best results, minimizing the global race time and damages ($0$ in the two GA-based fuzzy controllers), while the AD controller has finished the practice race with many damages.
 The consideration of a new track for the controllers as E-Road (quite long and difficult), has proved their value in the adaptation to other tracks different from the one used for `training' (optimizing).
@@ -854,13 +862,16 @@ GFC2 controller has run with a higher Speed (considering overall Top Speed and M
 % Antonio - add more comments on the results
 % Mohammed- done
 According to these results, we can conclude that GFC2 is the best controller.
-
+% Not sure about this. Difference is very small. More test should be
+% done on an E-Road, maybe 15 (always minimum in statistics). They
+% seem too similar and are probably not statistically different - JJ
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{GA-Fuzzy controllers in a real race}
-
-Every fuzzy controller has been tested separately from the others in a real race against five standard controllers from each team integrated with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and \ref{tab:adreal} illustrate their performance in a 5 laps real race. 
+Finally, we have tested every fuzzy separately from the others in a
+real race against five standard controllers from each team integrated
+with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and
+\ref{tab:adreal} illustrate their performance in a 5 laps real race.  
 
 \begin{table}[!ht]
 		\centering
