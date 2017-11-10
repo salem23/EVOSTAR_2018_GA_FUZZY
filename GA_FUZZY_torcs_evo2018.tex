@@ -659,28 +659,30 @@ Then, the obtained output values $damage$, $LapTime$ and $TopSpeed$ are collecte
   		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  SIMULATION RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\section{Simulation Results} %Pablo: I would remove "Simulation", because it also included the run of the EA, that is not a simulation.
+\section{Results} %Pablo: I would remove "Simulation", because it also included the run of the EA, that is not a simulation.
 	\label{sec:results}
 	
-This section is dedicated to the performance evaluation of our fuzzy-genetic controller, called \textit{FGC}.
-We first, describe the methodology we have used and next, we present the experimental results of the optimization of the fuzzy-genetic driver.
+This section is dedicated to the performance evaluation of our
+fuzzy-genetic controller, called \textit{FGC}. 
 
-%***********************************************
-
-\subsection{Simulation settings} %Pablo: same here. Better "Experimental Settings"
 	
-	TORCS provides several tracks and cars to choose between. In our case, we have selected the E-Track5 circuit as it is a quite complex one (it has multiple turns). \textit{car1-tbr1} has been selected as the driving car \cite{evo17_blind}. According to previous experiments, this is a fair choice because it is not the fastest car in TORCS (moderate characteristics). This will lead our controller to be prepared to drive in the most usual conditions.
+We will first need to choose whose tracks and cars are going to be used in the
+experiment among the ones TORCS provides; in our case, we have selected the E-Track5 circuit as it is a
+quite complex one, with multiple turns. \textit{car1-tbr1} has been
+selected as the driving car \cite{evo17_blind}. According to previous
+experiments, this is a fair choice due to its moderate
+performance. This will lead our controller to be prepared to drive in the most usual conditions. 
 
-We have evaluated the fuzzy-genetic controller with the two proposed fitness functions, in order to see which one is appropriate to give the best performances. Thus, we have considered the following bots in the experiments:
-	
+We have evaluated the FGC with the two proposed fitness functions,
+comapring them for racing performance. We have considered the following bots in the
+experiments, making 10 evolutionary runs for every one, with the configuration shown in Table \ref{tab:GA_config}: 
+%	
 \begin{itemize}
 \item \textbf{GFC1}: GA-Fuzzy controller with fitness 1 (Equation \ref{fit1}).
 \item \textbf{GFC2}: GA-Fuzzy controller with fitness 2 (Equation \ref{fit2}).
 \item \textbf{AD}: Fuzzy controller \cite{evo17_blind}.
 \end{itemize}
-
-10 runs of the GA have been conducted in each case, with the configuration shown in Table \ref{tab:GA_config}.
-
+%
 \begin{table}[!ht]	
 		\centering
 		\caption{GA parameters}
@@ -694,9 +696,18 @@ We have evaluated the fuzzy-genetic controller with the two proposed fitness fun
 		\end{tabular}	
 \end{table}
 
-The weighting values $\alpha$ and $\beta$ are chosen to be $1$  and $10*MaxSpeed$ respectively where $MaxSpeed $ is the maximum value of speed that \textit{car1-tbr1}  could take ($MaxSpeed=300$) \cite{evo17_blind}, this choice is motivated by the fact to normalize the Top speed values and make them in the same level as other fitness terms.
+The coefficients $\alpha$ and $\beta$ are chosen to be $1$  and
+$10*MaxSpeed$ respectively, where $MaxSpeed $ is the maximum value of
+speed that \textit{car1-tbr1}  could take ($MaxSpeed=300$)
+\cite{evo17_blind}, this choice is motivated by the fact to normalize
+the Top speed values and make them in the same level as other fitness
+terms. 
  The results of these runs are shown in Table \ref{tab:runsresults}.
-% Antonio - Comment the obtained values.
+ % Antonio - Comment the obtained values.
+ % You can't publish a table with the individual runs, and even less
+ % with a column for fitness. Fitness 1 and 2 are not
+ % comparable. Publish just the best and average performance optained,
+ % and also publish TopSpeed for Fitness 1 if it's logged - JJ
 \begin{table}[ht]
 	\centering\small
 	\caption{ Results of 10 runs of GA with the two fitness functions. Best values marked in boldface.}
