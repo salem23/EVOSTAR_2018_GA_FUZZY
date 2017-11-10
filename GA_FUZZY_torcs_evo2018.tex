@@ -92,13 +92,36 @@
 	\maketitle
 	\begin{abstract}
 		
-This work presents an evolutionary approach to optimize the parameters of a Fuzzy-based autonomous driver for the open simulated car racing game (TORCS). Using evolution, %Pablo: "using evolution" is correct? Sounds like using evolution of the species by Darwin :P Maybe "using evolutionary algorithms" instead?
-we intend to improve a modular fuzzy agent designed to determine the optimal target speed and steering angle during the race. The challenge in this kind of fuzzy systems is the design of the membership functions, which is usually done through a trial and error process.
-In this paper, an adapted real-coded Genetic Algorithm - with two different fitness functions - %Pablo: two fitness functions _compared_ ?
-has been applied to find the best values for these parameters, obtaining a robust design for the TORCS controller.
-The evolved drivers were tested and evaluated competing against other TORCS controllers in practice (without rivals) and real races. %Pablo: "in practice mode" instead "in practice" to clarify
-The improved fuzzy-controllers yield a very good performance, mainly in tracks that have many turning points, which are, in turn, the most difficult for any
-autonomous agent. Thus, this is a real enhancement of the starting fuzzy-controllers which had several difficulties to drive in this kind of circuits. %Pablo: and in future could help...
+This work presents an evolutionary approach to optimize the parameters
+of a Fuzzy-based autonomous driver for the open simulated car racing
+game (TORCS). Using evolutionary alborithms, %Pablo: "using evolution" is correct?
+                               %Sounds like using evolution of the
+                               %species by Darwin :P Maybe "using
+                               %evolutionary algorithms" instead?
+%changed - JJ
+we intend to optimize a modular fuzzy agent designed to determine the
+optimal target speed as well as the steering angle during the
+race. The challenge in this kind of fuzzy systems is the design of the
+membership functions, which is usually done through a trial and error
+process, but in this paper an adapted real-coded Genetic Algorithm 
+with two different fitness functions - %Pablo: two fitness functions
+% _compared_ ?
+% just two different fitness functions - JJ
+has been applied to find the best values for these parameters,
+obtaining a robust design for the TORCS controller. % This robustness
+                                % should be discussed in the
+                                % conclusions - JJ
+The evolved drivers were tested and evaluated competing against other
+TORCS controllers in practice mode, without rivals, and real
+races. %Pablo: "in practice mode" instead "in practice" to clarify
+%Done - JJ
+The optimized fuzzy-controllers yield a very good performance, mainly
+in tracks that have many turning points, which are, in turn, the most
+difficult for any 
+autonomous agent. Thus, this is a real enhancement of the baseline
+fuzzy controllers which had several difficulties to drive in this kind
+of circuits. %Pablo: and in future could help...
+% No need in the abstract - JJ
 \end{abstract}
 
 \keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
