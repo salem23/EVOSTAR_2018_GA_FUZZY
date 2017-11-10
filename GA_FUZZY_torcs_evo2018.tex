@@ -133,42 +133,74 @@ of circuits. %Pablo: and in future could help...
 \section{Introduction}
 \label{sec:intro}
 
-Autonomous driving is a very interesting research topic recently
-supported by many vehicle manufacturers. The final aim is to create
-real self-driving cars that can move in everyday roads and streets or, for
-that matter, in a desert or hostile environment. This objective is
-complemented with the reduction of fuel consumption and the
-maximization of its efficient use, along with the car safety and the
-driver comfort in some cases; all these improvements with the implied
-constraint that no accidents should take place.  %Pablo: some reference in this paragraph?
+Since the massive interest by vehicle manufacturers of autonomous
+driving, it has become also a hot research topic. Autonomy
+needs the creation real self-driving cars that can travel in everyday roads and streets or, for
+that matter, in a desert or hostile environment, but this is only a
+constraint; autonomous vehicles must also optimize fuel consumption as
+well as car safety and, in some cases, occupant comfort.  %Pablo: some reference in this paragraph?
 
-Optimization in car racing games can be situated in that context, with
+Optimization in car racing games can be placed in that context, with
 solutions obtained there having utility beyond the game itself; this
 explains the popularity of car racing games challenges, which are
-usually performed using game simulators. The Open Racing Car Simulator
+usually performed using game simulators; for instance, The Open Racing Car Simulator
 (TORCS) \cite{WebTORCS} is a realistic racing simulator with a
 sophisticated engine used for many standalone racing competition
 challenges every year. This fact, combined with the large gaming
 community and the ability to compare controllers, have made TORCS the
 most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}. 
 
-Many kinds of controllers have been used in this simulator, but one of the most efficient controllers so far are fuzzy-based ones, as they simulate in part the human reasoning when driving \cite{CarRacing_Pelta09,PerezEvolvingFuzzy09,torcs2012}. 
+Many kinds of controllers have been used in this simulator, but one of
+the most efficient controllers so far are fuzzy-based ones, as they
+simulate in part the human reasoning when driving
+\cite{CarRacing_Pelta09,PerezEvolvingFuzzy09,torcs2012}. In this line,
+the authors presented previously an approach in which two specialized
+fuzzy controllers were combined to decide the car's steering angle and
+desired speed in every single point (or tick) during a race
+\cite{evo17_blind}. The obtained results were promising, but the
+performance of the autonomous driver showed some flaws in difficult
+tracks -- those with many curves, or where `external' factors affected
+the asphalt -- and against the most competitive rivals.  
 
-In this line, the authors presented previously an approach in which two specialized fuzzy controllers were combined to decide the car's steering angle and desired speed in every single point (or tick) during a race \cite{evo17_blind}.  
-
-The obtained results were promising, but the performance of the autonomous driver showed some flaws in difficult tracks - those with many curves, or where `external' factors affected the asphalt - and against the most competitive rivals. 
-
-%Pablo: previous 3 paragraphs are too short. I think it is better to combine them in one.
+%Pablo: previous 3 paragraphs are too short. I think it is better to
+%combine them in one.
+% Merged - JJ
 
 We argue here that the major disadvantage of this approach is that the parameters of the controllers' fuzzy membership functions were defined following a trial/error process in the absence of experts to do so.
 Thus, in this work we consider the selection of the best values for these parameters as an optimization problem, so we have applied an evolutionary algorithm to obtain them. Concretely, we propose to apply a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} with this purpose. %Pablo: what the GA optimizes exactly? The MF? Say it here.
- The considered approach requires, in addition to a good codification of solutions and selection of operators, the choice of an adequate cost function (fitness), due to the uncertainty and noisiness of the problem itself. So two different proposals have been studied. %Pablo: mention here some difference between the 2 fitness
+ The considered approach requires, in addition to a good codification
+ of solutions and selection of operators, the choice of an adequate
+ cost function (fitness), due to the uncertainty and noisiness of the
+ problem itself. So two different proposals have been studied. %Pablo:
+                                %mention here some difference between
+                                %the 2 fitness 
 
-The genetic-fuzzy based controller has been evaluated in a practice race - without rivals - first, and then in a real race against different drivers in TORCS.
-The obtained results show that the enhanced controllers (one per fitness function) perform both much better than the original fuzzy controller (previously presented) in the practice race, increasing the top speed while they are not damaged, and obtaining a very good lap time.
+The genetic-fuzzy based controller has been evaluated in a practice
+race - without rivals - first, and then in a real race against
+different drivers in TORCS. 
+The obtained results show that the enhanced controllers (one per
+fitness function) perform both much better than the original fuzzy
+controller (previously presented) in the practice race, increasing the
+top speed while they are not damaged, and obtaining a very good lap
+time. 
 In addition, they compete very well against tough rivals, getting a rank 2 or 3 in the race with a time close to the winner and a very low received damage.
 
-So, we can conclude from these results that the proposed approach successfully evolves the fuzzy controller membership parameters giving good performances in terms of damage avoidance and race time. This suggest that GAs with the proposed fitness functions are well-suited for finding the best trade-off between the two objectives of any racing controller: damage and speed.
+So, we can conclude from these results that the proposed approach
+successfully evolves the fuzzy controller membership parameters giving
+good performances in terms of damage avoidance and race time. This
+suggest that GAs with the proposed fitness functions are well-suited
+for finding the best trade-off between the two objectives of any
+racing controller: damage and speed.
+
+The rest of the paper is organized as follows. Next we present the
+state of the art, to be followed by a description of the TORCS
+simulator in Section \ref{sec:torcs} and the fuzzy controller we will
+be optimizing in this paper in Section \ref{sec:fuzzy_controller}. The
+method for optimizing fuzzy controllers will be presented in Section
+\ref{sec:GA_optimization}, and its results in next in Section
+\ref{sec:results}. Finally, conclusions and future lines of work will
+be presented in section \ref{sec:conclusions}.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  STATE OF THE ART  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,7 +251,9 @@ In this paper, we propose to optimize these parameters using a real coded geneti
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{TORCS Description}
+\section{The TORCS simulator} % Do we need this short section? Can't
+                              % we just merge it with the next one as
+                              % "Experimental setup"? - JJ
 \label{sec:torcs}
 
 The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. 
@@ -342,7 +376,11 @@ The two sub-controllers are summarized in the following subsections.
 
 %-----------------------------------------------
 
-\subsection{Fuzzy target speed sub-controller}
+\subsection{Fuzzy target speed sub-controller} % We might not need
+                                % subsections in conference
+                                % papers. We could eliminate them and
+                                % make more space for enhanced
+                                % descriptions or tables - JJ
 
 This controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: move as fast as possible and be safe. 
 
