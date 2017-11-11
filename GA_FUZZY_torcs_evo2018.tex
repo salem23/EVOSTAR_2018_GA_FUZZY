@@ -690,11 +690,16 @@ We represented the resulted membership functions of these two optimal individual
 		\label{fig:MFMAX10}%
 \end{figure}
 
-The shapes of the obtained memberships are completely different from those obtained by Trial/Error in the previous work \cite{evo17_blind} where the Medium linguistic variable of the new functions has bigger range. This makes the controller very sensitive to the middle distances of the inputs, like for a real driver who considers most of the cases the car distance from the borders in that range.
-The other remark from the obtained  membership functions is the dimension of the common range between the LOW and MEDIUM, which provide a higher diversity in the output values.
-% Antonio - Yes, but this can be seen in the figure. I meant you should say something interesting as if the new MFs give a higher relevance to one of the ranges (LOW, MEDIUM, HIGH), and what does this mean from the point of view of the controller. ;D
-%Mohammed- working on it
-% Antonio - ok, it's fine now. ;)
+The shapes of the obtained memberships are completely different from
+those obtained by Trial/Error in the previous work \cite{evo17_blind}
+where the Medium linguistic variable of the new functions has bigger
+range. This makes the controller very sensitive to the middle
+distances of the inputs, like for a real driver who considers most of
+the cases the car distance from the borders in that range. 
+The other remark from the obtained  membership functions is the
+dimension of the common range between the LOW and MEDIUM, which
+provide a higher diversity in the output values. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -738,29 +743,57 @@ in Table \ref{resultat20}.
 % Antonio - Great. :)
 % They are still too similar. Since there are 20 laps, you should
 % perform a statistical test of difference between GFC1 and 2. - JJ
-% Mohammed - it could be done but it needs more then 30 runs to apply nonparametric tests ( Wilcoxon or others, normality condition is not verified for the Data of the two controllers)
-From the table, we can see that the fuzzy controllers optimized by the GA have given the best results, minimizing the global race time and damages ($0$ in the two GA-based fuzzy controllers), while the AD controller has finished the practice race with many damages.
-The consideration of a new track for the controllers as E-Road (quite long and difficult), has proved their value in the adaptation to other tracks different from the one used for `training' (optimizing).
+% Mohammed - it could be done but it needs more then 30 runs to apply
+% nonparametric tests ( Wilcoxon or others, normality condition is not
+% verified for the Data of the two controllers)
+% You don't need normality to apply Wilcoxon. You could also show a
+% chart to highlight differences - JJ
+From the table, we can see that the fuzzy controllers optimized by the
+GA have given the best results, minimizing the global race time and
+damages ($0$ in the two GA-based fuzzy controllers), while the AD
+controller has finished the practice race with many damages.
+% But the difference is a few seconds. Still the statistical test
+% should be mentioned - JJ
+Testing the controllers in this E-Road, which is quite long and
+difficult as it can be seen by the time it takes a single lap, has proved their value in the adaptation to other
+tracks different from the one used for `training', that is, the
+optimization of the fuzzy controllers.
+% I have eliminated parentheses here. Please avoid them in formal
+% writing - JJ
 
-GFC2 controller has run with a higher Speed (considering overall Top Speed and Min Speed) than GFC1 in the two tracks. This is a positive consequence of the inclusion of $TopSpeed$ variable in the fitness computation so the GA based fuzzy controller has optimized the speed of the car due to early braking and detection of turns and their curving angles. This ability  of the GA-fuzzy controller collaborates to overall race time minimization and the final ranking.
-
+The GFC2 controller has run with a higher speed (considering overall Top
+Speed and Min Speed) than GFC1 in the two tracks. This is a positive
+consequence of the inclusion of the $TopSpeed$ variable in the fitness
+computation so the GA based fuzzy controller has optimized the speed
+of the car due to early braking and detection of turns and their
+curving angles. This ability  of the GA-fuzzy controller collaborates
+to minimize the overall race time and thus the final ranking.
 % Antonio - add more comments on the results
 % Mohammed- done
 According to these results, we can conclude that GFC2 is the best controller.
 % Not sure about this. Difference is very small. More test should be
 % done on an E-Road, maybe 15 (always minimum in statistics). They
 % seem too similar and are probably not statistically different - JJ
+% We'll leave that to the next paper, but we still have to mention
+% that there is a statistical difference.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Finally, we have tested every fuzzy separately from the others in a
+% You can't simply drop the reader into the next experiment. It has to
+% be "narrated", linked to the previous paragraphs and justified. For
+% instance - jj
+Comparing average lap time gives us an overall idea of which
+controller performs the best; however, at the end of the day in a
+racing game the race has to be won. That is why we have tested every
+fuzzy separately from the others in a 
 real race against five standard controllers from each team integrated
 with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and
-\ref{tab:adreal} illustrate their performance in a 5 laps real race.  
+\ref{tab:adreal} illustrate their performance in a 5 laps real
+race.  % Which track? - JJ
 
 \begin{table}[!ht]
 		\centering
-	\caption{Results of GFC1 in a real race (5 laps)}
+                \caption{Results of GFC1 in a real race (5 laps)}
+                % Explain the "Race time" row - JJ
 	\label{tab:gfc1real}
 	\begin{tabular}{|p{2.3cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.75 cm}|p{1.5 cm}|p{1.5 cm}|}
 		\hline \textbf{E-Track5} &   \textbf{GFC1} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
@@ -802,28 +835,33 @@ with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and
 \end{table}
 
 We note that the obtained ranking by the controllers $GFC1$,   $GFC2$ was third and second respectively. 
-Regarding the race time, GFC2 has a better time than GFC1 while GFC1 and GFC2 finished the race without recording any damage.
+GFC2 makes a better time than GFC1; on the other hand,  both finished
+the race without sustaining any damage; the winner {\tt bt 3} did get
+damaged in the race against GFC2. 
 On the other hand, the AD controller was not able to avoid high damages in the track.
 These results are a confirmation of the good optimization done by the genetic algorithms and mainly  when the Top Speed was considered in the fitness. 
 The obtained results in real race with opponents from tough teams from TORCS are encouraging even the optimization process was in practice races.
 This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17_blind}. 
 The enhancement  of that driver by the optimal values of the membership function values,  allows it to detect and overtake the opponents with no damage or stuck.
  
-% Antonio - TO DO: improve the analysis of results.
-%Mohammed- done
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and Future Work} 
 \label{sec:conclusions}
 
-In this work, we presented a Genetic Algorithm implementation to optimize and improve AD, an existing fuzzy driver for TORCS simulator  \cite{evo17_blind}, which combines two sub-controllers, one to calculate the target speed and the other for the direction (steer).
+In this work, we presented a Genetic Algorithm implementation to
+optimize and improve AD, an existing fuzzy driver for TORCS simulator
+\cite{evo17_blind}, which combines two sub-controllers, one to
+calculate the target speed and the other for the direction (steer). 
 
 In the evolutionary approach, we tested two fitness functions which use the results obtained in a race conducted by the controller being optimized. 
 The first one considers the average lap time and the car damage; the second uses these two factors and also the top speed reached.
 
 The fuzzy-genetic controllers obtained were compared with the original AD controller whose parameters were determined empirically. The comparison was made first without opponents and then, with several cars from the TORCS teams in realistic races.
 
-The obtained results are very promising since the optimized controllers overcome the original in the practice races, and also they were ranked among the first ones in the evaluation races, with the minimum of damage.
+The obtained results are very promising since the optimized
+controllers overcome the original in the practice races, and also they
+were ranked among the first ones in the evaluation races, with the
+minimum of damage. 
 
 Nevertheless, these results can be improved by extending the evaluation of population controllers in the Genetic algorithm to other tracks and not just one, to allow the elected controller to practice effectively in multiple tracks and in real-life situations.
 Moreover, we could also try to generate, optimize and tune automatically the rule base of the fuzzy controller by means of a Genetic Programming algorithm. %Pablo: also mention the possibility of Multi-Objective EAs.
