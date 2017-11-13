@@ -146,9 +146,7 @@ explains the popularity of car racing games challenges, which are
 usually performed using game simulators; for instance, The Open Racing Car Simulator
 (TORCS) \cite{WebTORCS} is a realistic racing simulator with a
 sophisticated engine used for many standalone racing competition
-challenges every year. This fact, combined with the large gaming
-community and the ability to compare controllers, have made TORCS the
-most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}. 
+challenges every year. This fact, combined with the ability to compare controllers, have made TORCS the most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}. 
 
 Many kinds of controllers have been used in this simulator, but one of
 the most efficient controllers so far are fuzzy-based ones, as they
@@ -184,7 +182,7 @@ fitness function) perform both much better than the original fuzzy
 controller (previously presented) in the practice race, increasing the
 top speed while they are not damaged, and obtaining a very good lap
 time. 
-In addition, they compete very well against tough rivals, getting a rank 2 or 3 in the race with a time close to the winner and a very low received damage.
+In addition, they compete very well against tough rivals, getting a high rank in the race (time close to the winner) and a very low received damage.
 
 So, we can conclude from these results that the proposed approach
 successfully evolves the fuzzy controller membership parameters giving
@@ -193,14 +191,16 @@ suggest that GAs with the proposed fitness functions are well-suited
 for finding the best trade-off between the two objectives of any
 racing controller: damage and speed.
 
-The rest of the paper is organized as follows. Next we present the
-state of the art, to be followed by a description of the TORCS
-simulator in Section \ref{sec:torcs} and the fuzzy controller we will
-be optimizing in this paper in Section \ref{sec:fuzzy_controller}. The
-method for optimizing fuzzy controllers will be presented in Section
-\ref{sec:GA_optimization}, and its results in next in Section
-\ref{sec:results}. Finally, conclusions and future lines of work will
-be presented in section \ref{sec:conclusions}.
+%The rest of the paper is organized as follows. Next we present the
+%state of the art, to be followed by a description of the TORCS
+%simulator in Section \ref{sec:torcs} and the fuzzy controller we will
+%be optimizing in this paper in Section \ref{sec:fuzzy_controller}. The
+%method for optimizing fuzzy controllers will be presented in Section
+%\ref{sec:GA_optimization}, and its results in next in Section
+%\ref{sec:results}. Finally, conclusions and future lines of work will
+%be presented in section \ref{sec:conclusions}.
+
+% Antonio - Removed to gain space
 
 
 
@@ -229,18 +229,28 @@ For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a 
 %Pablo: Explain why our approach is better, because TORCS is more complicated
 % Mohammed- In TORCS controllers has less time to make a driving action , also it is more realistic than others by considering  traction, friction .....
 
-Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized as the proposed here, since their controller did not compute the target speed. %Pablo: computing the target speed is better? Then emphasize it
+Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized as the proposed here, since their controller did not compute the target speed, which is a key factor for a competitive controller. 
+%Pablo: computing the target speed is better? Then emphasize it
+% Antonio - done
 
 Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behavior, but it did not take the target speed into account, unlike our previous controller \cite{evo17_blind} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process. 
 In this paper, we propose to optimize these parameters using a real coded genetic algorithm aiming to improve the performance of the original fuzzy controller.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{The TORCS simulator} % Do we need this short section? Can't
+\section{Experimental Setup}
+
+This section presents the environment to make the study (TORCS), and the previous fuzzy controller to be optimized.
+
+%*******************************  TORCS  *******************************
+\subsection{The TORCS simulator:} 
+\label{subsec:torcs}
+% Do we need this short section? Can't
                               % we just merge it with the next one as
                               % "Experimental setup"? - JJ
 % Mohammed - I think it will be better, this section becomes too small after Antonio's reduction
-\label{sec:torcs}
+% Antonio - fused. ;)
+
 
 The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. Its high degree of modularity and portability, together with the realistic and real-time driving simulation, make it an ideal testbed for artificial intelligence research, as it can be seen in the literature (See Section \ref{sec:soa}). %Pablo: refer to previous section?
 The game offers different types of races from the practical single session to the championship.
@@ -250,23 +260,21 @@ There is a large set of sensors \cite{Torcs3} which the car can consider during 
 Hence, a controller is a program, which runs inside TORCS, that automatically drives a car. It gets as input information about the current state of the car and its situation on the track (sensors). These collected data are used to decide actions to perform in the next simulation tick.
 	
 	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%  FUZZY CONTROLLER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%*****************************  FUZZY CONTROLLER  ******************************
+\subsection{Fuzzy Controller}
+\label{subsec:fuzzy_controller}
 
-\section{Fuzzy Controller}
-\label{sec:fuzzy_controller}
-
-The initial proposed controller \cite{evo17_blind} has the same modular architecture as the simple driver of TORCS, however, the target speed and steering angle are computed by means of two modular and specialized fuzzy sub-controllers, which consider five position sensors. This is the controller which will be improved by means of a GA in this work.
-
-The two sub-controllers are summarized in the following subsections.
+The initial proposed controller \cite{evo17_blind} has the same modular architecture as the simple driver of TORCS, however, the target speed and steering angle are computed by means of two modular and specialized fuzzy sub-controllers, which consider five position sensors. This is the controller which will be improved by means of a GA in this work. The two sub-controllers are summarized in the following paragraphs.\\
 
 %-----------------------------------------------
-
-\subsection{Fuzzy target speed sub-controller} % We might not need
-                                % subsections in conference
+\noindent
+\textbf{Fuzzy target speed sub-controller:}\\
+% We might not need subsections in conference
                                 % papers. We could eliminate them and
                                 % make more space for enhanced
                                 % descriptions or tables - JJ
-
+% Antonio - right. I have done it.
+%
 This controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: move as fast as possible and be safe. 
 
 This estimation is based on two general cases: if the car is in a straight line, the target speed will take a maximum value (\textit{maxSpeed} km/h). However, if it is close to a curve, the controller will decrease the current speed to a value included in the interval \textit{[minSpeed, maxSpeed]} km/h.
@@ -332,13 +340,13 @@ In addition, a crisp rule is added to obtain a maximum value of the target speed
 \end{itemize}
 
 MAXDISTSPEED is the longest possible value for the track sensors, and MAXSPEED is the maximal speed for the specific car. 
-The output value is encoded by seven singletons TS1 to TS7, being respectively: 280, 240, 220, 180, 120, 60 and 30.
+The output value is encoded by seven singletons TS1 to TS7, being respectively: 280, 240, 220, 180, 120, 60 and 30.\\
 
 
 %***********************************************
-
-\subsection{Fuzzy steering control sub-controller}	
-
+\noindent
+\textbf{Fuzzy steering control sub-controller}\\
+%
 The second fuzzy controller aims to control the steering, estimating and determining the target position of the car. 
 
 The structure of this sub-controller is similar to the speed one, but, obviously, with the steering as output. Thus, the set of sensors considered is the same as in the speed case (in Table \ref{tab:flouevar}).
@@ -366,6 +374,7 @@ When M10=Track[7] we will take negative values of the steer (steer=-steer).
 
 These controllers were defined with our own criteria, but they could be far from being optimal, so, in the following section we apply a Genetic Algorithm for their improvement.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  OPTIMISING WITH GAS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 \section{Optimizing the fuzzy controllers with GA}
@@ -373,16 +382,15 @@ These controllers were defined with our own criteria, but they could be far from
 
 Designing an optimal fuzzy controller for TORCS racing needs a human expert to define the membership functions parameters and the rule base. This expert, even if he exists, could not provide an exact repartition of the fuzzy membership functions values over the universe of discourse. 
 
-This difficulty have led us to move towards the use of Genetic Algorithms  \cite{GAs_Goldberg89} because of their global exploration characteristic in a complex environment, as this problem plots. %Pablo: I've removed "(GAs)" as this acronym was presented previously
-% Mohammed - ok
-The proposed optimization approach aims to find the optimal parameters of the membership functions of the two sub-controllers previously introduced. 
+This difficulty have led us to move towards the use of Genetic Algorithms  \cite{GAs_Goldberg89} because of their global exploration characteristic in a complex environment, as this problem plots. 
 
+The proposed optimization approach aims to find the optimal parameters of the membership functions of the two sub-controllers previously introduced. 
 The followed process is depicted in Figure \ref{fig:ga}, in which, as it can be seen, the GA uses TORCS for the evaluation of every individual during the evolutionary process.
 
 \begin{figure}[!ht]
 	\label{fig:ga}
 	\begin{center}
-		\includegraphics[width=11cm]{fig/flowchart}
+		\includegraphics[width=10cm]{fig/flowchart}
 	\end{center}
 	\caption{Optimization of a fuzzy controller flowchart. The evaluation of an individual is performed by: putting the parameter values on the two sub-controllers, launching a race in TORCS with this configuration, obtaining the resulting values of Damage, Top Speed and mean Lap Time and using these values for the computation of the fitness of the individual.}
 \end{figure}	
@@ -421,7 +429,7 @@ x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
 This MF function is defined by four parameters $x_{1}$, $x_{2}$, $x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a, b]} (See Figure \ref{fig:trapeze}).																			
 \begin{figure}[!ht] 
 	\begin{center}
-		\includegraphics[scale=0.8]{fig/trapese}
+		\includegraphics[scale=0.7]{fig/trapese}
 		\caption {Trapezoidal MFs}
 		\label{fig:trapeze}
 	\end{center}
@@ -430,7 +438,7 @@ This MF function is defined by four parameters $x_{1}$, $x_{2}$, $x_{3}$ and $x_
 More generally, a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). In this case, the representation is given by the figure \ref{fig:at}
 \begin{figure}[!ht] 
 	\begin{center}
-		\includegraphics[scale=0.65]{fig/trapezoidal.png}
+		\includegraphics[scale=0.55]{fig/trapezoidal.png}
 		\caption {Trapezoidal-shaped MFs coding}
 		\label{fig:at}
 	\end{center}
@@ -477,21 +485,14 @@ Since our work requires some precision and the variation interval of each parame
 In that GA, every individual is a vector of 18 values/parameters, 6 per variable. Figure \ref {fig:cromosome} illustrates the structure of the chromosome.
 \begin{figure}[!ht]	
 	\begin{center}
-		\includegraphics[width=13cm]{fig/chromosome2.png}
+		\includegraphics[width=12cm]{fig/chromosome2.png}
 		\caption{Chromosome description}
 		\label{fig:cromosome}	
 	\end{center}	
 \end{figure}
 
 The initialization of the chromosomes (first population) is performed assigning random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17_blind}.
-Tournament based selection has been used to elect 
-% Antonio - I put 'elect' for not repeating 'selection' and 'select'. ;D
-%Mohammed - Sorry, )-:
-% Antonio - Don't worry at all. :D
-chromosomes as parents for genetic operators, while simple arithmetic two point crossover \cite{crossGA2017} and non uniform mutation \cite{mutation1997} have been chosen, as two of the most contrasted methods in the literature.
-% Antonio - Mohammed: we should include a reference to any operator. Moreover, it would be great if we can justify why these operators have been selected (instead of others).
-%mohammed- citations added
-% Antonio - good. ;)
+Tournament based selection has been used to elect chromosomes as parents for genetic operators, while simple arithmetic two point crossover \cite{crossGA2017} and non uniform mutation \cite{mutation1997} have been chosen, as two of the most contrasted methods in the literature.
 
 %***********************************************
 
@@ -506,7 +507,7 @@ The fuzzy controller should aim to:
 	\item  Maximize the TopSpeed $MaxSpeed$.		
 \end{itemize}
 
-From this goals, we can derive two possible fitness functions:
+From these goals, we can derive two possible fitness functions:
 
 \begin{description}
 	\item[Fitness 1:]  
@@ -534,11 +535,10 @@ To evaluate the candidate controllers during the evolutionary process, we will m
 Then, the obtained output values $damage$, $LapTime$ and $TopSpeed$ are collected to compute the corresponding fitness value. As a clarification, $LapTime$ is the average of the 20 laps time.
 
   		
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%  SIMULATION RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\section{Results} %Pablo: I would remove "Simulation", because it also included the run of the EA, that is not a simulation.
-% Mohammed - ok 
-	\label{sec:results}
+\section{Results}  
+\label{sec:results}
 	
 This section is dedicated to the performance evaluation of our
 fuzzy-genetic controller, called \textit{FGC}. 
@@ -552,8 +552,8 @@ experiments, this is a fair choice due to its moderate
 performance. This will lead our controller to be prepared to drive in the most usual conditions. 
 
 We have evaluated the FGC with the two proposed fitness functions,
-comparing them for racing performance. We have considered the following bots in the
-experiments, making 10 evolutionary runs for every one, with the configuration shown in Table \ref{tab:GA_config}: 
+comparing them for racing performance. We have considered the following bots in the experiments, making 20 evolutionary runs for every one, with the configuration: Population size=20, Generations=50, Crossover rate=0.7, Mutation rate=0.3.
+%shown in Table \ref{tab:GA_config}: 
 %	
 \begin{itemize}
 \item \textbf{GFC1}: GA-Fuzzy controller with fitness 1 (Equation \ref{fit1}).
@@ -561,18 +561,20 @@ experiments, making 10 evolutionary runs for every one, with the configuration s
 \item \textbf{AD}: Fuzzy controller \cite{evo17_blind}.
 \end{itemize}
 %
-\begin{table}[!ht]	
-		\centering
-		\caption{GA parameters}
-		\label{tab:GA_config}
-		\begin{tabular}{|p{3.6cm}|p{3cm}|}
-			\hline \textbf{Population size} & 20 \\
-			\hline \textbf{Generations} & 50   \\
-			\hline \textbf{Crossover rate$\textit{P}_{\textit{c}}$} &  0.7 \\
-			\hline \textbf{Mutation rate $\textit{P}_{\textit{m}}$} &  0.3   \\ 		
-			\hline          
-		\end{tabular}	
-\end{table}
+%\begin{table}[!ht]	
+%		\centering
+%{\scriptsize
+%		\caption{GA parameters}
+%		\label{tab:GA_config}
+%		\begin{tabular}{|p{3.6cm}|p{3cm}|}
+%			\hline \textbf{Population size} & 20 \\
+%			\hline \textbf{Generations} & 50   \\
+%			\hline \textbf{Crossover rate$\textit{P}_{\textit{c}}$} &  0.7 \\
+%			\hline \textbf{Mutation rate $\textit{P}_{\textit{m}}$} &  0.3   \\ 		
+%			\hline          
+%		\end{tabular}	
+%}
+%\end{table}
 
 The coefficients $\alpha$ and $\beta$ are chosen to be $1$  and
 $10*MaxSpeed$ respectively, where $MaxSpeed $ is the maximum value of
@@ -587,7 +589,8 @@ terms.
  % comparable. Publish just the best and average performance optained,
  % and also publish TopSpeed for Fitness 1 if it's logged - JJ
 \begin{table}[ht]
-	\centering\small
+	\centering
+{\scriptsize
 	\caption{ Results of 10 runs of GA with the two fitness
           functions. Please bear in mind that fitness follow different
         formula, and thus cannot be compared; LapTime and Damage
@@ -603,7 +606,7 @@ terms.
 			
 			% 2 &31.09& 31.09& 0& 51.6614& 29.87& 11& 278\\
 			
-		 Best &\textbf{29.44}& 29.44& 0&231&\textbf{39.7395} & 29.25& 0& 286\\
+		 Best &\textbf{29.44}& 29.44& 0&231&\textbf{39.74} & 29.25& 0& 286\\
 			
 			% 4 &31.12& 31.12& 0& 60.5155& 31.64& 16& 233\\
 			
@@ -619,40 +622,26 @@ terms.
 			
 			% 10&29.88& 29.88& 0& 40.0467&29.63& 0& 288\\
 			\hline
-			Mean &33.8880 &30.7880 &3.10&227.43&   44.1370&  30.1420 &   2.70&267.3000\\ 
-			St. Dev.&5.6153&1.1879&4.5814&32.5488&6.7349&0.7834 &5.8128  & 22.0356\\
+			Mean &33.88 &30.79 &3.10&227.43&   44.14&  30.14 &   2.70&267.30\\ 
+			St. Dev.&5.61&1.18&4.58&32.55&6.73&0.78 &5.81  & 22.03\\
 			\hline
 			
 		\end{tabular}
 	}\label{tab:runsresults}
+}
 \end{table}
 % Mohammed - Best values and TopSpeed added
  From The Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution, as we used the same random start population to compare the two fitness functions. %Pablo: important! do not use so much parantheses, I have removed them. Check if the meaning of this paragraph is still correct
 % Mohammed - ok, it's correct
  The worst values are obtained by $1^{st}$ Run for fitness 1 and $4^{th}$ run for the second fitness, thee bad values are produced by the damage when the car was in stuck or chocked with the track corner.
  The second fitness has given  higher Top Speed values  which minimize the Laptime and makes the controller operates at higher performances. Also, implying late breaking in turns which maximize the Top Speed.
- Wilcoxon rank sum non-parametric test \cite{garcia09} is used to reject or accept the null hypothesis of equality of medians of the values of the two fitness functions for the 10 runs. The obtained pvalue was $p =  0.0017$ and the  test statistic is $stats = -3.1371$, this results lead to the rejection of null hypothesis with a threshold $\alpha=0.01$ which allows us to conclude that the two samples sets are different.
+ Wilcoxon rank sum non-parametric test \cite{garcia09} is used to reject or accept the null hypothesis of equality of medians of the values of the two fitness functions for the 10 runs. The obtained p-value was $p =  0.0017$ and the  test statistic is $stats = -3.1371$, this results lead to the rejection of null hypothesis with a threshold $\alpha=0.01$ which allows us to conclude that the two samples sets are different.
  
  % Mohammed - Runs were deleted by JJ ,could we  cite runs that are not in the Table???
-%  These  runs values are used to computing the test results, it worth put them 
-  %Pablo: I rewrote the last phrase check if it is correct
- % Mohammed - I was waiting for Table approval to comment.
-%Mohammed - ( Table shows 10 from 20 )  to reduce space.
-% Antonio - Mohammed, please compute mean and standard deviation and add them as an additional row on the table. I have marked minimum values in bold.
-%Mohammed- Done
-
-% Antonio - Mohammed, the values for Fitness 2 must be wrong. They are the same as LapTime + Damage (as in Fitness 1), however, TopSpeed must be also considered in the calculation. Unless BETA=0, but in that case Fitness 1 = Fitness 2 which will not have sense.
-
-%Mohammed- that's right , I had forgotten \beta in computing fitness from saved file results
-%Mohammed - done
-
-% Antonio - Great! :D
+% Antonio - Yes, I think we can now say the did 20 runs instead of 10. ;)
 
 The best solution obtained with each fitness function from these runs have been considered to be tested. %Pablo: to be tested where?
 We represented the resulted membership functions of these two optimal individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
-% These should be examples of results. You can't publish results with a single experiment - JJ
-% Antonio - I have commented these are examples and the best results. ;)
-%Mohammed -ok
 
 \begin{figure}%
 	\centering
@@ -715,6 +704,7 @@ in Table \ref{resultat20}.
 
 \begin{table}[!ht]
 	\centering
+{\scriptsize
 	\caption{Results of the three controllers in a 20 laps practice race}
 	\label{resultat20}
 	\begin{tabular}{|p{3cm}|c|c|c|}
@@ -737,6 +727,7 @@ in Table \ref{resultat20}.
 		\hline Damage          &   0         & 0              & 0  \\
 		\hline 
 	\end{tabular}
+}
 \end{table}
 % Antonio - Mohammed, please check the values of the first track (E-Track 5) as the best lap and the last lap times are always the same (for the 3 controllers).
 %Mohammed- The second controller  obtained the best lap in the last one, for the other , I corrected it
@@ -770,7 +761,7 @@ curving angles. This ability  of the GA-fuzzy controller collaborates
 to minimize the overall race time and thus the final ranking.
 % Antonio - add more comments on the results
 % Mohammed- done
-According to these results, we can conclude that GFC2 is the best controller.
+According to these results, GFC2 seems to be the best controller.
 % Not sure about this. Difference is very small. More test should be
 % done on an E-Road, maybe 15 (always minimum in statistics). They
 % seem too similar and are probably not statistically different - JJ
@@ -784,19 +775,44 @@ According to these results, we can conclude that GFC2 is the best controller.
 Comparing average lap time gives us an overall idea of which
 controller performs the best; however, at the end of the day in a
 racing game the race has to be won. That is why we have tested every
-fuzzy separately from the others in a 
-real race against five standard controllers from each team integrated
-with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and
-\ref{tab:adreal} illustrate their performance in a 5 laps real
-race.  % Which track? - JJ
+fuzzy separately from the others in a real race against five standard controllers from each team integrated with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and \ref{tab:adreal} illustrate their performance in two 5 laps real races.  % Which track? - JJ
 
 \begin{table}[!ht]
-		\centering
-                \caption{Results of GFC1 in a real race (5 laps) in E-Track5}
+\centering
+{\scriptsize
+	\caption{Results of AD in two real races (5 laps)}
+	\label{tab:adreal}
+	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+		\hline \textbf{E-TRACK5} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+		\hline \textbf{Ranking} & 6/6&5/6&1/6&4/6&2/6&3/6\\			
+		\hline \textbf{Race Time}	& 02:31:83\newline+5 laps&02:31:83\newline+1 lap&02:31:83&02:31:83\newline+1 lap&02:31:83\newline+21:32&02:31:83\newline+33:43 \\	
+		\hline \textbf{Best Time}& 00:00&37:25&28:60&36:28&31:47&35:84\\	
+		\hline \textbf{Max Speed}& 111&202&230&189&225&202\\	
+		\hline \textbf{Damage}& 10786&465&5&0&2394&0 \\	
+		\hline 
+	\end{tabular}
+
+	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+		\hline \textbf{E-ROAD} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+		\hline \textbf{Ranking} & 6/6&5/6&1/6&3/6&2/6&4/6\\			
+		\hline \textbf{Race Time}	& 05:44:08\newline+5 laps&05:44:08\newline+1 lap&05:44:08&05:44:08\newline+35:27&05:44:08\newline+34:72&05:44:08\newline+1 lap \\	
+		\hline \textbf{Best Time}& 00:00&1:19:31&1:13:55&1:15:42&1:17:94&1:16:39\\	
+		\hline \textbf{Max Speed}& 120&206&190&179&210&197\\	
+		\hline \textbf{Damage}& 15731&688&422&810&1842&288 \\	
+		\hline 
+	\end{tabular}
+}
+\end{table}
+
+
+\begin{table}[!ht]
+\centering
+{\scriptsize
+   \caption{Results of GFC1 in two real races (5 laps)}
                 % Explain the "Race time" row - JJ
 	\label{tab:gfc1real}
-	\begin{tabular}{|p{2cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-Track5} &   \textbf{GFC1} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+		\hline \textbf{E-TRACK5} &   \textbf{GFC1} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
 		\hline \textbf{Ranking} & 3/6&4/6&1/6&5/6&2/6&6/6\\			
 		\hline \textbf{Race Time}	& 02:30:74\newline+35:70&02:30:74\newline +1 lap &02:30:74&02:30:74\newline +1 lap &02:30:74\newline+12:13&02:30:74\newline+1 lap\\	
 		\hline \textbf{Best Lap}&35:65& 36:39&28:57&36:83&30:53&35:39\\	
@@ -804,14 +820,9 @@ race.  % Which track? - JJ
 		\hline \textbf{Damages}& 0&0&0&603&0&471 \\	
 		\hline 
 	\end{tabular}
-\end{table}
 
-\begin{table}[!ht]
-	\centering
-	\caption{Results of GFC1 in a real race (5 laps) in E-Road track}
-	\label{tab:gfc1real2}
-	\begin{tabular}{|p{2cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-Road} & \textbf{GFC1}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+		\hline \textbf{E-ROAD} & \textbf{GFC1}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
 		\hline \textbf{Ranking} & 5/6&4/6&1/6&6/6&2/6&3/6\\			
 		\hline \textbf{Race Time}	&  05:40:12\newline +57:22&  05:40:12\newline+43:04& 05:40:12& 05:40:12\newline+1 lap& 05:40:12\newline+16:51& 05:40:12\newline+29:97\\	
 		\hline \textbf{Best Time}& 1:18:09 &1:15:33&1:12:48&1:19:55&1:13:77&1:16:21\\	
@@ -819,15 +830,17 @@ race.  % Which track? - JJ
 		\hline \textbf{Damage}& 433& 578 & 984&2530&1831&694\\	
 		\hline 
 	\end{tabular}
+}
 \end{table}
 
 
 \begin{table}[!ht]
 	\centering
-	\caption{Results of GFC2 in a real race (5 laps)in E-Track5}
+{\scriptsize
+	\caption{Results of GFC2 in two real races (5 laps)}
 	\label{tab:gfc2real}
-	\begin{tabular}{|p{2cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-Track5} & \textbf{GFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+		\hline \textbf{E-TRACK5} & \textbf{GFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
 		\hline \textbf{Ranking} & 2/6&4/6&1/6&6/6&3/6&5/6\\			
 		\hline \textbf{Race Time}	& 02:30:83\newline +03:99&  02:30:83\newline+1 lap&02:30:83&02:30:83\newline+1 lap&02:30:83\newline+08:35&02:30:83\newline+1 lap\\	
 		\hline \textbf{Best Time}& 29:82 &36:38&28:35&37:04&30:53&36:00\\	
@@ -835,13 +848,9 @@ race.  % Which track? - JJ
 		\hline \textbf{Damage}& 0& 0 & 343&1230&0&668\\	
 		\hline 
 	\end{tabular}
-\end{table}
-\begin{table}[!ht]
-	\centering
-	\caption{Results of GFC2 in a real race (5 laps) in E-Road track}
-	\label{tab:gfc2real2}
-	\begin{tabular}{|p{2cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-Road} & \textbf{GFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+
+	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+		\hline \textbf{E-ROAD} & \textbf{GFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
 		\hline \textbf{Ranking} & 3/6&4/6&1/6&6/6&2/6&5/6\\			
 		\hline \textbf{Race Time}	& 05:38:23\newline +17:72&  05:38:23\newline+1 lap&05:38:23&05:38:23\newline+1 lap&05:38:23\newline+10:73&05:38:23\newline+1 lap\\	
 		\hline \textbf{Best Time}& 1:17:34 &1:16:29&1:14:97&1:20:80&1:13:98&1:15:29\\	
@@ -849,52 +858,18 @@ race.  % Which track? - JJ
 		\hline \textbf{Damage}& 120& 356 & 753&2750&130&894\\	
 		\hline 
 	\end{tabular}
+}
 \end{table}
 
+First of all, as it can be seen, the original controller AD has had a poor performance, getting the last position in both races.
+Whereas both $GFC1$ and $GFC2$ controllers showed to be more competitive. 
+GFC2 has got an excellent second position in the track used during optimization (E-Track), and it has also got a remarkable third rank in the unknown track (E-Road). 
+Both controllers have dealt very well for not being damaged, which even the winner, {\tt bt 3}, could not avoid. 
 
-
-
-\begin{table}[!ht]
-		\centering
-	\caption{Results of AD in a real race in E-Track5}
-	\label{tab:adreal}
-	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-Track5} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
-		\hline \textbf{Ranking} & 6/6&5/6&1/6&4/6&2/6&3/6\\			
-		\hline \textbf{Race Time}	& 02:31:83\newline+5laps&02:31:83\newline+1 lap&02:31:83&02:31:83\newline+1 lap&02:31:83\newline+21:32&02:31:83\newline+33:43 \\	
-		\hline \textbf{Best Time}& 00:00&37:25&28:60&36:28&31:47&35:84\\	
-		\hline \textbf{Max Speed}& 111&202&230&189&225&202\\	
-		\hline \textbf{Damage}& 10786&465&5&0&2394&0 \\	
-		\hline 
-	\end{tabular}
-\end{table}
-
-
-\begin{table}[!ht]
-	\centering
-	\caption{Results of AD in a real race in E-Road track}
-	\label{tab:adreal2}
-	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-Road} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
-		\hline \textbf{Ranking} & 6/6&5/6&1/6&3/6&2/6&4/6\\			
-		\hline \textbf{Race Time}	& 05:44:08\newline+5laps&05:44:08\newline+1 lap&05:44:08&05:44:08\newline+35:27&05:44:08\newline+34:72&05:44:08\newline+1 lap \\	
-		\hline \textbf{Best Time}& 00:00&1:19:31&1:13:55&1:15:42&1:17:94&1:16:39\\	
-		\hline \textbf{Max Speed}& 120&206&190&179&210&197\\	
-		\hline \textbf{Damage}& 15731&688&422&810&1842&288 \\	
-		\hline 
-	\end{tabular}
-\end{table}
-
-
-We note that the obtained ranking by the controllers $GFC1$,   $GFC2$ was third and second respectively. 
-GFC2 makes a better time than GFC1; on the other hand,  both finished
-the race without sustaining any damage; the winner {\tt bt 3} did get
-damaged in the race against GFC2. 
-On the other hand, the AD controller was not able to avoid high damages in the track.
-These results are a confirmation of the good optimization done by the genetic algorithms and mainly  when the Top Speed was considered in the fitness. 
+These results are a confirmation of the good optimization done by the GA and mainly when the Top Speed was considered in the fitness. 
 The obtained results in real race with opponents from tough teams from TORCS are encouraging even the optimization process was in practice races.
 This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17_blind}. 
-The enhancement  of that driver by the optimal values of the membership function values,  allows it to detect and overtake the opponents with no damage or stuck.
+The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and Future Work} 
