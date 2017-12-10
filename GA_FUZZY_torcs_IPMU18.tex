@@ -672,30 +672,28 @@ in Table \ref{resultat20}.
 
 \begin{table}[!ht]
 	\centering
-{\scriptsize
-	\caption{Results of the three controllers in a 20 laps practice race}
-	\label{resultat20}
-	\begin{tabular}{|p{3cm}|c|c|c|}
-		\hline
-		\multicolumn{4}{|c|}{\textbf{E-Track 5}}  \\
-		\hline \textbf{Results} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}  \\
-		\hline Best Lap Time         & 29:70 & 30:03 & 29:50 \\
-		\hline Top Speed          & 209 & 216 & 216\\
-		\hline Min Speed          & 168 & 148 & 182 \\
-		\hline Last Lap Time       & 29:79 &  30:03 & 29:94\\
-		\hline Damage          & 936 & 0 & 0\\
-		\hline 
-		\hline
-		\multicolumn{4}{|c|}{\textbf{E-Road}}  \\ 
-		\hline \textbf{Results} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}  \\
-		\hline Best Lap Time         & 02:31:71    & 02:26:72       & 02:26:54  \\
-		\hline Top Speed& 206& 205 &  208 \\
-		\hline Min Speed          & 30          & 39             & 37  \\
-		\hline Last Lap Time       & 03:12:79    &  02:42:26      &  02:33:36 \\
-		\hline Damage          &   0         & 0              & 0  \\
-		\hline 
-	\end{tabular}
-}
+	{\scriptsize
+		\caption{Results of the three controllers in a 20 laps practice race}
+		\label{resultat20}
+		\begin{tabular}{|p{3cm}|c|c|c|}
+			\hline
+			\multicolumn{4}{|c|}{\textbf{E-Track 5}}  \\
+			\hline \textbf{Results} & & \textbf{GFC1} & \textbf{GFC2}  \\
+			\hline Best Lap Time         & & 30:01 & 29:21 \\
+			\hline Top Speed          &  & 224 & 234\\
+			\hline Min Speed          &  & 151 & 186 \\
+			\hline Damage          & & 0 & 0\\
+			\hline 
+			\hline
+			\multicolumn{4}{|c|}{\textbf{CG Track2}}  \\ 
+			\hline \textbf{Results} & & \textbf{GFC1} & \textbf{GFC2}  \\
+			\hline Best Lap Time         &     &   01:04:96     & 01:02:32  \\
+			\hline Top Speed& &220  &  238 \\
+			\hline Min Speed          &      & 33             & 40  \\
+			\hline Damage          &   0         & 0              & 0  \\
+			\hline 
+		\end{tabular}
+	}
 \end{table}
 % Antonio - Mohammed, please check the values of the first track (E-Track 5) as the best lap and the last lap times are always the same (for the 3 controllers).
 %Mohammed- The second controller  obtained the best lap in the last one, for the other , I corrected it
@@ -744,61 +742,32 @@ Comparing average lap time gives us an overall idea of which
 controller performs the best; however, at the end of the day in a
 racing game the race has to be won. That is why we have tested every
 fuzzy separately from the others in a real race against five standard controllers from each team integrated with TORCS. Tables \ref{tab:gfc1real}, \ref{tab:gfc2real} and \ref{tab:adreal} illustrate their performance in two 5 laps real races.  % Which track? - JJ
-
 \begin{table}[!ht]
-\centering
-{\scriptsize
-	\caption{Results of AD in two real races (5 laps)}
-	\label{tab:adreal}
-	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-TRACK5} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
-		\hline \textbf{Ranking} & 6/6&5/6&1/6&4/6&2/6&3/6\\			
-		\hline \textbf{Race Time}	& 02:31:83\newline+5 laps&02:31:83\newline+1 lap&02:31:83&02:31:83\newline+1 lap&02:31:83\newline+21:32&02:31:83\newline+33:43 \\	
-		\hline \textbf{Best Time}& 00:00&37:25&28:60&36:28&31:47&35:84\\	
-		\hline \textbf{Max Speed}& 111&202&230&189&225&202\\	
-		\hline \textbf{Damage}& 10786&465&5&0&2394&0 \\	
-		\hline 
-	\end{tabular}
-
-	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-ROAD} & \textbf{AD} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
-		\hline \textbf{Ranking} & 6/6&5/6&1/6&3/6&2/6&4/6\\			
-		\hline \textbf{Race Time}	& 05:44:08\newline+5 laps&05:44:08\newline+1 lap&05:44:08&05:44:08\newline+35:27&05:44:08\newline+34:72&05:44:08\newline+1 lap \\	
-		\hline \textbf{Best Time}& 00:00&1:19:31&1:13:55&1:15:42&1:17:94&1:16:39\\	
-		\hline \textbf{Max Speed}& 120&206&190&179&210&197\\	
-		\hline \textbf{Damage}& 15731&688&422&810&1842&288 \\	
-		\hline 
-	\end{tabular}
-}
-\end{table}
-
-
-\begin{table}[!ht]
-\centering
-{\scriptsize
-   \caption{Results of GFC1 in two real races (5 laps)}
-                % Explain the "Race time" row - JJ
-	\label{tab:gfc1real}
-	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-TRACK5} &   \textbf{GFC1} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
-		\hline \textbf{Ranking} & 3/6&4/6&1/6&5/6&2/6&6/6\\			
-		\hline \textbf{Race Time}	& 02:30:74\newline+35:70&02:30:74\newline +1 lap &02:30:74&02:30:74\newline +1 lap &02:30:74\newline+12:13&02:30:74\newline+1 lap\\	
-		\hline \textbf{Best Lap}&35:65& 36:39&28:57&36:83&30:53&35:39\\	
-		\hline \textbf{Max Speed}& 196&202&231&192&226&202\\	
-		\hline \textbf{Damages}& 0&0&0&603&0&471 \\	
-		\hline 
-	\end{tabular}
-
-	\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
-		\hline \textbf{E-ROAD} & \textbf{GFC1}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
-		\hline \textbf{Ranking} & 5/6&4/6&1/6&6/6&2/6&3/6\\			
-		\hline \textbf{Race Time}	&  05:40:12\newline +57:22&  05:40:12\newline+43:04& 05:40:12& 05:40:12\newline+1 lap& 05:40:12\newline+16:51& 05:40:12\newline+29:97\\	
-		\hline \textbf{Best Time}& 1:18:09 &1:15:33&1:12:48&1:19:55&1:13:77&1:16:21\\	
-		\hline \textbf{Max Speed}& 211&208&224&188&221&209\\
-		\hline \textbf{Damage}& 433& 578 & 984&2530&1831&694\\	
-		\hline 
-	\end{tabular}
-}
+	\centering
+	{\scriptsize
+		\caption{Results of GFC1 in two real races (5 laps)}
+		% Explain the "Race time" row - JJ
+		\label{tab:gfc1real}
+		\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+			\hline \textbf{E-TRACK5} &   \textbf{GFC1} & \textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+			\hline \textbf{Ranking} & 3/6&4/6&1/6&5/6&2/6&6/6\\			
+			\hline \textbf{Race Time}	& 02:29:32\newline+24:11&02:29:32\newline +1 lap &02:29:32&02:29:32\newline +1 lap &02:29:32\newline+13:67&02:29:32\newline+1 lap\\	
+			\hline \textbf{Best Lap}&33:79& 35:39&28:09&36:73&31:49&34:12\\	
+			\hline \textbf{Max Speed}& 199&206&233&198&229&219\\	
+			\hline \textbf{Damages}& 0&0&0&599&7&566 \\	
+			\hline 
+		\end{tabular}
+		
+		\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+			\hline \textbf{CG Track2} & \textbf{GFC1}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+			\hline \textbf{Ranking} & 3/6&4/6&1/6&6/6&5/6&2/6\\			
+			\hline \textbf{Race Time}	&  05:10:66\newline +25:43&  05:10:66\newline+55:65& 05:10:66& 05:10:66\newline+1 lap& 05:10:66\newline+38:44& 05:10:66\newline+19:82\\	
+			\hline \textbf{Best Time}& 1:03:65 &1:04:21&1:00:57&1:04:26&1:03:19&1:03:98\\	
+			\hline \textbf{Max Speed}& 233&236&288&200&238&229\\
+			\hline \textbf{Damage}& 112& 376 & 433&988&541&890\\	
+			\hline 
+		\end{tabular}
+	}
 \end{table}
 
 
