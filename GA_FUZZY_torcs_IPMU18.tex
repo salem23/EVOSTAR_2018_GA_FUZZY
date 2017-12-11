@@ -49,9 +49,7 @@
 \title{Improving a TORCS Modular Fuzzy Driver using Genetic Algorithms}
 	
 	
-	%\titlerunning{Driving in TORCS using modular fuzzy controllers}
-	
-	
+	%\titlerunning{Driving in TORCS using modular fuzzy controllers}	
 	
 	
 \author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
@@ -73,31 +71,26 @@
 \begin{abstract}
 
   % Need to edit to reflect new results
-This work presents an evolutionary approach to optimize the parameters
-of a Fuzzy-based autonomous driver for the open simulated car racing
-game (TORCS). Using evolutionary algorithms, %Pablo: "using evolution" is correct?
-we intend to optimize a modular fuzzy agent designed to determine the
-optimal target speed as well as the steering angle during the
-race. The challenge in this kind of fuzzy systems is the design of the
-membership functions, which is usually done through a trial and error
-process, but in this paper an adapted real-coded Genetic Algorithm 
-with two different fitness functions - %Pablo: two fitness functions
-% _compared_ ?
-% just two different fitness functions - JJ
-has been applied to find the best values for these parameters,
-obtaining a robust design for the TORCS controller. % This robustness
- % should be discussed in the
-  % conclusions - JJ
-The evolved drivers were tested and evaluated competing against other
-TORCS controllers in practice mode, without rivals, and real
-races. %Pablo: "in practice mode" instead "in practice" to clarify
-%Done - JJ
+Games offer an arena where you can test in a near-real life
+environment new methodologies and algorithms; if the game is related
+to driving, using transfer learning or other techniques results can be
+generalized to autonomous driving environments, for
+In this work, we use evolutionary algorithms to optimize a fuzzy autonomous driver for the open simulated car racing
+game (TORCS). The evolutionary algorithms change the fuzzy systems so that they set an optimal target speed as well as
+the instantaneous steering angle during th erace.
+Evolutionary algorithms offer an automatic way to design the
+membership functions, instead of a manual or hill-climbing descent;
+but the main issue with this kind of algorithms is to find the fitness
+function that best delivers the obtained result, which is eventually
+to win as many races as possible. In this paper we prove that
+fine-tuning the evolutionary algorithm robustly finds good results and
+that, in some cases, they are able to play very competitively against
+other published results, with a more principled approach that needs
+very few parameters to tune.
 The optimized fuzzy-controllers yield a very good performance, mainly
 in tracks that have many turning points, which are, in turn, the most
 difficult for any 
-autonomous agent. Thus, this is a real enhancement of the baseline
-fuzzy controllers which had several difficulties to drive in this kind
-of circuits. 
+autonomous agent. % comment new results
 \end{abstract}
 
 \keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
