@@ -808,32 +808,43 @@ The enhancement of that driver by the optimal values of the membership function 
 \section{Conclusions and Future Work} 
 \label{sec:conclusions}
 
-In this work, we presented a Genetic Algorithm implementation to
-optimize and improve AD, an existing fuzzy driver for TORCS simulator
+In this work, we have presented an improved Genetic Algorithm implementation that 
+optimizes and improves autonomous  driving using fuzzy systems for TORCS simulator
 \cite{evo17_blind}, which combines two sub-controllers, one to
-calculate the target speed and the other for the direction (steer). 
+calculate the target speed and the other for the direction, that is, for driving the steering wheel. . 
 
-In the evolutionary approach, we tested two fitness functions which use the results obtained in a race conducted by the controller being optimized. 
-The first one considers the average lap time and the car damage; the second uses these two factors and also the top speed reached.
-
-The fuzzy-genetic controllers obtained were compared with the original AD controller whose parameters were determined empirically. The comparison was made first without opponents and then, with several cars from the TORCS teams in realistic races.
+After initial tests, that showed the promise of this approach, and
+where we experimented with two different fitness functions, one
+considering the average lap time and the car damage and another adding
+the top speed reached, we have fine-tuned some algorithm parameters to
+obtain better results. As in the initial tests, the fuzzy-genetic
+controllers obtained were compared with the original AD controller
+whose parameters were determined empirically. The comparison was made
+first without opponents and then including several cars from the TORCS
+teams in realistic races. 
 
 The obtained results are very promising since the optimized
 controllers overcome the original in the practice races, and also they
 were ranked among the first ones in the evaluation races, with the
-minimum of damage. 
+minimum of damage.
 
-Nevertheless, these results can be improved by extending the evaluation of population controllers in the Genetic algorithm to other tracks and not just one, to allow the elected controller to practice effectively in multiple tracks and in real-life situations.
+% Say something about how much better this one was compared with the first.
+
+
+% We have to revise this. 
+Nevertheless, these results can be improved by extending the
+evaluation of population controllers in the Genetic algorithm to other
+tracks and not just one, to allow the elected controller to practice
+effectively in multiple tracks and in real-life situations. 
 Moreover, we could also try to generate, optimize and tune automatically the rule base of the fuzzy controller by means of a Genetic Programming algorithm. %Pablo: also mention the possibility of Multi-Objective EAs.
 
 
 \section*{Acknowledgments}
 
-% This work has been supported in part by: Ministerio espa\~{n}ol de
-% Econom\'{\i}a y Competitividad under project TIN2014-56494-C4-3-P
-% (UGR-EPHEMECH).
-Hidden for double blind\\
-Taking this much space.
+This work has been supported in part by: Ministerio espa\~{n}ol de
+Econom\'{\i}a y Competitividad under project TIN2014-56494-C4-3-P
+(UGR-EPHEMECH).
+
 
 	\bibliographystyle{splncs03}
 	\bibliography{fuzzy_torcs}
