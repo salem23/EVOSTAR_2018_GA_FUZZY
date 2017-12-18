@@ -118,7 +118,9 @@ explains the popularity of car racing games challenges, which are
 usually performed using game simulators; for instance, The Open Racing Car Simulator
 (TORCS) \cite{WebTORCS} is a realistic racing simulator with a
 sophisticated engine used for many standalone racing competition
-challenges every year. This fact, combined with the ability to compare controllers, have made TORCS the most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}. 
+challenges every year. This fact, combined with the ability to compare
+controllers, have made TORCS the most used simulator in the field of
+autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}.  
 
 Many kinds of controllers have been used in this simulator, but one of
 the most efficient controllers so far are fuzzy-based ones, as they
@@ -130,17 +132,25 @@ desired speed in every single point (or tick) during a race
 \cite{evo17_blind}. The obtained results were promising, but the
 performance of the autonomous driver showed some flaws in difficult
 tracks -- those with many curves, or where `external' factors affected
-the asphalt -- and against the most competitive rivals.  
+the asphalt -- and against the most competitive rivals.
 
-We argue here that the major disadvantage of this approach is that the parameters of the controllers' fuzzy membership functions were defined following a trial/error process in the absence of experts to do so.
-Thus, in this work we consider the selection of the best values for these parameters as an optimization problem, so we have applied an evolutionary algorithm to obtain them. Concretely, we propose to apply a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} with this purpose. %Pablo: what the GA optimizes exactly? The MF? Say it here.
+% What kind of issues are there? - JJ
+
+We argue here that the major disadvantage of this approach is that the
+parameters of the controllers' fuzzy membership functions were defined
+following a trial/error process in the absence of experts to do so. 
+Thus, in this work we consider the selection of the best values for
+these parameters as an optimization problem, so we have applied an
+evolutionary algorithm to obtain them. Concretely, we propose to apply
+a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} with this
+purpose. %Pablo: what the GA optimizes exactly? The MF? Say it here. 
 %% Mohammed - It is mentioned three lines before, rewriting it here would not be  redundant??  
  The considered approach requires, in addition to a good codification
  of solutions and selection of operators, the choice of an adequate
  cost function (fitness), due to the uncertainty and noisiness of the
  problem itself. So two different proposals have been studied, the first one is computed using the mean lap time and damage while the second consider also the Top speed. %Pablo:
   %mention here some difference between
-     %the 2 fitness 
+  %the 2 fitness 
 %Mohammed- added
 The genetic-fuzzy based controller has been evaluated in a practice
 race - without rivals - first, and then in a real race against
@@ -176,19 +186,45 @@ racing controller: damage and speed.
 \section{State of the Art}
 \label{sec:soa}
 
-Evolutionary algorithms have been used by several researchers in many different ways in the car racing simulator TORCS.
+Evolutionary algorithms have targeted TORCS almost since its
+publication.
 
-For instance, Loiacono et al \cite{AutogenEvo2011} applied a single-objective and a multi-objective real-coded GA to the automatic generation of tracks for high-end racing games while Floreano et al. \cite{Floreano2004}, used a GA for tuning up a neural network which visually recognizes edges, corners and height, resembling strategies observed in simple insects which obtained results that performed equal or better than well trained human drivers tested on the same circuits. 
+
+% You have to lay out the issues. What kind of problems are there
+% within TORCS? Are they optimization problems? Pattern recognition
+% problems? What 
+Loiacono et al
+\cite{AutogenEvo2011} applied a single-objective and a multi-objective
+real-coded GA to the automatic generation of tracks for high-end
+racing games while Floreano et al. \cite{Floreano2004}, used a GA for
+tuning up a neural network which visually recognizes edges, corners
+and height, resembling strategies observed in simple insects which
+obtained results that performed equal or better than well trained
+human drivers tested on the same circuits.  % This is generation of
+                                % tracks, not drivers. It's the same
+                                % semantic field, but not the same - JJ
 
 %Pablo: same as before, combine previous small paragraphs into one
 % Mohammed - merged 
-Another application of evolutionary algorithms was to determine the optimal trajectory of a lap in a known circuit \cite{drivingGA2008}, but this approach suffers from the problem that the obtained trajectory in the evolving process strongly depends on the initial state of the car. 
+Another application of evolutionary algorithms was to determine the
+optimal trajectory of a lap in a known circuit \cite{drivingGA2008},
+but this approach suffers from the problem that the obtained
+trajectory in the evolving process strongly depends on the initial
+state of the car.  
 In the same context, the authors in \cite{GaRaceLine2010} tried to design a novel approach to compute the optimal racing line without any human intervention, using a GA to find the best trade-off between
 the minimization of two conflicting objectives: the length and
 the curvature of the racing line.
 
-However, definitely, the most prolific area of application of EAs inside TORCS, has been the optimization of autonomous controllers for car driving, i.e. conducting a meta-optimization process.
-Thus, EAs have been applied to `refine' the parameters which define the driver's behavior \cite{ButzCMAES09,SAES2012}, or to improve the structure/architecture of the models \cite{evol,neurone}, working offline, or online (during the game) \cite{TanOnline08,Cardamone_Online_NN}. 
+However, definitely, the most prolific area of application of EAs
+inside TORCS has been the optimization of autonomous controllers for
+car driving, i.e. conducting a meta-optimization process. %Why is it
+                                %meta-optimization? - JJ
+Thus, EAs have been applied to `refine' the parameters which define
+the driver's behavior \cite{ButzCMAES09,SAES2012}, or to improve the
+structure/architecture of the models \cite{evol,neurone}, working
+offline, or online (during the game)
+\cite{TanOnline08,Cardamone_Online_NN}.  % What kind of fitness they
+                                % have used? - JJ
 
 % FUZZY + EAs
 Our approach is focused in this line, proposing the application of an off-line genetic algorithm for the improvement of the parameters which determine the behavior of a controller for TORCS. We have focused on a Fuzzy-based model, as it is one of the best options for modeling human-like decisions and actions, as others authors have also used this kind of technique in the literature with good results \cite{torcs_Onieva2011}. %Pablo: cite?
