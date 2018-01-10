@@ -263,26 +263,19 @@ steering angle are computed by means of two modular and specialized
 fuzzy sub-controllers, which consider five position sensors. This is
 the controller which will be improved by means of a GA in this
 work.
-% The two sub-controllers are summarized in the following
-% paragraphs.\\ 
 
-%-----------------------------------------------
-\noindent
-\textbf{Fuzzy target speed sub-controller:}\\
-% We might not need subsections in conference
-                                % papers. We could eliminate them and
-                                % make more space for enhanced
-                                % descriptions or tables - JJ
-% Antonio - right. I have done it.
-%
-This controller aims to estimate the optimal target speed of the car, both in straight parts and curves of the track, taking into account two criteria: move as fast as possible and be safe. 
-
-This estimation is based on two general cases: if the car is in a straight line, the target speed will take a maximum value (\textit{maxSpeed} km/h). However, if it is close to a curve, the controller will decrease the current speed to a value included in the interval \textit{[minSpeed, maxSpeed]} km/h.
+The {\em fuzzy target speed sub-controller} aims to estimate the
+optimal target speed of the car, both in straight parts and curves of
+the track, taking into account two criteria: move as fast as possible
+and be safe. This estimation is based on two general cases: if the car
+is in a straight line, the target speed will take a maximum value
+(\textit{maxSpeed} km/h). However, if it is close to a curve, the
+controller will decrease the current speed to a value included in the
+interval \textit{[minSpeed, maxSpeed]} km/h. 
 
 This fuzzy controller has an output, the speed, and three input values:
 \begin{itemize}
-	\item Front = Track[9]: front distance to the track border (angle 0º). %Pablo: IMPORTANT!!! I think Track[9] is misleading, the [9] looks like a citation in the PDF!. Use something like Track\_9 or something like that. Also, specifying the Track_x is useful or descriptive?
-	% Mohammed - Track[] is  a TORCS  sensor output table with 19 distances of the car from the track borders 
+	\item Front = Track[9]: front distance to the track border (angle 0º). 
 	\item M5 = max (Track[8], Track[10]): max distance to the track border in an angle of +5º and -5º with respect to Front.
 	\item M10 = max (Track[7], Track[11]): max distance to track border in an angle of +10º and -10º.
 \end{itemize}
@@ -379,31 +372,34 @@ These controllers were defined with our own criteria, but they could be far from
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  OPTIMISING WITH GAS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\section{Optimizing the fuzzy controllers with GA}
-\label{sec:GA_optimization}
+% \section{Optimizing the fuzzy controllers with GA}
+% \label{sec:GA_optimization}
 
-Designing an optimal fuzzy controller for TORCS racing needs a human expert to define the membership functions parameters and the rule base. This expert, even if he exists, could not provide an exact repartition of the fuzzy membership functions values over the universe of discourse. 
+% Designing an optimal fuzzy controller for TORCS racing needs a human expert to define the membership functions parameters and the rule base. This expert, even if he exists, could not provide an exact repartition of the fuzzy membership functions values over the universe of discourse. 
 
-This difficulty have led us to move towards the use of Genetic Algorithms  \cite{GAs_Goldberg89} because of their global exploration characteristic in a complex environment, as this problem plots. 
+% This difficulty have led us to move towards the use of Genetic Algorithms  \cite{GAs_Goldberg89} because of their global exploration characteristic in a complex environment, as this problem plots. 
 
 The proposed optimization approach aims to find the optimal parameters of the membership functions of the two sub-controllers previously introduced. 
-The followed process is depicted in Figure \ref{fig:ga}, in which, as it can be seen, the GA uses TORCS for the evaluation of every individual during the evolutionary process.
-
-\begin{figure}[!ht]
-	\label{fig:ga}
-	\begin{center}
-		\includegraphics[width=10cm]{fig/flowchart}
-	\end{center}
-	\caption{Optimization of a fuzzy controller flowchart. The evaluation of an individual is performed by: putting the parameter values on the two sub-controllers, launching a race in TORCS with this configuration, obtaining the resulting values of Damage, Top Speed and mean Lap Time and using these values for the computation of the fitness of the individual.}
-\end{figure}	
-
-Indeed, the GA starts by creating the initial population with random values for the parameters in the defined range $[0,100]$. The fitness of each candidate solution is computed by injecting its gene values to the parameters of the membership functions of the two fuzzy sub-controllers. The defined autonomous controller is used to drive a car in a 20 laps race in E-Track5 circuit without opponents, and the results (Top speed, Damage and Mean Lap time) are used to compute the fitness value.
+% The followed process is depicted in Figure \ref{fig:ga}, in which, as it can be seen, the GA uses TORCS for the evaluation of every individual during the evolutionary process.
+% \begin{figure}[!ht]
+% 	\label{fig:ga}
+% 	\begin{center}
+% 		\includegraphics[width=10cm]{fig/flowchart}
+% 	\end{center}
+% 	\caption{Optimization of a fuzzy controller flowchart. The evaluation of an individual is performed by: putting the parameter values on the two sub-controllers, launching a race in TORCS with this configuration, obtaining the resulting values of Damage, Top Speed and mean Lap Time and using these values for the computation of the fitness of the individual.}
+% \end{figure}	
+The GA starts by creating the initial population with random values
+for the parameters in the defined range $[0,100]$. The fitness of each
+candidate solution is computed by injecting its gene values to the
+parameters of the membership functions of the two fuzzy
+sub-controllers. The defined autonomous controller is used to drive a
+car in a 20 laps race in a circuit without opponents, and the
+results (Top speed, Damage and Mean Lap time) are used to compute the
+fitness value. 
 
 
 %***********************************************
 
-\subsection{Genetic Algorithm settings}
-%
 As previously stated, the designed fuzzy controllers have trapezoidal membership functions given by Equation \ref{eq:trapmf}.
 In such a controller, fuzzy rules are applied to linguistic terms. These terms, which qualify a linguistic variable, are defined through membership functions, which, in turn, depend on a set of parameters that `describes' their shape (and operation).
 
@@ -428,23 +424,25 @@ with:
 \begin{equation}
 x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
 \end{equation}
-This MF function is defined by four parameters $x_{1}$, $x_{2}$, $x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a, b]} (See Figure \ref{fig:trapeze}).																			
-\begin{figure}[!ht] 
-	\begin{center}
-		\includegraphics[scale=0.7]{fig/trapese}
-		\caption {Trapezoidal MFs}
-		\label{fig:trapeze}
-	\end{center}
-\end{figure}
-
-More generally, a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). In this case, the representation is given by the figure \ref{fig:at}
-\begin{figure}[!ht] 
-	\begin{center}
-		\includegraphics[scale=0.55]{fig/trapezoidal.png}
-		\caption {Trapezoidal-shaped MFs coding}
-		\label{fig:at}
-	\end{center}
-\end{figure}
+This MF function is defined by four parameters $x_{1}$, $x_{2}$,
+$x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a,
+  b]}.% (See Figure \ref{fig:trapeze}).
+      % 
+% \begin{figure}[!ht] 
+% 	\begin{center}
+% 		\includegraphics[scale=0.7]{fig/trapese}
+% 		\caption {Trapezoidal MFs}
+% 		\label{fig:trapeze}
+% 	\end{center}
+% \end{figure}
+More generally, a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). %In this case, the representation is given by the figure \ref{fig:at}
+% \begin{figure}[!ht] 
+% 	\begin{center}
+% 		\includegraphics[scale=0.55]{fig/trapezoidal.png}
+% 		\caption {Trapezoidal-shaped MFs coding}
+% 		\label{fig:at}
+% 	\end{center}
+% \end{figure}
 with:
 \begin{equation}
 a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b 	
@@ -642,47 +640,49 @@ terms.
  % Mohammed - Runs were deleted by JJ ,could we  cite runs that are not in the Table???
 % Antonio - Yes, I think we can now say the did 20 runs instead of 10. ;)
 
-The best solution obtained with each fitness function from these runs have been considered to be tested. %Pablo: to be tested where?
-We represented the resulted membership functions of these two optimal individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
-
-\begin{figure}%
-	\centering
-	\subfigure[with Fitness 1]{%
-		\label{fig:front1}%
-		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFRONT}}%
-	\subfigure[with Fitness 2]{%
-		\label{fig:front2}%
-		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFRONT2}}%
-	\caption{Front input MFs with GA}
-	\label{fig:mffront}
-\end{figure}
+The best solution obtained with each fitness function from these runs
+will be used in races against selected oponents. %Pablo: to be tested
+% where?
+% In races - JJ
+%We represented the resulted membership functions of these two optimal individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
+% \begin{figure}%
+% 	\centering
+% 	\subfigure[with Fitness 1]{%
+% 		\label{fig:front1}%
+% 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFRONT}}%
+% 	\subfigure[with Fitness 2]{%
+% 		\label{fig:front2}%
+% 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFRONT2}}%
+% 	\caption{Front input MFs with GA}
+% 	\label{fig:mffront}
+% \end{figure}
+% %
+% \begin{figure}%
+% 	\centering
+% 	\subfigure[with Fitness 1]{%
+% 		\label{fig:fmax51}%
+% 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFMAX5}}%
+% 	\subfigure[with Fitness 2]{%
+% 		\label{fig:fmax52}%
+% 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFMAX52}}%
+% 	\caption{Max5 input MFs with GA}
+% 	\label{fig:mfmax5}%
+% \end{figure}
+% %
+% \begin{figure}%
+% 	\centering
+% 	\subfigure[with Fitness 1]{%
+% 		\label{fig:MFMAX101}%
+% 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFMAX10}}%
+% 	\subfigure[with Fitness 2]{%
+% 		\label{fig:MFMAX102}%
+% 		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFMAX102}}%
+% 	\caption{Max10 input MFs with GA}
+% 		\label{fig:MFMAX10}%
+% \end{figure}
 %
-\begin{figure}%
-	\centering
-	\subfigure[with Fitness 1]{%
-		\label{fig:fmax51}%
-		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFMAX5}}%
-	\subfigure[with Fitness 2]{%
-		\label{fig:fmax52}%
-		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFFMAX52}}%
-	\caption{Max5 input MFs with GA}
-	\label{fig:mfmax5}%
-\end{figure}
-%
-\begin{figure}%
-	\centering
-	\subfigure[with Fitness 1]{%
-		\label{fig:MFMAX101}%
-		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFMAX10}}%
-	\subfigure[with Fitness 2]{%
-		\label{fig:MFMAX102}%
-		\includegraphics[width=0.6\textwidth,height=3cm]{fig/MFMAX102}}%
-	\caption{Max10 input MFs with GA}
-		\label{fig:MFMAX10}%
-\end{figure}
-
 The shapes of the obtained memberships are completely different from
-those obtained by Trial/Error in the previous work \cite{evo17_blind}
+those obtained by Trial/Error in the previous work \cite{evo17}
 where the Medium linguistic variable of the new functions has bigger
 range. This makes the controller very sensitive to the middle
 distances of the inputs, like for a real driver who considers most of
