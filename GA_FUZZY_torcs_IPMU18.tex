@@ -190,25 +190,7 @@ racing controller: damage and speed.
 
 Evolutionary algorithms have targeted TORCS almost since its
 publication.
-
-
-% You have to lay out the issues. What kind of problems are there
-% within TORCS? Are they optimization problems? Pattern recognition
-% problems? What 
-Loiacono et al
-\cite{AutogenEvo2011} applied a single-objective and a multi-objective
-real-coded GA to the automatic generation of tracks for high-end
-racing games while Floreano et al. \cite{Floreano2004}, used a GA for
-tuning up a neural network which visually recognizes edges, corners
-and height, resembling strategies observed in simple insects which
-obtained results that performed equal or better than well trained
-human drivers tested on the same circuits.  % This is generation of
-                                % tracks, not drivers. It's the same
-                                % semantic field, but not the same - JJ
-
-%Pablo: same as before, combine previous small paragraphs into one
-% Mohammed - merged 
-Another application of evolutionary algorithms was to determine the
+One application of evolutionary algorithms was to determine the
 optimal trajectory of a lap in a known circuit \cite{drivingGA2008},
 but this approach suffers from the problem that the obtained
 trajectory in the evolving process strongly depends on the initial
@@ -219,28 +201,20 @@ the curvature of the racing line.
 
 However, definitely, the most prolific area of application of EAs
 inside TORCS has been the optimization of autonomous controllers for
-car driving, i.e. conducting a meta-optimization process. %Why is it
-                                %meta-optimization? - JJ
+car driving, i.e. conducting a meta-optimization process. 
 Thus, EAs have been applied to `refine' the parameters which define
 the driver's behavior \cite{ButzCMAES09,SAES2012}, or to improve the
 structure/architecture of the models \cite{evol,neurone}, working
 offline, or online (during the game)
-\cite{TanOnline08,Cardamone_Online_NN}.  % What kind of fitness they
-                                % have used? - JJ
-
+\cite{TanOnline08,Cardamone_Online_NN}.
 % FUZZY + EAs
-Our approach is focused in this line, proposing the application of an off-line genetic algorithm for the improvement of the parameters which determine the behavior of a controller for TORCS. We have focused on a Fuzzy-based model, as it is one of the best options for modeling human-like decisions and actions, as others authors have also used this kind of technique in the literature with good results \cite{torcs_Onieva2011}. %Pablo: cite?
-% Mohammed - done
+Our approach is focused in this line, proposing the application of an off-line genetic algorithm for the improvement of the parameters which determine the behavior of a controller for TORCS. We have focused on a Fuzzy-based model, as it is one of the best options for modeling human-like decisions and actions, as others authors have also used this kind of technique in the literature with good results \cite{torcs_Onieva2011}. 
 For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Two fuzzy controllers were designed (acceleration and turning angle). %Pablo: in previous phrase you said one controller, not two
  But this approach was applied to a simpler simulator than TORCS which is a more realistic and time-constrained simulator. 
-%Pablo: Explain why our approach is better, because TORCS is more complicated
-% Mohammed- In TORCS controllers has less time to make a driving action , also it is more realistic than others by considering  traction, friction .....
 
 Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized as the proposed here, since their controller did not compute the target speed, which is a key factor for a competitive controller. 
-%Pablo: computing the target speed is better? Then emphasize it
-% Antonio - done
 
-Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behavior, but it did not take the target speed into account, unlike our previous controller \cite{evo17} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process. %Pablo: why adding speed is better?
+Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behavior, but it did not take the target speed into account, unlike our previous controller \cite{evo17} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process.
 In this paper, we propose to optimize these parameters using a real coded genetic algorithm aiming to improve the performance of the original fuzzy controller. %Pablo: I think this was the Evo* objective. Update this phrase to the new objective ("generalize results..." or whatever)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -250,9 +224,10 @@ In this paper, we propose to optimize these parameters using a real coded geneti
 The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents.
 % Its high degree of modularity and portability, together with the realistic and real-time driving simulation, make it an ideal testbed for artificial intelligence research, as it can be seen in the literature (See Section \ref{sec:soa}). %Pablo: refer to previous section?
 % The game offers different types of races from the practical single session to the championship.
+%Mohammed ok could be removed 
 There is a large set of sensors \cite{Torcs3} which the car can consider during a race, such as distances to track borders, to rivals, current fuel, current gear, position in the race, speed, or damage, among others.
 % These sensors values are used by any TORCS driver bot to control the car by means of a set of actuators \cite{Torcs3}: the steering wheel `Steer', the accelerator `accel', the brake pedal and the gearbox.  %Pablo: use more large paragraphs instead short phrases.
-% 	% Mohammed- done
+% 	% Mohammed- ok
 A controller is a program, which runs inside TORCS, that automatically
 drives a car. It gets as input information about the current state of
 the car and its situation on the track (sensors). These collected data
@@ -499,6 +474,7 @@ $\mu_{An}(x)= \left \{
 % use for these different parameters depends both on the desired
 % precision on the values and on their range of values. 
 % I don't think this paragraph is needed - JJ
+%  Mohammed:  tell me that you left the results section , You haven't removed it  too JJ jeje
 
 When the number of parameters is reduced and their ranges of variations are well defined, a GA with a binary coding is largely sufficient to find their optimal values. On the other hand, if the number of parameters becomes important, and their variation interval is not well known, the real coding is the most appropriate \cite{elsayed13}. 
 Since our work requires some precision and the variation interval of
@@ -545,15 +521,11 @@ heuristics to derive two possible fitness functions:
 \end{description}
 
 $\alpha$ and $\beta$ are two heuristic weights. The main difference is
-in the use of the $TopSpeed$ in the fitness.
+in the use of the $TopSpeed$ in the fitness to enhance the controller performances in straight lines aiming to reduce lap time and the overall race time .
 % There should be some explanation here why is that the particular
 % parameter you have decided to change in the two tested fitnesses - JJ
+% Moahmmed : Added
 To evaluate the candidate controllers during the evolutionary process, we will make each of them compete in a 20 laps practice race in a medium difficulty circuit without rivals. We have omitted the presence of opponents in order to avoid including additional uncertainty sources to the optimization process.
-% Antonio - Mohammed: which kind of race (practice or with rivals)? which kind of track? why this track?, which conditions (weather)?, which rivals?
-%           This is very important to be mentioned and explained (why have these %           features been selected to correctly evaluate a controller). ;)
-% Mohammed- Evaluation is in 20 laps to take the medium of lapstime 
-% I  prefered not to include rivals because this  will increase the unknown parameters to take in account in optimization 
-% Antonio - Ok, I have written that. ;)
 
 Then, the obtained output values $damage$, $LapTime$ and $TopSpeed$ are collected to compute the corresponding fitness value. As a clarification, $LapTime$ is the average of the 20 laps time.
 
@@ -606,12 +578,7 @@ speed that \textit{car1-tbr1}  could take ($MaxSpeed=300$)
 the Top speed values and make them in the same level as other fitness
 terms. 
  The results of these runs are shown in Table \ref{tab:runsresults}.
- % Antonio - Comment the obtained values.
- % You can't publish a table with the individual runs, and even less
- % with a column for fitness. Fitness 1 and 2 are not
- % comparable. Publish just the best and average performance optained,
- % and also publish TopSpeed for Fitness 1 if it's logged - JJ
-\begin{table}[ht]
+ \begin{table}[ht]
 	\centering
 {\scriptsize
 	\caption{ Results of 10 runs of GA with the two fitness
@@ -653,20 +620,12 @@ terms.
 	}\label{tab:runsresults}
 }
 \end{table}
-% Mohammed - Best values and TopSpeed added
- From The Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution, as we used the same random start population to compare the two fitness functions. %Pablo: important! do not use so much parantheses, I have removed them. Check if the meaning of this paragraph is still correct
-% Mohammed - ok, it's correct
- The worst values are obtained by $1^{st}$ Run for fitness 1 and $4^{th}$ run for the second fitness, thee bad values are produced by the damage when the car was in stuck or chocked with the track corner.
+ From The Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution, as we used the same random start population to compare the two fitness functions. The worst values are obtained by $1^{st}$ Run for fitness 1 and $4^{th}$ run for the second fitness, thee bad values are produced by the damage when the car was in stuck or chocked with the track corner.
  The second fitness has given  higher Top Speed values  which minimize the Laptime and makes the controller operates at higher performances. Also, implying late breaking in turns which maximize the Top Speed.
  Wilcoxon rank sum non-parametric test \cite{garcia09} is used to reject or accept the null hypothesis of equality of medians of the values of the two fitness functions for the 10 runs. The obtained p-value was $p =  0.0017$ and the  test statistic is $stats = -3.1371$, this results lead to the rejection of null hypothesis with a threshold $\alpha=0.01$ which allows us to conclude that the two samples sets are different.
  
- % Mohammed - Runs were deleted by JJ ,could we  cite runs that are not in the Table???
-% Antonio - Yes, I think we can now say the did 20 runs instead of 10. ;)
-
-The best solution obtained with each fitness function from these runs
-will be used in races against selected oponents. %Pablo: to be tested
-% where?
-% In races - JJ
+ The best solution obtained with each fitness function from these runs
+will be used in races against selected oponents. 
 %We represented the resulted membership functions of these two optimal individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
 % \begin{figure}%
 % 	\centering
@@ -752,28 +711,14 @@ in Table \ref{resultat20}.
 		\end{tabular}
 	}
 \end{table}
-% Antonio - Mohammed, please check the values of the first track (E-Track 5) as the best lap and the last lap times are always the same (for the 3 controllers).
-%Mohammed- The second controller  obtained the best lap in the last one, for the other , I corrected it
-% Antonio - Great. :)
-% They are still too similar. Since there are 20 laps, you should
-% perform a statistical test of difference between GFC1 and 2. - JJ
-% Mohammed - it could be done but it needs more then 30 runs to apply
-% nonparametric tests ( Wilcoxon or others, normality condition is not
-% verified for the Data of the two controllers)
-% You don't need normality to apply Wilcoxon. You could also show a
-% chart to highlight differences - JJ
 From the table, we can see that the fuzzy controllers optimized by the
 GA have given the best results, minimizing the global race time and
 damages ($0$ in the two GA-based fuzzy controllers), while the AD
 controller has finished the practice race with many damages.
-% But the difference is a few seconds. Still the statistical test
-% should be mentioned - JJ
 Testing the controllers in this E-Road, which is quite long and
 difficult as it can be seen by the time it takes a single lap, has proved their value in the adaptation to other
 tracks different from the one used for `training', that is, the
 optimization of the fuzzy controllers.
-% I have eliminated parentheses here. Please avoid them in formal
-% writing - JJ
 
 The GFC2 controller has run with a higher speed (considering overall Top
 Speed and Min Speed) than GFC1 in the two tracks. This is a positive
@@ -782,14 +727,7 @@ computation so the GA based fuzzy controller has optimized the speed
 of the car due to early braking and detection of turns and their
 curving angles. This ability  of the GA-fuzzy controller collaborates
 to minimize the overall race time and thus the final ranking.
-% Antonio - add more comments on the results
-% Mohammed- done
 According to these results, GFC2 seems to be the best controller.
-% Not sure about this. Difference is very small. More test should be
-% done on an E-Road, maybe 15 (always minimum in statistics). They
-% seem too similar and are probably not statistically different - JJ
-% We'll leave that to the next paper, but we still have to mention
-% that there is a statistical difference.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % You can't simply drop the reader into the next experiment. It has to
@@ -863,12 +801,10 @@ Both controllers have dealt very well for not being damaged, which even the winn
 These results are a confirmation of the good optimization done by the GA and mainly when the Top Speed was considered in the fitness. 
 The obtained results in real race with opponents from tough teams from TORCS are encouraging even the optimization process was in practice races.
 This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17_blind}. 
-The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.
- 
- 
+The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.\\ 
 In the last experimentation, we tried to get the best of our controller by testing its limits in other disadvantages tracks, in our case A-speedway was elected.
 These results are presented in Table\ref{tab:gfc2real2} where one could clearly remark the degradation of the performances of the proposed  optimized fuzzy controller. Indeed, it was ranked in the fourth position just before tita10 and bt3 controllers.
-Its top speed is acceptable considering that the used car is not as faster as others but the fast lap time was higher  and the GFC2controller as not competitive with its rivals in this race parameter.
+Its top speed is acceptable considering that the used car is not as faster as others but the fast lap time was higher  and the GFC2 controller as not competitive with its rivals in this race parameter.
 These results could be easily justified by the nature of the track. A-speedway track is an oval track with only four turns, this kind of tracks deprives our controller of his strong point which is the late braking and the selection of an optimal trajectory in turns.
 The fact that the car has an average speed compared to the others and that our controller can not compensate for this loss of time in the turns will not work in favor of getting better best lap times.  
  
