@@ -280,7 +280,13 @@ This fuzzy controller has an output, the speed, and three input values:
 	\item M10 = max (Track[7], Track[11]): max distance to track border in an angle of +10º and -10º.
 \end{itemize}
 
-It is a Mamdani-based fuzzy system \cite{iancu2012} with three trapezoidal Membership Functions (MF) for every input variable. The description of these fuzzy inputs and output are represented in Table \ref{tab:flouevar}.
+It is a Mamdani-based fuzzy system \cite{iancu2012} with three
+trapezoidal Membership Functions (MF) for every input variable. The
+description of these fuzzy inputs and output are represented in Table
+\ref{tab:flouevar}. In \cite{evo17} we set the values by hand;
+previously we had made initial tests using an evolutionary
+algorithm. In this paper we will try to improve obtained results by
+fine-tuning this evolutionary algorithm. 
 
 \begin{table}
   {\scriptsize
@@ -314,60 +320,60 @@ It is a Mamdani-based fuzzy system \cite{iancu2012} with three trapezoidal Membe
 
 % This is from the last paper? If so, just a reference would be
 % enough. We need to save space - JJ
-The base of rules was composed modeling the behavior of a human expert driver. Thus, this set is designed to maximize the car speed depending on the distance to the track border. The fuzzy rules are:
+% The base of rules was composed modeling the behavior of a human expert driver. Thus, this set is designed to maximize the car speed depending on the distance to the track border. The fuzzy rules are:
 
 
-\begin{itemize}
-{\small
-	\item \texttt{IF Front is High THEN TargetSpeed is TS1}
-	\item \texttt{IF Front is Medium THEN TargetSpeed is TS2}
-	\item \texttt{IF Front is Low and M5 is High THEN TargetSpeed is TS3}
-	\item \texttt{IF Front is Low and M5 is Medium THEN TargetSpeed is TS4}
-	\item \texttt{IF Front is Low and M5 is Low and M10 is High THEN TargetSpeed is TS5}
-	\item \texttt{IF Front is Low and M5 is Low and M10 is Medium THEN TargetSpeed is TS6}
-	\item \texttt{IF Front is Low and M5 is Low and M10 is Low THEN TargetSpeed is TS7}\\
-}
+% \begin{itemize}
+% {\small
+% 	\item \texttt{IF Front is High THEN TargetSpeed is TS1}
+% 	\item \texttt{IF Front is Medium THEN TargetSpeed is TS2}
+% 	\item \texttt{IF Front is Low and M5 is High THEN TargetSpeed is TS3}
+% 	\item \texttt{IF Front is Low and M5 is Medium THEN TargetSpeed is TS4}
+% 	\item \texttt{IF Front is Low and M5 is Low and M10 is High THEN TargetSpeed is TS5}
+% 	\item \texttt{IF Front is Low and M5 is Low and M10 is Medium THEN TargetSpeed is TS6}
+% 	\item \texttt{IF Front is Low and M5 is Low and M10 is Low THEN TargetSpeed is TS7}\\
+% }
 
-In addition, a crisp rule is added to obtain a maximum value of the target speed when the three input variables are as big as possible:\\
-{\small	
-\item \texttt{IF Front = MAXDISTSPEED or M5 = MAXDISTSPEED or M10 = MAXDISTSPEED THEN TargetSpeed = MAXSPEED}
-}
-\end{itemize}
+% In addition, a crisp rule is added to obtain a maximum value of the target speed when the three input variables are as big as possible:\\
+% {\small	
+% \item \texttt{IF Front = MAXDISTSPEED or M5 = MAXDISTSPEED or M10 = MAXDISTSPEED THEN TargetSpeed = MAXSPEED}
+% }
+% \end{itemize}
 
-MAXDISTSPEED is the longest possible value for the track sensors, and MAXSPEED is the maximal speed for the specific car. 
-The output value is encoded by seven singletons TS1 to TS7, being respectively: 280, 240, 220, 180, 120, 60 and 30.\\
+% MAXDISTSPEED is the longest possible value for the track sensors, and MAXSPEED is the maximal speed for the specific car. 
+% The output value is encoded by seven singletons TS1 to TS7, being respectively: 280, 240, 220, 180, 120, 60 and 30.\\
 
 
-%***********************************************
-\noindent
-\textbf{Fuzzy steering control sub-controller}\\
-%
-The second fuzzy controller aims to control the steering, estimating and determining the target position of the car. 
+% %***********************************************
+% \noindent
+% \textbf{Fuzzy steering control sub-controller}\\
+% %
+% The second fuzzy controller aims to control the steering, estimating and determining the target position of the car. 
 
-The structure of this sub-controller is similar to the speed one, but, obviously, with the steering as output. Thus, the set of sensors considered is the same as in the speed case (in Table \ref{tab:flouevar}).
+% The structure of this sub-controller is similar to the speed one, but, obviously, with the steering as output. Thus, the set of sensors considered is the same as in the speed case (in Table \ref{tab:flouevar}).
 
-Then, as general rules: if the car is in a straight line, it will set as target position half width of the race track (central position of the lane). Whereas, if the car is near a right curve, it will approach the path leading to the right, with a space between the car and the border of the track to avoid the loss of control. The same approach is considered if the car is near a left curve.
+% Then, as general rules: if the car is in a straight line, it will set as target position half width of the race track (central position of the lane). Whereas, if the car is near a right curve, it will approach the path leading to the right, with a space between the car and the border of the track to avoid the loss of control. The same approach is considered if the car is near a left curve.
 
-In order to detect the curves, the controller focuses on the sensor values (M10, M5, and Front). So, if the value on Front sensor is the longest, there is a straight road; whereas if the values of M5 and M10 with positive angles (+5 and +10) are the longest, there is right curve; and the other way round.
+% In order to detect the curves, the controller focuses on the sensor values (M10, M5, and Front). So, if the value on Front sensor is the longest, there is a straight road; whereas if the values of M5 and M10 with positive angles (+5 and +10) are the longest, there is right curve; and the other way round.
 
-The base of rules has been defined again modeling the behavior of a human driver, so, for this controller:
+% The base of rules has been defined again modeling the behavior of a human driver, so, for this controller:
 
-{\small
-\begin{itemize}		
-	\item \texttt{IF Front is High THEN steer is S1}
-	\item \texttt{IF Front is Medium AND M10 is High THEN  steer is S2}
-	\item \texttt{IF Front is Medium AND M10 is Medium AND M5 is Medium THEN steer is S2}
-	\item \texttt{IF Front is Medium AND M10 is Medium AND M5 is Low THEN steer is S3}
-	\item \texttt{IF Front is Low AND M10 is High THEN steer is S3}
-	\item \texttt{IF Front is Low AND M10 is Medium AND M5 is Medium THEN steer is S4}
-	\item \texttt{IF Front is Low AND M10 is Medium AND M5 is Low THEN steer is S4}
-\end{itemize}	
-}
+% {\small
+% \begin{itemize}		
+% 	\item \texttt{IF Front is High THEN steer is S1}
+% 	\item \texttt{IF Front is Medium AND M10 is High THEN  steer is S2}
+% 	\item \texttt{IF Front is Medium AND M10 is Medium AND M5 is Medium THEN steer is S2}
+% 	\item \texttt{IF Front is Medium AND M10 is Medium AND M5 is Low THEN steer is S3}
+% 	\item \texttt{IF Front is Low AND M10 is High THEN steer is S3}
+% 	\item \texttt{IF Front is Low AND M10 is Medium AND M5 is Medium THEN steer is S4}
+% 	\item \texttt{IF Front is Low AND M10 is Medium AND M5 is Low THEN steer is S4}
+% \end{itemize}	
+% }
 
-The values for S1 to S4 are respectively: 0, 0.25, 0.5, and 1.
-When M10=Track[7] we will take negative values of the steer (steer=-steer).
+% The values for S1 to S4 are respectively: 0, 0.25, 0.5, and 1.
+% When M10=Track[7] we will take negative values of the steer (steer=-steer).
 
-These controllers were defined with our own criteria, but they could be far from being optimal, so, in the following section we apply a Genetic Algorithm for their improvement.
+% These controllers were defined with our own criteria, but they could be far from being optimal, so, in the following section we apply a Genetic Algorithm for their improvement.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  OPTIMISING WITH GAS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
