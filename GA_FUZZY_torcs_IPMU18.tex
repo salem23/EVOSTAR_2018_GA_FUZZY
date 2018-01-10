@@ -407,32 +407,39 @@ fitness value.
 %***********************************************
 
 As previously stated, the designed fuzzy controllers have trapezoidal membership functions given by Equation \ref{eq:trapmf}.
-In such a controller, fuzzy rules are applied to linguistic terms. These terms, which qualify a linguistic variable, are defined through membership functions, which, in turn, depend on a set of parameters that `describes' their shape (and operation).
+In such a controller, fuzzy rules are applied to linguistic
+terms. These terms, which qualify a linguistic variable, are defined
+through membership functions, which, in turn, depend on a set of
+parameters that `describes' their shape (and operation). Using a GA we
+will optimize the parameters of the membership functions that
+constitute the fuzzy partition of the linguistic variable
+\cite{ThangG08}. The input linguistic variables in our problem,
+\textit{Front, Max5} and \textit{Max10}, are represented by three
+trapezoidal membership functions (See Table \ref{tab:flouevar}). % Maybe reduce? I think these two sentences could be merged into one
 
-The parameters to be optimized are those of all the membership functions that constitute the fuzzy partition of the linguistic variable \cite{ThangG08}.
+% JJ - I have eliminated this too. It's a fuzzy conference, they
+% should know what it's about.
 
-The input linguistic variables in our problem, \textit{Front, Max5} and \textit{Max10}, are represented by three trapezoidal membership functions (See Table \ref{tab:flouevar}).
+% A trapezoidal membership function in a finite universe of discourse \textit{[a, b]} can be defined by:
 
-A trapezoidal membership function in a finite universe of discourse \textit{[a, b]} can be defined by:
-
-\begin{equation}
-\mu_{A}(x)= \left \{
-\begin{array}{ll}
-\frac{x - x_{1}}{x_{2} - x_{1}},& x_{1} \leq x \leq x_{2}\\
-1 , &x_{2} \leq x \leq x_{3}\\
-\frac{x_{4} - x}{x_{4} - x_{3}},& x_{3} \leq x \leq x_{4}\\
-0        ,& else\\	
-\end{array}
-\right.
-\label{eq:trapmf}
-\end{equation}
-with:
-\begin{equation}
-x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
-\end{equation}
-This MF function is defined by four parameters $x_{1}$, $x_{2}$,
-$x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a,
-  b]}.% (See Figure \ref{fig:trapeze}).
+% \begin{equation}
+% \mu_{A}(x)= \left \{
+% \begin{array}{ll}
+% \frac{x - x_{1}}{x_{2} - x_{1}},& x_{1} \leq x \leq x_{2}\\
+% 1 , &x_{2} \leq x \leq x_{3}\\
+% \frac{x_{4} - x}{x_{4} - x_{3}},& x_{3} \leq x \leq x_{4}\\
+% 0        ,& else\\	
+% \end{array}
+% \right.
+% \label{eq:trapmf}
+% \end{equation}
+% with:
+% \begin{equation}
+% x_{1} \leq x_{2} \leq x_{3} \leq x_{4}
+% \end{equation}
+% This MF function is defined by four parameters $x_{1}$, $x_{2}$,
+% $x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a,
+%   b]}.% (See Figure \ref{fig:trapeze}).
       % 
 % \begin{figure}[!ht] 
 % 	\begin{center}
@@ -441,7 +448,7 @@ $x_{3}$ and $x_{4}$ taking their values in the interval \textit{[a,
 % 		\label{fig:trapeze}
 % 	\end{center}
 % \end{figure}
-More generally, a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). %In this case, the representation is given by the figure \ref{fig:at}
+And a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). %In this case, the representation is given by the figure \ref{fig:at}
 % \begin{figure}[!ht] 
 % 	\begin{center}
 % 		\includegraphics[scale=0.55]{fig/trapezoidal.png}
@@ -483,19 +490,26 @@ $\mu_{An}(x)= \left \{
 \end{tabular}
 \end{equation}
 	
-As we have just seen, a linguistic variable is represented by a number of parameters that depend both on the number and type of used membership functions  \cite{ThangG08}. Also the choice of coding to use for these different parameters depends both on the desired precision on the values and on their range of values.
+% As we have just seen, a linguistic variable is represented by a number
+% of parameters that depend both on the number and type of used
+% membership functions  \cite{ThangG08}. Also the choice of coding to
+% use for these different parameters depends both on the desired
+% precision on the values and on their range of values. 
+% I don't think this paragraph is needed - JJ
 
 When the number of parameters is reduced and their ranges of variations are well defined, a GA with a binary coding is largely sufficient to find their optimal values. On the other hand, if the number of parameters becomes important, and their variation interval is not well known, the real coding is the most appropriate \cite{elsayed13}. 
-Since our work requires some precision and the variation interval of each parameter is not well known, we have considered a real coding implementation.
+Since our work requires some precision and the variation interval of
+each parameter is not well known, we have considered a real coding
+implementation in a vector that includes all variables to optimize.
 
-In that GA, every individual is a vector of 18 values/parameters, 6 per variable. Figure \ref {fig:cromosome} illustrates the structure of the chromosome.
-\begin{figure}[!ht]	
-	\begin{center}
-		\includegraphics[width=12cm]{fig/chromosome2.png}
-		\caption{Chromosome description}
-		\label{fig:cromosome}	
-	\end{center}	
-\end{figure}
+% In that GA, every individual is a vector of 18 values/parameters, 6 per variable. Figure \ref {fig:cromosome} illustrates the structure of the chromosome.
+% \begin{figure}[!ht]	
+% 	\begin{center}
+% 		\includegraphics[width=12cm]{fig/chromosome2.png}
+% 		\caption{Chromosome description}
+% 		\label{fig:cromosome}	
+% 	\end{center}	
+% \end{figure}
 
 The initialization of the chromosomes (first population) is performed assigning random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17_blind}.
 Tournament based selection has been used to elect chromosomes as parents for genetic operators, while simple arithmetic two point crossover \cite{crossGA2017} and non uniform mutation \cite{mutation1997} have been chosen, as two of the most contrasted methods in the literature.
