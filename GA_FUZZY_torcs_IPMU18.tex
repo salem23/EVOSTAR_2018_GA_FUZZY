@@ -516,18 +516,15 @@ Tournament based selection has been used to elect chromosomes as parents for gen
 
 %***********************************************
 
-\subsection{Fitness definition}
 
-The fitness function for optimizing the structure of a fuzzy controller is highly dependent on the application in which the controller is involved. It is therefore not possible to give a general formulation of this function able to adapt to all the peculiarities of a problem. However, we can specify some rules to choose the best evaluation function \cite{elsayed13}.
-
-The fuzzy controller should aim to: 
-\begin{itemize}
-	\item  Minimize the damage of the car $damage$.
-	\item  Minimize the mean of lap time $LapTime$.
-	\item  Maximize the TopSpeed $MaxSpeed$.		
-\end{itemize}
-
-From these goals, we can derive two possible fitness functions:
+The objective of the car controller is to win as many races as
+possible. However, we have to optimize the most general case by
+carrying out
+solo {\em training races} in which we try to minimize the damage of
+the car ($damage$) and the average lap time $LapTime$, while
+maximizing $TopSpeed$. It is a multiobjective optimization problem,
+but since we want to obtain a single controller, we will have to use
+heuristics to derive two possible fitness functions:
 
 \begin{description}
 	\item[Fitness 1:]  
@@ -544,7 +541,10 @@ From these goals, we can derive two possible fitness functions:
 	\end{equation}	
 \end{description}
 
-Being $\alpha$ and $\beta$ two weighting parameters to prioritize the importance of the different objectives.
+$\alpha$ and $\beta$ are two heuristic weights. The main difference is
+in the use of the $TopSpeed$ in the fitness.
+% There should be some explanation here why is that the particular
+% parameter you have decided to change in the two tested fitnesses - JJ
 To evaluate the candidate controllers during the evolutionary process, we will make each of them compete in a 20 laps practice race in a medium difficulty circuit without rivals. We have omitted the presence of opponents in order to avoid including additional uncertainty sources to the optimization process.
 % Antonio - Mohammed: which kind of race (practice or with rivals)? which kind of track? why this track?, which conditions (weather)?, which rivals?
 %           This is very important to be mentioned and explained (why have these %           features been selected to correctly evaluate a controller). ;)
