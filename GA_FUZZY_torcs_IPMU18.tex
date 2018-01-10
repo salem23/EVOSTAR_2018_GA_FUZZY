@@ -840,6 +840,31 @@ The obtained results in real race with opponents from tough teams from TORCS are
 This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17_blind}. 
 The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.
  
+ 
+In the last experimentation, we tried to get the best of our controller by testing its limits in other disadvantages tracks, in our case A-speedway was elected.
+These results are presented in Table\ref{tab:gfc2real2} where one could clearly remark the degradation of the performances of the proposed  optimized fuzzy controller. Indeed, it was ranked in the fourth position just before tita10 and bt3 controllers.
+Its top speed is acceptable considering that the used car is not as faster as others but the fast lap time was higher  and the GFC2controller as not competitive with its rivals in this race parameter.
+These results could be easily justified by the nature of the track. A-speedway track is an oval track with only four turns, this kind of tracks deprives our controller of his strong point which is the late braking and the selection of an optimal trajectory in turns.
+The fact that the car has an average speed compared to the others and that our controller can not compensate for this loss of time in the turns will not work in favor of getting better best lap times.  
+ 
+ 
+
+\begin{table}[!ht]
+	\centering
+	{\scriptsize
+		\caption{Results of GFC2 in a real races (5 laps)}
+		\label{tab:gfc2real2}
+		\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
+			\hline \textbf{A-Speedway} & \textbf{GFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
+			\hline \textbf{Ranking} & 4/6&2/6&1/6&6/6&3/6&5/6\\			
+			\hline \textbf{Race Time}	& 02:37:74\newline +29:12&  02:37:74\newline +19:03&02:37:74&02:37:74\newline+1 lap&02:37:74\newline+28:89&02:37:74\newline+1 lap\\	
+			\hline \textbf{Best Time}& 35:78 &32:83&29:40&39:49&34:86&40:92\\	
+			\hline \textbf{Max Speed}& 239&251&266&223&259&238\\	
+			\hline \textbf{Damage}& 119& 615&1290 &363&739&899\\	
+			\hline 
+		\end{tabular}
+	}
+\end{table} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and Future Work} 
 \label{sec:conclusions}
