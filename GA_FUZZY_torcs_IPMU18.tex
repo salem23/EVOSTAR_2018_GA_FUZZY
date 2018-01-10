@@ -36,7 +36,7 @@
 
 \usepackage{url}
 \urldef{\mailsa}\path|salemohammed@gmail.com|
-\urldef{\mailsb}\path|amorag@geneura.ugr.es, jjmerelo@gmail.com|
+\urldef{\mailsb}\path|amorag@geneura.ugr.es, jmerelo@ugr.es|
 \urldef{\mailsc}\path| fergunet@gmail.com|
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 	\noindent\keywordname\enspace\ignorespaces#1}
@@ -244,27 +244,27 @@ In this paper, we propose to optimize these parameters using a real coded geneti
 
 \section{Experimental Setup}
 
-% We really need to suppress subsections to reduce space - JJ
-
-This section presents the environment to make the study (TORCS), and the previous fuzzy controller to be optimized.
-
-%*******************************  TORCS  *******************************
-\subsection{The TORCS simulator:} 
-\label{subsec:torcs}
-
-The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents. Its high degree of modularity and portability, together with the realistic and real-time driving simulation, make it an ideal testbed for artificial intelligence research, as it can be seen in the literature (See Section \ref{sec:soa}). %Pablo: refer to previous section?
-The game offers different types of races from the practical single session to the championship.
-
-There is a large set of sensors \cite{Torcs3} which the car can consider during a race, such as distances to track borders, to rivals, current fuel, current gear, position in the race, speed, or damage, among others. These sensors values a	re used by any TORCS driver bot to control the car by means of a set of actuators \cite{Torcs3}: the steering wheel `Steer', the accelerator `accel', the brake pedal and the gearbox.  %Pablo: use more large paragraphs instead short phrases.
-	% Mohammed- done
-Hence, a controller is a program, which runs inside TORCS, that automatically drives a car. It gets as input information about the current state of the car and its situation on the track (sensors). These collected data are used to decide actions to perform in the next simulation tick.
+The Open Racing Car Simulator (TORCS) \cite{WebTORCS} is an open source, modern, multi-player, modular and portable racing simulator that allows users to race against computer-controlled opponents.
+% Its high degree of modularity and portability, together with the realistic and real-time driving simulation, make it an ideal testbed for artificial intelligence research, as it can be seen in the literature (See Section \ref{sec:soa}). %Pablo: refer to previous section?
+% The game offers different types of races from the practical single session to the championship.
+There is a large set of sensors \cite{Torcs3} which the car can consider during a race, such as distances to track borders, to rivals, current fuel, current gear, position in the race, speed, or damage, among others.
+% These sensors values are used by any TORCS driver bot to control the car by means of a set of actuators \cite{Torcs3}: the steering wheel `Steer', the accelerator `accel', the brake pedal and the gearbox.  %Pablo: use more large paragraphs instead short phrases.
+% 	% Mohammed- done
+A controller is a program, which runs inside TORCS, that automatically
+drives a car. It gets as input information about the current state of
+the car and its situation on the track (sensors). These collected data
+are used to decide actions to perform in the next simulation tick.  
 	
 	
 %*****************************  FUZZY CONTROLLER  ******************************
-\subsection{Fuzzy Controller}
-\label{subsec:fuzzy_controller}
-
-The initial proposed controller \cite{evo17} has the same modular architecture as the simple driver of TORCS, however, the target speed and steering angle are computed by means of two modular and specialized fuzzy sub-controllers, which consider five position sensors. This is the controller which will be improved by means of a GA in this work. The two sub-controllers are summarized in the following paragraphs.\\
+The initial proposed controller \cite{evo17} has the same modular
+architecture as the simple TORCS driver, however, the target speed and
+steering angle are computed by means of two modular and specialized
+fuzzy sub-controllers, which consider five position sensors. This is
+the controller which will be improved by means of a GA in this
+work.
+% The two sub-controllers are summarized in the following
+% paragraphs.\\ 
 
 %-----------------------------------------------
 \noindent
@@ -290,7 +290,7 @@ This fuzzy controller has an output, the speed, and three input values:
 It is a Mamdani-based fuzzy system \cite{iancu2012} with three trapezoidal Membership Functions (MF) for every input variable. The description of these fuzzy inputs and output are represented in Table \ref{tab:flouevar}.
 
 \begin{table}
-		{\scriptsize
+  {\scriptsize
 	\caption{Fuzzy variables description.}
 	\label{tab:flouevar}
 	\begin{tabular}{ |p{1.5cm}|p{2cm}|p{2cm}|p{2 cm}|p{1 cm}|p{1.5 cm}|p{1.5 cm}|}
@@ -319,6 +319,8 @@ It is a Mamdani-based fuzzy system \cite{iancu2012} with three trapezoidal Membe
 }
 \end{table}
 
+% This is from the last paper? If so, just a reference would be
+% enough. We need to save space - JJ
 The base of rules was composed modeling the behavior of a human expert driver. Thus, this set is designed to maximize the car speed depending on the distance to the track border. The fuzzy rules are:
 
 
