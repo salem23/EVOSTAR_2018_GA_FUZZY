@@ -37,7 +37,7 @@
 \usepackage{url}
 \urldef{\mailsa}\path|salemohammed@gmail.com|
 \urldef{\mailsb}\path|amorag@geneura.ugr.es, jmerelo@ugr.es|
-\urldef{\mailsc}\path| fergunet@gmail.com|
+\urldef{\mailsc}\path| pablo.garciasanche@uca.es|
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 	\noindent\keywordname\enspace\ignorespaces#1}
 
@@ -71,30 +71,31 @@
 \begin{abstract}
 
   % Need to edit to reflect new results
-Games offer an arena where you can test in a near-real life
-environment new methodologies and algorithms; if the game is related
+Games offer a suitable testbed where new methodolgies and algorithms can be tested in a near-real life
+environment. For example, if the game is related
 to driving, using transfer learning or other techniques results can be
 generalized to autonomous driving environments. 
 In this work, we use evolutionary algorithms to optimize a fuzzy autonomous driver for the open simulated car racing
-game (TORCS). The evolutionary algorithms change the fuzzy systems so that they set an optimal target speed as well as
+game TORCS. The evolutionary algorithms %Pablo: How many? Why different?
+change the fuzzy systems so that they set an optimal target speed as well as
 the instantaneous steering angle during the race.
 Evolutionary algorithms offer an automatic way to design the
-membership functions, instead of a manual or hill-climbing descent;
-but the main issue with this kind of algorithms is to find the fitness
-function that best delivers the obtained result, which is eventually
+membership functions, instead of a manual or hill-climbing descent.
+However, the main issue with this kind of algorithms is to define a proper fitness
+function that best delivers the obtained result, which is eventually %Pablo: "delivers the obtained result"? Better "models the desired result"
 to win as many races as possible. In this paper we prove that
-fine-tuning the evolutionary algorithm robustly finds good results and
+fine-tuning the evolutionary algorithm %Pablo: Algorithm or algorithms? Are the parameters tuned?
+robustly finds good results and
 that, in some cases, they are able to play very competitively against
-other published results, with a more principled approach that needs
+other published results, %Pablo: our previous work?
+with a more relying approach that needs
 very few parameters to tune.
 The optimized fuzzy-controllers yield a very good performance, mainly
 in tracks that have many turning points, which are, in turn, the most
 difficult for any 
-autonomous agent. The Open source
-car racing simulation software (TORCS) is used to test the
-goodness of the proposed approach on 2 different tracks.
+autonomous agent. %The Open source car racing simulation software (TORCS) is used to test the goodness of the proposed approach on 2 different tracks. %Pablo: repeated
 Experimental results show that the evolutionary based fuzzy controller is competitive
-with the embedded TORCS controllers % comment new results
+with respect to the embedded TORCS controllers % comment new results Pablo: the objective should still be clarified, I still don't know what has been done in this paper by only reading the abstract
 \end{abstract}
 
 \keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
