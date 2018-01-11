@@ -47,9 +47,10 @@
 \mainmatter  % start of an individual contribution
 	
 	% first the title is needed
-\title{Enhancing a Genetic Algorithm for the Evolution of an Autonomous Fuzzy Driver of a Simulated Car}
+\title{Applying Genetic Algorithms for the Improvement of an Autonomous Fuzzy Driver for a Simulated Car}
 	
-	
+\titlerunning{Applying GAs for Improving Autonomous Fuzzy Car Drivers}
+
 	
 \author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{3} \and Pablo Garc\'ia-S\'anchez \inst{4}}
 \authorrunning{M. Salem et al}
@@ -189,9 +190,9 @@ Our approach is focused in this line, proposing the application of an off-line g
 For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Two fuzzy controllers were designed (acceleration and turning angle). %Pablo: in previous phrase you said one controller, not two
  But this approach was applied to a simpler simulator than TORCS which is a more realistic and time-constrained simulator. 
 
-Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized as the proposed here, since their controller did not compute the target speed, which is a key factor for a competitive controller. 
+Pérez et al. introduced an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized as the proposed here, since their controller did not compute the target speed, which is a key factor for a competitive controller. 
 
-Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behavior, but it did not take the target speed into account, unlike our previous controller \cite{evo17} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process.
+Onieva et al. \cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behavior, but it did not take the target speed into account, unlike our previous controller \cite{evo17} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process.
 In this paper, we propose to optimize these parameters using a real coded genetic algorithm aiming to improve the performance of the original fuzzy controller. %Pablo: I think this was the Evo* objective. Update this phrase to the new objective ("generalize results..." or whatever)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -671,12 +672,12 @@ in Table \ref{resultat20}.
 		\begin{tabular}{|p{3cm}|c|c|c|}
 			\hline
 			\multicolumn{4}{|c|}{\textbf{E-Track 5}}  \\
-			\hline \textbf{Results} & & \textbf{GFC1} & \textbf{GFC2}  \\
-			\hline Best Lap Time         & & 30:01 & 29:21 \\
-			\hline Top Speed          &  & 224 & 234\\
-			\hline Min Speed          &  & 151 & 186 \\
-			\hline Damage          & & 0 & 0\\
-			\hline 
+			\hline \textbf{Results} & \textbf{AD} & \textbf{GFC1} & \textbf{GFC2}\\
+			\hline Best Lap Time         & 29:70 & 30:01 & 29:21 \\
+			\hline Top Speed          & 209 & 224 & 234\\
+			\hline Min Speed          & 168 & 151 & 186 \\
+			\hline Damage          & 936 & 0 & 0\\
+			\hline
 			\hline
 			\multicolumn{4}{|c|}{\textbf{CG Track2}}  \\ 
 			\hline \textbf{Results} & & \textbf{GFC1} & \textbf{GFC2}  \\
@@ -688,14 +689,15 @@ in Table \ref{resultat20}.
 		\end{tabular}
 	}
 \end{table}
+
+% Antonio - AD results for track CG Track2 must be added
+
 From the table, we can see that the fuzzy controllers optimized by the
 GA have given the best results, minimizing the global race time and
 damages ($0$ in the two GA-based fuzzy controllers), while the AD
 controller has finished the practice race with many damages.
-Testing the controllers in this E-Road, which is quite long and
-difficult as it can be seen by the time it takes a single lap, has proved their value in the adaptation to other
-tracks different from the one used for `training', that is, the
-optimization of the fuzzy controllers.
+Testing the controllers in CG Track2, which is quite long and
+difficult as it can be seen by the time it takes a single lap, has proved their value in the adaptation to other tracks different from the one used for `training', that is, the optimization of the fuzzy controllers.
 
 The GFC2 controller has run with a higher speed (considering overall Top
 Speed and Min Speed) than GFC1 in the two tracks. This is a positive
@@ -775,24 +777,17 @@ GFC2 has got an excellent second position in the track used during optimization 
 Both controllers have dealt very well for not being damaged, which even the winner, {\tt bt 3}, could not avoid. 
 
 These results are a confirmation of the good optimization done by the GA and mainly when the Top Speed was considered in the fitness. 
-The obtained results in real race with opponents from tough teams from TORCS are encouraging even the optimization process was in practice races.
-This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17}. 
-The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.\\ 
-In the last experimentation, we tried to get the best of our controller by testing its limits in other disadvantages tracks, in our case A-speedway was elected.
-These results are presented in Table\ref{tab:gfc2real2} where one
+The obtained results in real race with opponents from tough teams of TORCS are encouraging even if the optimization process was in practice races.
+This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of opponents in the track \cite{evo17}. 
+The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the other cars with no damage or stuck.
+
+In the last experimentation, we tried to get the best of our controller by testing its limits in a disadvantageous track, so A-Speedway was selected. 
+The results are shown in Table \ref{tab:gfc2real2} where one
 could clearly notice the degradation of the performances of the
-proposed  optimized fuzzy controller. Indeed, it was ranked in the
-fourth position just before {\tt tita10} and {\ tt bt3}
-controllers. Its top speed is acceptable considering that the used car
-is not as fast as others but the fast lap time was higher  and the
-GFC2 controller was not as competitive with its rivals in this race
-parameter. These results could be easily justified by the nature of
-the track. A-speedway track is an oval track with only four turns,
-this kind of tracks deprives our controller of his strong point which
-is the late braking and the selection of an optimal trajectory in
-turns. 
-The fact that the car has an % better? Worse? - JJ
-average speed compared to the others and that our controller can not compensate for this loss of time in the turns will not work in favor of getting better best lap times.  
+optimized fuzzy controller. It was ranked in the fourth position just before {\tt tita10} and {\ tt bt3} controllers. Its top speed is acceptable considering that the used car is not as fast as others but the fast lap time was higher and the GFC2 controller was not as competitive with its rivals in this race. 
+
+These results could be justified by the nature of the track. A-Speedway is an oval circuit with only four turns, this kind of tracks deprives our controller of its strongest point which is the late braking and the selection of an optimal trajectory in turns. 
+The fact that the car has a worse average speed compared to the others and that our controller can not compensate for this loss of time in the turns will not work in favor of getting better best lap times.  
  
 \begin{table}[!ht]
 	\centering
@@ -810,43 +805,48 @@ average speed compared to the others and that our controller can not compensate 
 		\end{tabular}
 	}
 \end{table} 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and Future Work} 
 \label{sec:conclusions}
 
-In this work, we have presented an improved Genetic Algorithm implementation that 
-optimizes and improves autonomous  driving using fuzzy systems for TORCS simulator
-\cite{evo17}, which combines two sub-controllers, one to
-calculate the target speed and the other for the direction, that is, for driving the steering wheel.
+In this work, we have presented an improved Genetic Algorithm implementation that optimizes and improves an autonomous driver using fuzzy systems for TORCS simulator \cite{evo17}. It combines two sub-controllers, one to calculate the target speed and the other for the direction, that is, for driving the steering wheel.
 
-After initial tests, that showed the promise of using evolutionary algorithms with two different fitness functions, one 
-considering the average lap time and the car damage and another adding
-the top speed reached, we have fine-tuned some algorithm parameters to
-obtain better results.
+After initial tests, that showed the promise of using evolutionary algorithms with two different fitness functions, one considering the average lap time and the car damage and another adding the top speed reached, we have fine-tuned some algorithm parameters to obtain better results.
 
-The obtained results are very promising since the optimized
-controllers overcome the original in the practice races, and also they
-were ranked among the first ones in the evaluation races, with the
-minimum of damage.
+The yielded results are very good since the optimized controllers (one per fitness function) were ranked among the first ones in three different evaluation races with rivals, with the minimum of damage.
 
 % Say something about how much better this one was compared with the first.
+% Antonio - written
+In the comparison with the original (before the optimization) fuzzy controller, the improvement can be clearly seen in the results. The new controllers are able to drive much faster than it, and moreover they manage to not receiving any damage, while the original controller even crashed the car in some races.
 
 % Say something also about being really better, or not, to include the topspeed in the fitness, and if maybe other fitness functions (without including the damage, for instance) should be possible.
+% Antonio - written
+Regarding the fitness functions tested, definitely including the top speed in the calculus is a good idea, as the obtained drivers have proved being able to run a 10 to 15\% faster in the races. However the damage term must be also considered to `compensate' somehow the influence of the top speed, otherwise the controller would be extremely aggressive and would not finish many of the races.
+
+Thus, we can conclude from the results that the presented GAs with the proposed fitness functions are well-suited for finding the best trade-off between the two objectives of any racing controller: damage and speed.
 
 % We have to revise this. 
+% Antonio - revised and rewritten
 Nevertheless, these results can be improved by extending the
 evaluation of population controllers in the Genetic algorithm to other
-tracks and not just one, to allow the elected controller to practice
-effectively in multiple tracks and in real-life situations. 
+tracks and not just one, to allow the elected controller to adapt to many different situations during the races.
+The applied GA could be improved in different ways, for instance, reducing its computation time by means of the parallelization of the evaluation phase.
+Also, a multi-objective approach could be implemented, in which the main objectives to address by the controller could be optimized at once.
 Moreover, we could also try to generate, optimize and tune automatically the rule base of the fuzzy controller by means of a Genetic Programming algorithm. %Pablo: also mention the possibility of Multi-Objective EAs.
-
 % And paralellization so that speed of evolution can be improved.
+% Antonio - written
+
+Finally, the fuzzy controller could be evolved and adapted to be an efficient autonomous driver for a real car. This could be addressed by considering real-life traffic situations instead of races and, of course, redefining the fitness functions to accomplish other objectives, mainly related with security and comfort.
+
+
 
 \section*{Acknowledgments}
 
 This work has been supported in part by: Ministerio espa\~{n}ol de
 Econom\'{\i}a y Competitividad under project TIN2014-56494-C4-3-P
-(UGR-EPHEMECH) and  and TIN2017-85727-C4-2-P (UGR-DeepBio).
+(UGR-EPHEMECH), TIN2017-85727-C4-2-P (UGR-DeepBio) and TEC2015-68752 (also funded by FEDER).
 
 
 \bibliographystyle{splncs03}
