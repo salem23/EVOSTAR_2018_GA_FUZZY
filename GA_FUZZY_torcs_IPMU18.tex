@@ -35,7 +35,7 @@
 \usepackage{graphicx}
 
 \usepackage{url}
-\urldef{\mailsa}\path|salemohammed@gmail.com|
+\urldef{\mailsa}\path|salem@univ-mascara.dz|
 \urldef{\mailsb}\path|antoniomiguel.mora@unir.net|
 \urldef{\mailsc}\path|jmerelo@ugr.es|
 \urldef{\mailsd}\path|pablo.garciasanchez@uca.es|
@@ -47,7 +47,7 @@
 \mainmatter  % start of an individual contribution
 	
 	% first the title is needed
-\title{Applying Genetic Algorithms for the Improvement of an Autonomous Fuzzy Driver for a Simulated Car}
+\title{Applying Genetic Algorithms for the Improvement of an Autonomous Fuzzy Driver for a Simulated Car Racing}
 	
 \titlerunning{Applying GAs for Improving Autonomous Fuzzy Car Drivers}
 
@@ -57,7 +57,8 @@
 	
 	% the affiliations are given next; don't give your e-mail address
 	% unless you accept that it will be published
-\institute{University of Mascara, Algeria\\
+\institute{Department of Computer Sciences\\
+	University of Mascara, Algeria\\
   \mailsa\\
   Department of Computer Sciences and Technology, ESIT,\\
   International University of La Rioja (UNIR), Spain\\
@@ -70,7 +71,7 @@
   \mailsd\\
 }
 % Antonio - Mohammed, Pablo revise your affiliations
-
+%Mohammed : done
 \maketitle
 \begin{abstract}
 
@@ -118,6 +119,7 @@ well as car safety and, in some cases, occupant comfort \cite{Autodriv2006}.
 
 Optimization in car racing simulators or games 
 % Antonio - TORCS is not a game, it's a simulator. ;)
+%Mohammed : one could drive a car  with joystick or keyboard in TORCS
 can be placed in that context, with solutions obtained there having utility beyond the game itself. 
 %This explains the popularity of car racing games challenges, which are
 %usually performed using game simulators. 
@@ -126,6 +128,7 @@ For instance, The Open Racing Car Simulator
 sophisticated engine which has been used for many standalone racing competition
 challenges. 
 % Antonio - actually there are no more competitions since many years ago. :_D
+%Mohammed : put had been used in place of has been used ,,, no?
 This fact, combined with the possibility to compare controllers, 
 have made TORCS one of the most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}.  
 
@@ -168,7 +171,7 @@ be presented in section \ref{sec:conclusions}.
 
 Evolutionary algorithms have targeted TORCS almost since its
 publication.
-One application of evolutionary algorithms was to determine the
+One of their application was to determine the
 optimal trajectory of a lap in a known circuit \cite{drivingGA2008},
 but this approach suffers from the problem that the obtained
 trajectory in the evolving process strongly depends on the initial
@@ -187,7 +190,7 @@ offline, or online (during the game)
 \cite{TanOnline08,Cardamone_Online_NN}.
 % FUZZY + EAs
 Our approach is focused in this line, proposing the application of an off-line genetic algorithm for the improvement of the parameters which determine the behavior of a controller for TORCS. We have focused on a Fuzzy-based model, as it is one of the best options for modeling human-like decisions and actions, as others authors have also used this kind of technique in the literature with good results \cite{torcs_Onieva2011}. 
-For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Two fuzzy controllers were designed (acceleration and turning angle). %Pablo: in previous phrase you said one controller, not two
+For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Two fuzzy sub-controllers were designed (acceleration and turning angle). %Pablo: in previous phrase you said one controller, not two
  But this approach was applied to a simpler simulator than TORCS which is a more realistic and time-constrained simulator. 
 
 Pérez et al. introduced an evolutionary fuzzy approach for TORCS in \cite{PerezEvolvingFuzzy09}, where they applied EAs for improving fuzzy models to infer the acceleration and turning angle. However, the models were not so specialized as the proposed here, since their controller did not compute the target speed, which is a key factor for a competitive controller. 
@@ -795,7 +798,7 @@ The enhancement of that driver by the optimal values of the membership function 
 In the last experiment, we tried to get the best of our controller by testing its limits in a disadvantageous track, so A-Speedway was selected. 
 The results are shown in Table \ref{tab:gfc2real2} where one
 could clearly notice the degradation of the performances of the
-optimized fuzzy controller. It was ranked in the fourth position just before {\tt tita10} and {\ tt bt3} controllers. Its top speed is acceptable considering that the used car is not as fast as others but the fast lap time was higher and the GFC2 controller was not as competitive with its rivals in this race. 
+optimized fuzzy controller. It was ranked in the fourth position just before {\tt tita10} and {\tt bt3} controllers. Its top speed is acceptable considering that the used car is not as fast as others but the fast lap time was higher and the GFC2 controller was not as competitive with its rivals in this race. 
 
 These results could be justified by the nature of the track. A-Speedway is an oval circuit with only four turns, this kind of tracks deprives our controller of its strongest point which is the late braking and the selection of an optimal trajectory in turns. 
 The fact that the car has a worse average speed compared to the others and that our controller can not compensate for this loss of time in the turns will not work in favor of getting better best lap times.  
