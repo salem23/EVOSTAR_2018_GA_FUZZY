@@ -404,14 +404,18 @@ trapezoidal membership functions (See Table \ref{tab:flouevar}). % Maybe reduce?
 % 		\label{fig:trapeze}
 % 	\end{center}
 % \end{figure}
-And a fuzzy partition with \textit{n} trapezoidal membership functions is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2} $,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). %In this case, the representation is given by the figure \ref{fig:at}
-% \begin{figure}[!ht] 
-% 	\begin{center}
-% 		\includegraphics[scale=0.55]{fig/trapezoidal.png}
-% 		\caption {Trapezoidal-shaped MFs coding}
-% 		\label{fig:at}
-% 	\end{center}
-% \end{figure}
+And a fuzzy partition with \textit{n} trapezoidal membership functions
+is defined by \textit{2n} variables (\textit{a =} $ x_{1}$,$x_{2}
+$,. .., $x_{2n} $ \textit {= b})(Equation \ref{eq:e1}). In this case,
+                                the representation is given by the
+                                figure \ref{fig:at} 
+\begin{figure}[!ht] 
+	\begin{center}
+		\includegraphics[scale=0.55]{fig/trapezoidal.png}
+		\caption {Trapezoidal-shaped MFs coding}
+		\label{fig:at}
+	\end{center}
+\end{figure}
 with:
 \begin{equation}
 a = x_{1} \leq x_{2} \leq...\leq x_{2n-1} \leq x_{2n}=b 	
@@ -531,7 +535,6 @@ comparing them for racing performance. We have considered the following bots in 
 \begin{itemize}
 \item \textbf{GFC1}: GA-Fuzzy controller with fitness 1 (Equation \ref{fit1}).
 \item \textbf{GFC2}: GA-Fuzzy controller with fitness 2 (Equation \ref{fit2}).
-\item \textbf{AD}: Fuzzy controller \cite{evo17}.
 \end{itemize}
 %
 %\begin{table}[!ht]	
@@ -657,8 +660,7 @@ provide a higher diversity in the output values.
 The two best genetic based fuzzy controllers obtained in the previous
 experiments, one per fitness function and thus named $GFC1$ and
 $GFC2$, are going to be tested
-in a practice race together with the $AD$ fuzzy controller which we
-have considered as a base line. They will run
+in a practice race together. They will run
 each one for 20 laps in E-Track5 circuit, which was the one used during the
 evolution; then, they will be tested also in a practice race in
 E-Road, a track they had not encountered previously. The obtained results are presented
@@ -667,7 +669,10 @@ in Table \ref{resultat20}.
 \begin{table}[!ht]
 	\centering
 	{\scriptsize
-		\caption{Results of the three controllers in a 20 laps practice race}
+		\caption{Results of the three controllers in a 20 laps
+                  practice race. Results of the $AD$ controller
+                  \cite{evo17}, a hand-designed fuzzy controller, are
+                  included for comparison purposes.}
 		\label{resultat20}
 		\begin{tabular}{|p{3cm}|c|c|c|}
 			\hline
@@ -690,14 +695,15 @@ in Table \ref{resultat20}.
 	}
 \end{table}
 
-% Antonio - AD results for track CG Track2 must be added
-
 From the table, we can see that the fuzzy controllers optimized by the
-GA have given the best results, minimizing the global race time and
+GA yield the best results, minimizing the global race time and
 damages ($0$ in the two GA-based fuzzy controllers), while the AD
-controller has finished the practice race with many damages.
+controller has finished the practice race with a lot of damage.
 Testing the controllers in CG Track2, which is quite long and
-difficult as it can be seen by the time it takes a single lap, has proved their value in the adaptation to other tracks different from the one used for `training', that is, the optimization of the fuzzy controllers.
+difficult as it can be seen by the time it takes to run a single lap,
+has proved their value in the adaptation to other tracks different
+from the one used for `training', that is, the optimization of the
+fuzzy controllers. 
 
 The GFC2 controller has run with a higher speed (considering overall Top
 Speed and Min Speed) than GFC1 in the two tracks. This is a positive
@@ -823,9 +829,18 @@ In the comparison with the original (before the optimization) fuzzy controller, 
 
 % Say something also about being really better, or not, to include the topspeed in the fitness, and if maybe other fitness functions (without including the damage, for instance) should be possible.
 % Antonio - written
-Regarding the fitness functions tested, definitely including the top speed in the calculus is a good idea, as the obtained drivers have proved being able to run a 10 to 15\% faster in the races. However the damage term must be also considered to `compensate' somehow the influence of the top speed, otherwise the controller would be extremely aggressive and would not finish many of the races.
+The results show that including the top speed in the calculus improves
+results, since the obtained drivers have proved to be able to run a 10
+to 15\% faster in the races. However the damage term must be also
+considered to `compensate' somehow the influence of the top speed,
+otherwise the controller would be extremely aggressive and would not
+finish many of the races.
 
-Thus, we can conclude from the results that the presented GAs with the proposed fitness functions are well-suited for finding the best trade-off between the two objectives of any racing controller: damage and speed.
+Thus, we can conclude from the results that the presented evolutionary
+algorithm with the
+proposed fitness functions are well suited for finding the best
+trade-off between the two objectives of any racing controller: damage
+and speed. 
 
 % We have to revise this. 
 % Antonio - revised and rewritten
@@ -839,8 +854,6 @@ Moreover, we could also try to generate, optimize and tune automatically the rul
 % Antonio - written
 
 Finally, the fuzzy controller could be evolved and adapted to be an efficient autonomous driver for a real car. This could be addressed by considering real-life traffic situations instead of races and, of course, redefining the fitness functions to accomplish other objectives, mainly related with security and comfort.
-
-
 
 \section*{Acknowledgments}
 
