@@ -36,8 +36,9 @@
 
 \usepackage{url}
 \urldef{\mailsa}\path|salemohammed@gmail.com|
-\urldef{\mailsb}\path|amorag@geneura.ugr.es, jmerelo@ugr.es|
-\urldef{\mailsc}\path| pablo.garciasanche@uca.es|
+\urldef{\mailsb}\path|antoniomiguel.mora@unir.net|
+\urldef{\mailsc}\path|jmerelo@ugr.es|
+\urldef{\mailsd}\path|pablo.garciasanchez@uca.es|
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 	\noindent\keywordname\enspace\ignorespaces#1}
 
@@ -46,56 +47,55 @@
 \mainmatter  % start of an individual contribution
 	
 	% first the title is needed
-\title{Improving a TORCS Modular Fuzzy Driver using Genetic Algorithms}
+\title{Enhancing a Genetic Algorithm for the Evolution of an Autonomous Fuzzy Driver of a Simulated Car}
 	
 	
-	%\titlerunning{Driving in TORCS using modular fuzzy controllers}	
 	
-	
-\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{2} \and Pablo Garc\'ia-S\'anchez \inst{3}}
+\author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{3} \and Pablo Garc\'ia-S\'anchez \inst{4}}
 \authorrunning{M. Salem et al}
 	
 	% the affiliations are given next; don't give your e-mail address
 	% unless you accept that it will be published
 \institute{University of Mascara, Algeria\\
   \mailsa\\
-  Department of Architecture and Computer Technology
-  University of Granada, Spain\\
+  Department of Computer Sciences and Technology, ESIT,\\
+  International University of La Rioja (UNIR), Spain\\
   \mailsb\\
-  Universiy of C\'adiz, Spain
-  \\
+  Department of Architecture and Computer Technology\\
+  University of Granada, Spain\\
   \mailsc\\
+  Department of Computer Sciences\\
+  University of C\'adiz, Spain\\
+  \mailsd\\
 }
+% Antonio - Mohammed, Pablo revise your affiliations
 
 \maketitle
 \begin{abstract}
 
   % Need to edit to reflect new results
-Games offer a suitable testbed where new methodologies and algorithms can be tested in a near-real life
-environment. For example, if the game is related
-to driving, using transfer learning or other techniques results can be
+Games offer a suitable testbed where new methodologies and algorithms can be tested in a near-real life environment. For example, in a card driving game, using transfer learning or other techniques results can be
 generalized to autonomous driving environments. 
 In this work, we use evolutionary algorithms to optimize a fuzzy autonomous driver for the open simulated car racing
-game TORCS. The evolutionary algorithms %Pablo: How many? Why different?
-change the fuzzy systems so that they set an optimal target speed as well as
+game TORCS. The Genetic Algorithm applied 
+%Pablo: How many? Why different?
+% Antonio - It is just one GA
+improves the fuzzy systems to set an optimal target speed as well as
 the instantaneous steering angle during the race.
-Evolutionary algorithms offer an automatic way to design the
-membership functions, instead of a manual or hill-climbing descent.
-However, the main issue with this kind of algorithms is to define a proper fitness
-function that best delivers the obtained result, which is eventually %Pablo: "delivers the obtained result"? Better "models the desired result"
-to win as many races as possible. In this paper we prove that
-fine-tuning the controller via evolutionary algorithm %Pablo: Algorithm or algorithms? Are the parameters tuned?
-robustly finds good results and
-that, in some cases, they are able to play very competitively against
-other published results, %Pablo: our previous work?
-with a more relying approach that needs
-very few parameters to tune.
-The optimized fuzzy-controllers yield a very good performance, mainly
-in tracks that have many turning points, which are, in turn, the most
-difficult for any 
-autonomous agent. %The Open source car racing simulation software (TORCS) is used to test the goodness of the proposed approach on 2 different tracks. %Pablo: repeated
-Experimental results show that the evolutionary based fuzzy controller is competitive
-with respect to the embedded TORCS controllers % comment new results Pablo: the objective should still be clarified, I still don't know what has been done in this paper by only reading the abstract
+Thus, the approach offer an automatic way to define the
+membership functions, instead of a manual or hill-climbing descent method.
+However, the main issue with this kind of algorithms is to define a proper fitness function that best delivers the obtained result, which is eventually %Pablo: "delivers the obtained result"? Better "models the desired result"
+to win as many races as possible. In this paper we define two different evaluation functions, and prove that fine-tuning the controller via evolutionary algorithms 
+%Pablo: Algorithm or algorithms? Are the parameters tuned?
+% Antonio - just one, but this is the general term. No parameter tuning has been done
+robustly finds good results and that, in many cases, they are able to play very competitively against other published results, 
+%Pablo: our previous work?
+% Antonio - also other drivers for the SotA
+with a more relying approach that needs very few parameters to tune.
+The optimized fuzzy-controllers (one per fitness) yield a very good performance, mainly in tracks that have many turning points, which are, in turn, the most
+difficult for any autonomous agent. 
+Experimental results show that the enhanced controllers are very competitive with respect to the embedded TORCS drivers, and much more efficient in driving than the original fuzzy-controller.
+% comment new results Pablo: the objective should still be clarified, I still don't know what has been done in this paper by only reading the abstract
 \end{abstract}
 
 \keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
@@ -111,65 +111,42 @@ design and manufacture. % Maybe some review with popularity? - JJ Pablo: I don't
 % Mohammed : I agree
 Automotive industry
 needs the creation of real self-driving cars that can travel in everyday roads and streets or, for
-that matter, in a desert or hostile environment. However, this is only a
-constraint; autonomous vehicles must also optimize fuel consumption as
+that matter, in a desert or hostile environment. However, this is only an
+objective; autonomous vehicles should also optimize fuel consumption as
 well as car safety and, in some cases, occupant comfort \cite{Autodriv2006}.  
-Optimization in car racing games can be placed in that context, with
-solutions obtained there having utility beyond the game itself. This
-explains the popularity of car racing games challenges, which are
-usually performed using game simulators. For instance, The Open Racing Car Simulator
-(TORCS) \cite{WebTORCS} is a realistic racing simulator with a
-sophisticated engine used for many standalone racing competition
-challenges every year. This fact, combined with the ability to compare
-controllers, have made TORCS one of the most used simulator in the field of
-autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}.  
 
-Many kinds of controllers have been used in this simulator, but one of
-the most efficient controllers so far are fuzzy-based ones, as they
+Optimization in car racing simulators or games 
+% Antonio - TORCS is not a game, it's a simulator. ;)
+can be placed in that context, with solutions obtained there having utility beyond the game itself. 
+%This explains the popularity of car racing games challenges, which are
+%usually performed using game simulators. 
+For instance, The Open Racing Car Simulator
+(TORCS) \cite{WebTORCS} is a realistic racing simulator with a
+sophisticated engine which has been used for many standalone racing competition
+challenges. 
+% Antonio - actually there are no more competitions since many years ago. :_D
+This fact, combined with the possibility to compare controllers, 
+have made TORCS one of the most used simulator in the field of autonomous driving \cite{LFAG,Guadarrama2008,SAES2012,Floreano2004}.  
+
+Among the different types of controllers that have been used in TORCS, 
+fuzzy-based ones have proved to have one of the best performances, since they
 simulate in part the human reasoning when driving
-\cite{CarRacing_Pelta09,PerezEvolvingFuzzy09,torcs2012}. In this line,
+\cite{CarRacing_Pelta09,PerezEvolvingFuzzy09,torcs2012}. Thus,
 the authors presented previously an approach in which two specialized
 fuzzy controllers were combined to decide the car's steering angle and
 desired speed in every single point (or tick) during a race
-\cite{evo17}. The obtained results were promising, but the
-performance of the autonomous driver showed some flaws in difficult
-tracks -- those with many curves, or where `external' factors affected
-the asphalt -- and against the most competitive rivals.
+\cite{evo17}. It yielded good results in several tracks, but the autonomous driver had some troubles in difficult circuits, such as those with many curves or competing against tough rivals.
 
-% What kind of issues are there? - JJ
+Its main disadvantage is related with the parameters of the fuzzy systems, namely those which define the membership functions, which were set `manually'.
+Thus, in this work we have considered this issue as an optimization problem, so we have applied a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} to obtain the best configuration.
 
-We argue here that the major disadvantage of this approach is that the
-parameters of the controllers' fuzzy membership functions were defined
-following a trial/error process in the absence of experts to do so. 
-Thus, in this work we consider the selection of the best values for
-these parameters as an optimization problem, so we have applied an
-evolutionary algorithm to obtain them. Concretely, we propose to apply
-a real-coded Genetic Algorithm (GA) \cite{realcodedGA1998} with this
-purpose. %Pablo: what the GA optimizes exactly? The MF? Say it here. 
-%% Mohammed - It is mentioned three lines before, rewriting it here would not be  redundant??  
- The considered approach requires, in addition to a good codification
- of solutions and selection of operators, the choice of an adequate
- cost function (fitness), due to the uncertainty and noisiness of the
- problem itself. So two different proposals have been studied, the first one is computed using the mean lap time and damage while the second consider also the Top speed. %Pablo:
-  %mention here some difference between
-  %the 2 fitness 
-%Mohammed- added
-The genetic-fuzzy based controller has been evaluated in a practice
-race - without rivals - first, and then in a real race against
-different drivers in TORCS. 
-The obtained results show that the enhanced controllers (one per
-fitness function) perform both much better than the original fuzzy
-controller (previously presented) in the practice race, increasing the
-top speed while they are not damaged, and obtaining a very good lap
-time. 
-In addition, they compete very well against tough rivals, getting a high rank in the race (time close to the winner) and a very low received damage.
+This kind of algorithm mainly require the definition of a good evaluation or fitness function, which will determinate the final performance of the solution (an autonomous driver in this case).
+Thus, in order to evaluate an individual/solution of the algorithm (a potential driver), we set the parameters which define its Artificial Intelligence (AI) engine, and then we put it in a test race (with or without rivals).
+Then, the fitness function follows two different approaches for the evaluation: the first one is computed using the mean lap time and damage obtained during the race, while the second also considers the maximum speed reached.
 
-So, we can conclude from these results that the proposed approach
-successfully evolves the fuzzy controller membership parameters giving
-good performances in terms of damage avoidance and race time. This
-suggest that GAs with the proposed fitness functions are well-suited
-for finding the best trade-off between the two objectives of any
-racing controller: damage and speed.
+Once optimized, the best genetic-fuzzy based controllers (one per fitness) have been evaluated in a practice race (without rivals) first, and then in a real race against different drivers in TORCS. 
+According to the obtained results the enhanced controllers perform both much better than the original fuzzy controller, improving the lap time and reducing the received damage. Moreover they are much more competitive against tough rivals, reaching high ranks in the most difficult races.
+
 
 %The rest of the paper is organized as follows. Next we present the
 %state of the art, to be followed by a description of the TORCS
