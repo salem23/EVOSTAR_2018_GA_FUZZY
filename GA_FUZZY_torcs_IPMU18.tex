@@ -149,17 +149,17 @@ Once optimized, the best genetic-fuzzy based controllers (one per fitness) have 
 According to the obtained results the enhanced controllers perform both much better than the original fuzzy controller, improving the lap time and reducing the received damage. Moreover they are much more competitive against tough rivals, reaching high ranks in the most difficult races.
 
 
-%The rest of the paper is organized as follows. Next we present the
-%state of the art, to be followed by a description of the TORCS
-%simulator in Section \ref{sec:torcs} and the fuzzy controller we will
-%be optimizing in this paper in Section \ref{sec:fuzzy_controller}. The
-%method for optimizing fuzzy controllers will be presented in Section
-%\ref{sec:GA_optimization}, and its results in next in Section
-%\ref{sec:results}. Finally, conclusions and future lines of work will
-%be presented in section \ref{sec:conclusions}.
+The rest of the paper is organized as follows. Next we present the
+state of the art, to be followed by a description of the TORCS
+simulator in Section \ref{sec:torcs} and the fuzzy controller we will
+be optimizing in this paper in Section \ref{sec:fuzzy_controller}. The
+method for optimizing fuzzy controllers will be presented in Section
+\ref{sec:GA_optimization}, and its results in next in Section
+\ref{sec:results}. Finally, conclusions and future lines of work will
+be presented in section \ref{sec:conclusions}.
 
 % Antonio - Removed to gain space
-
+% Added back. It's essential, and we have space - JJ
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  STATE OF THE ART  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -672,7 +672,7 @@ in Table \ref{resultat20}.
 		\caption{Results of the three controllers in a 20 laps
                   practice race. Results of the $AD$ controller
                   \cite{evo17}, a hand-designed fuzzy controller, are
-                  included for comparison purposes.}
+                  included for comparison purposes where tested.}
 		\label{resultat20}
 		\begin{tabular}{|p{3cm}|c|c|c|}
 			\hline
@@ -682,23 +682,28 @@ in Table \ref{resultat20}.
 			\hline Top Speed          & 209 & 224 & 234\\
 			\hline Min Speed          & 168 & 151 & 186 \\
 			\hline Damage          & 936 & 0 & 0\\
+                  \hline
+                \end{tabular}
+                \begin{tabular}{|p{3cm}|c|c|}
 			\hline
-			\hline
-			\multicolumn{4}{|c|}{\textbf{CG Track2}}  \\ 
-			\hline \textbf{Results} & & \textbf{GFC1} & \textbf{GFC2}  \\
-			\hline Best Lap Time         &     &   01:04:96     & 01:02:32  \\
-			\hline Top Speed& &220  &  238 \\
-			\hline Min Speed          &      & 33             & 40  \\
-			\hline Damage          &   0         & 0              & 0  \\
+			\multicolumn{3}{|c|}{\textbf{CG Track2}}  \\ 
+			\hline \textbf{Results} & \textbf{GFC1} & \textbf{GFC2}  \\
+			\hline Best Lap Time         &       01:04:96     & 01:02:32  \\
+			\hline Top Speed &220  &  238 \\
+			\hline Min Speed               & 33             & 40  \\
+			\hline Damage                    & 0              & 0  \\
 			\hline 
 		\end{tabular}
 	}
 \end{table}
 
 From the table, we can see that the fuzzy controllers optimized by the
-GA yield the best results, minimizing the global race time and
-damages ($0$ in the two GA-based fuzzy controllers), while the AD
-controller has finished the practice race with a lot of damage.
+GA yield the best results, obtaining very good overall global race
+times and eliminating damagem, which is reduced to 0. For the sake of
+comparison, we include the hand-designed AD controller \cite{evo17},
+which finished the practice race where it was tested with a lot of
+damage, implying that it could, in some difficult cases, not finish
+the race. 
 Testing the controllers in CG Track2, which is quite long and
 difficult as it can be seen by the time it takes to run a single lap,
 has proved their value in the adaptation to other tracks different
@@ -787,7 +792,7 @@ The obtained results in real race with opponents from tough teams of TORCS are e
 This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of opponents in the track \cite{evo17}. 
 The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the other cars with no damage or stuck.
 
-In the last experimentation, we tried to get the best of our controller by testing its limits in a disadvantageous track, so A-Speedway was selected. 
+In the last experiment, we tried to get the best of our controller by testing its limits in a disadvantageous track, so A-Speedway was selected. 
 The results are shown in Table \ref{tab:gfc2real2} where one
 could clearly notice the degradation of the performances of the
 optimized fuzzy controller. It was ranked in the fourth position just before {\tt tita10} and {\ tt bt3} controllers. Its top speed is acceptable considering that the used car is not as fast as others but the fast lap time was higher and the GFC2 controller was not as competitive with its rivals in this race. 
