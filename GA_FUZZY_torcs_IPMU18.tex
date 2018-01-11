@@ -840,17 +840,12 @@ average speed compared to the others and that our controller can not compensate 
 In this work, we have presented an improved Genetic Algorithm implementation that 
 optimizes and improves autonomous  driving using fuzzy systems for TORCS simulator
 \cite{evo17}, which combines two sub-controllers, one to
-calculate the target speed and the other for the direction, that is, for driving the steering wheel. . 
+calculate the target speed and the other for the direction, that is, for driving the steering wheel.
 
-After initial tests, that showed the promise of this approach, and
-where we experimented with two different fitness functions, one
+After initial tests, that showed the promise of using evolutionary algorithms with two different fitness functions, one 
 considering the average lap time and the car damage and another adding
 the top speed reached, we have fine-tuned some algorithm parameters to
-obtain better results. As in the initial tests, the fuzzy-genetic
-controllers obtained were compared with the original AD controller
-whose parameters were determined empirically. The comparison was made
-first without opponents and then including several cars from the TORCS
-teams in realistic races. 
+obtain better results.
 
 The obtained results are very promising since the optimized
 controllers overcome the original in the practice races, and also they
@@ -859,6 +854,7 @@ minimum of damage.
 
 % Say something about how much better this one was compared with the first.
 
+% Say something also about being really better, or not, to include the topspeed in the fitness, and if maybe other fitness functions (without including the damage, for instance) should be possible.
 
 % We have to revise this. 
 Nevertheless, these results can be improved by extending the
@@ -867,6 +863,7 @@ tracks and not just one, to allow the elected controller to practice
 effectively in multiple tracks and in real-life situations. 
 Moreover, we could also try to generate, optimize and tune automatically the rule base of the fuzzy controller by means of a Genetic Programming algorithm. %Pablo: also mention the possibility of Multi-Objective EAs.
 
+% And paralellization so that speed of evolution can be improved.
 
 \section*{Acknowledgments}
 
