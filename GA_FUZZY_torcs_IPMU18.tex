@@ -602,7 +602,7 @@ terms.
 }
 \end{table}
  From The Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution, as we used the same random start population to compare the two fitness functions. The worst values are obtained by $1^{st}$ Run for fitness 1 and $4^{th}$ run for the second fitness, thee bad values are produced by the damage when the car was in stuck or chocked with the track corner.
- The second fitness has given  higher Top Speed values  which minimize the Laptime and makes the controller operates at higher performances. Also, implying late breaking in turns which maximize the Top Speed.
+ The second fitness has given  higher Top Speed values  which minimize the Laptime and makes the controller operates at higher performances. Also, implying late braking in turns which maximize the Top Speed.
  Wilcoxon rank sum non-parametric test \cite{garcia09} is used to reject or accept the null hypothesis of equality of medians of the values of the two fitness functions for the 10 runs. The obtained p-value was $p =  0.0017$ and the  test statistic is $stats = -3.1371$, this results lead to the rejection of null hypothesis with a threshold $\alpha=0.01$ which allows us to conclude that the two samples sets are different.
  
  The best solution obtained with each fitness function from these runs
