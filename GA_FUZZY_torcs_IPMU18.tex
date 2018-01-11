@@ -131,7 +131,7 @@ simulate in part the human reasoning when driving
 the authors presented previously an approach in which two specialized
 fuzzy controllers were combined to decide the car's steering angle and
 desired speed in every single point (or tick) during a race
-\cite{evo17_blind}. The obtained results were promising, but the
+\cite{evo17}. The obtained results were promising, but the
 performance of the autonomous driver showed some flaws in difficult
 tracks -- those with many curves, or where `external' factors affected
 the asphalt -- and against the most competitive rivals.
@@ -384,7 +384,7 @@ fitness value.
 
 %***********************************************
 
-As previously stated, the designed fuzzy controllers have trapezoidal membership functions given by Equation \ref{eq:trapmf}.
+As previously stated, the designed fuzzy controllers have trapezoidal membership functions. % given by Equation \ref{eq:trapmf}.
 In such a controller, fuzzy rules are applied to linguistic
 terms. These terms, which qualify a linguistic variable, are defined
 through membership functions, which, in turn, depend on a set of
@@ -521,7 +521,7 @@ heuristics to derive two possible fitness functions:
 \end{description}
 
 $\alpha$ and $\beta$ are two heuristic weights. The main difference is
-in the use of the $TopSpeed$ in the fitness to enhance the controller performances in straight lines aiming to reduce lap time and the overall race time .
+in the use of the $TopSpeed$ in the fitness to enhance the controller performances in straight lines aiming to reduce lap time and the overall race time.
 % There should be some explanation here why is that the particular
 % parameter you have decided to change in the two tested fitnesses - JJ
 % Moahmmed : Added
@@ -532,17 +532,17 @@ Then, the obtained output values $damage$, $LapTime$ and $TopSpeed$ are collecte
   		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\section{Results}  
+\section{Experimental results}  
 \label{sec:results}
 	
-This section is dedicated to the performance evaluation of our
-fuzzy-genetic controller, called \textit{FGC}. 
+%This section is dedicated to the performance evaluation of our
+%fuzzy-genetic controller, called \textit{FGC}. 
 
-	
+% This paragraph should maybe go to the previous section, because it's more "experimental setup" than results. - JJ	
 We will first need to choose whose tracks and cars are going to be used in the
 experiment among the ones TORCS provides; in our case, we have selected the E-Track5 circuit as it is a
 quite complex one, with multiple turns. \textit{car1-tbr1} has been
-selected as the driving car \cite{evo17_blind}. According to previous
+selected as the driving car \cite{evo17}. According to previous
 experiments, this is a fair choice due to its moderate
 performance. This will lead our controller to be prepared to drive in the most usual conditions. 
 
@@ -553,7 +553,7 @@ comparing them for racing performance. We have considered the following bots in 
 \begin{itemize}
 \item \textbf{GFC1}: GA-Fuzzy controller with fitness 1 (Equation \ref{fit1}).
 \item \textbf{GFC2}: GA-Fuzzy controller with fitness 2 (Equation \ref{fit2}).
-\item \textbf{AD}: Fuzzy controller \cite{evo17_blind}.
+\item \textbf{AD}: Fuzzy controller \cite{evo17}.
 \end{itemize}
 %
 %\begin{table}[!ht]	
@@ -574,7 +574,7 @@ comparing them for racing performance. We have considered the following bots in 
 The coefficients $\alpha$ and $\beta$ are chosen to be $1$  and
 $10*MaxSpeed$ respectively, where $MaxSpeed $ is the maximum value of
 speed that \textit{car1-tbr1}  could take ($MaxSpeed=300$)
-\cite{evo17_blind}, this choice is motivated by the fact to normalize
+\cite{evo17}, this choice is motivated by the fact to normalize
 the Top speed values and make them in the same level as other fitness
 terms. 
  The results of these runs are shown in Table \ref{tab:runsresults}.
@@ -799,7 +799,7 @@ Both controllers have dealt very well for not being damaged, which even the winn
 
 These results are a confirmation of the good optimization done by the GA and mainly when the Top Speed was considered in the fitness. 
 The obtained results in real race with opponents from tough teams from TORCS are encouraging even the optimization process was in practice races.
-This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17_blind}. 
+This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17}. 
 The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.\\ 
 In the last experimentation, we tried to get the best of our controller by testing its limits in other disadvantages tracks, in our case A-speedway was elected.
 These results are presented in Table\ref{tab:gfc2real2} where one
@@ -839,7 +839,7 @@ average speed compared to the others and that our controller can not compensate 
 
 In this work, we have presented an improved Genetic Algorithm implementation that 
 optimizes and improves autonomous  driving using fuzzy systems for TORCS simulator
-\cite{evo17_blind}, which combines two sub-controllers, one to
+\cite{evo17}, which combines two sub-controllers, one to
 calculate the target speed and the other for the direction, that is, for driving the steering wheel. . 
 
 After initial tests, that showed the promise of this approach, and
