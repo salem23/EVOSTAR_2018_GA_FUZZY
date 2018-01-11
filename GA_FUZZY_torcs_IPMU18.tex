@@ -793,8 +793,7 @@ fuzzy separately from the others in a real race against five standard controller
 }
 \end{table}
 
-First of all, as it can be seen, the original controller AD has had a poor performance, getting the last position in both races.
-Whereas both $GFC1$ and $GFC2$ controllers showed to be more competitive. 
+$GFC1$ and $GFC2$ controllers are quite competitive in these races; 
 GFC2 has got an excellent second position in the track used during optimization (E-Track), and it has also got a remarkable third rank in the unknown track (E-Road). 
 Both controllers have dealt very well for not being damaged, which even the winner, {\tt bt 3}, could not avoid. 
 
@@ -803,13 +802,21 @@ The obtained results in real race with opponents from tough teams from TORCS are
 This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17_blind}. 
 The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.\\ 
 In the last experimentation, we tried to get the best of our controller by testing its limits in other disadvantages tracks, in our case A-speedway was elected.
-These results are presented in Table\ref{tab:gfc2real2} where one could clearly remark the degradation of the performances of the proposed  optimized fuzzy controller. Indeed, it was ranked in the fourth position just before tita10 and bt3 controllers.
-Its top speed is acceptable considering that the used car is not as faster as others but the fast lap time was higher  and the GFC2 controller as not competitive with its rivals in this race parameter.
-These results could be easily justified by the nature of the track. A-speedway track is an oval track with only four turns, this kind of tracks deprives our controller of his strong point which is the late braking and the selection of an optimal trajectory in turns.
-The fact that the car has an average speed compared to the others and that our controller can not compensate for this loss of time in the turns will not work in favor of getting better best lap times.  
+These results are presented in Table\ref{tab:gfc2real2} where one
+could clearly notice the degradation of the performances of the
+proposed  optimized fuzzy controller. Indeed, it was ranked in the
+fourth position just before {\tt tita10} and {\ tt bt3}
+controllers. Its top speed is acceptable considering that the used car
+is not as fast as others but the fast lap time was higher  and the
+GFC2 controller was not as competitive with its rivals in this race
+parameter. These results could be easily justified by the nature of
+the track. A-speedway track is an oval track with only four turns,
+this kind of tracks deprives our controller of his strong point which
+is the late braking and the selection of an optimal trajectory in
+turns. 
+The fact that the car has an % better? Worse? - JJ
+average speed compared to the others and that our controller can not compensate for this loss of time in the turns will not work in favor of getting better best lap times.  
  
- 
-
 \begin{table}[!ht]
 	\centering
 	{\scriptsize
