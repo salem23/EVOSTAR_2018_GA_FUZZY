@@ -35,9 +35,10 @@
 \usepackage{graphicx}
 
 \usepackage{url}
-\urldef{\mailsa}\path|salemohammed@gmail.com|
-\urldef{\mailsb}\path|amorag@geneura.ugr.es, jjmerelo@gmail.com|
-\urldef{\mailsc}\path| fergunet@gmail.com|
+\urldef{\mailsa}\path|salem@univ-mascara.dz|
+\urldef{\mailsb}\path|amorag@geneura.ugr.es|
+\urldef{\mailsc}\path|jjmerelo@gmail.com|
+\urldef{\mailsd}\path| fergunet@gmail.com|
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 	\noindent\keywordname\enspace\ignorespaces#1}
 
@@ -47,35 +48,36 @@
 	
 	% first the title is needed
 \title{Evolving a TORCS Modular Fuzzy Driver using Genetic Algorithms}
-	
-	
-	%\titlerunning{Driving in TORCS using modular fuzzy controllers}
+\titlerunning{Evolving TORCS Fuzzy Driver using GA}
 	
 	
 
 \author{Mohammed Salem* \inst{1} \and Antonio Miguel Mora \inst{2}\and Juan Julian Merelo \inst{3} \and Pablo Garc\'ia-S\'anchez \inst{4}}
-\authorrunning{M. Salem et al}
+\authorrunning{Salem et al}
 	
 	% the affiliations are given next; don't give your e-mail address
 	% unless you accept that it will be published
-\institute{University of Mascara, Algeria\\
-  \mailsa\\
-  Department of Computer Sciences and Technology, ESIT,\\
-  International University of La Rioja (UNIR), Spain\\
-  \mailsb\\
-  Department of Architecture and Computer Technology\\
-  University of Granada, Spain\\
-  \mailsc\\
-  Department of Computer Sciences\\
-  University of C\'adiz, Spain\\
-  \mailsd\\
+
+
+
+\institute{
+	Department of Computer Science\\
+	University of Mascara, Algeria\\
+	\mailsa
+	\and
+	Department of Computer Sciences and Technology, ESIT,\\
+	International University of La Rioja (UNIR), Spain\\
+	\mailsb
+	\and
+	Department of Architecture and Computer Technology\\
+	University of Granada, Spain\\
+	\mailsc
+	\and
+	Department of Computer Sciences\\
+	University of C\'adiz, Spain\\
+	\mailsd
 }
 
-\institute{First Institute
-  \and
-  Second Institute
-  \and
-  Third Institute}
 % Still need to get the space right - JJ
 	%
 	% NB: a more complex sample for affiliations and the mapping to the
@@ -105,20 +107,16 @@ with two different fitness functions - %Pablo: two fitness functions
 % _compared_ ?
 % just two different fitness functions - JJ
 has been applied to find the best values for these parameters,
-obtaining a robust design for the TORCS controller. % This robustness
- % should be discussed in the
-  % conclusions - JJ
+obtaining a robust design for the TORCS controller. 
 The evolved drivers were tested and evaluated competing against other
 TORCS controllers in practice mode, without rivals, and real
-races. %Pablo: "in practice mode" instead "in practice" to clarify
-%Done - JJ
+races. 
 The optimized fuzzy-controllers yield a very good performance, mainly
 in tracks that have many turning points, which are, in turn, the most
 difficult for any 
 autonomous agent. Thus, this is a real enhancement of the baseline
 fuzzy controllers which had several difficulties to drive in this kind
-of circuits. %Pablo: and in future could help...
-% No need in the abstract - JJ
+of circuits. 
 \end{abstract}
 
 \keywords{Videogames, Fuzzy Controller, TORCS, Steering control, Optimization, Genetic Algorithms}
@@ -132,7 +130,7 @@ of circuits. %Pablo: and in future could help...
 
 Since the massive interest by vehicle manufacturers of autonomous
 driving, it has become also a hot research topic. Autonomy
-needs the creation real self-driving cars that can travel in everyday roads and streets or, for
+needs the creation of real self-driving cars that can travel in everyday roads and streets or, for
 that matter, in a desert or hostile environment, but this is only a
 constraint; autonomous vehicles must also optimize fuel consumption as
 well as car safety and, in some cases, occupant comfort \cite{Autodriv2006}.  %Pablo: some reference in this paragraph?
@@ -152,7 +150,7 @@ simulate in part the human reasoning when driving
 the authors presented previously an approach in which two specialized
 fuzzy controllers were combined to decide the car's steering angle and
 desired speed in every single point (or tick) during a race
-\cite{evo17_blind}. The obtained results were promising, but the
+\cite{evo17}. The obtained results were promising, but the
 performance of the autonomous driver showed some flaws in difficult
 tracks -- those with many curves, or where `external' factors affected
 the asphalt -- and against the most competitive rivals.  
@@ -230,7 +228,7 @@ Pérez et al. presented an evolutionary fuzzy approach for TORCS in \cite{PerezEv
 %Pablo: computing the target speed is better? Then emphasize it
 % Antonio - done
 
-Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behavior, but it did not take the target speed into account, unlike our previous controller \cite{evo17_blind} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process. 
+Onieva et al.,\cite{LFAG} presented a parametrized modular architecture with a fuzzy system and a GA in the design of fuzzy logic controllers for steering wheel management that can reproduce human driver behavior, but it did not take the target speed into account, unlike our previous controller \cite{evo17} which computed the target speed and the steer with two fuzzy sub-controllers and whose membership functions parameters were defined by trial/error process. 
 In this paper, we propose to optimize these parameters using a real coded genetic algorithm aiming to improve the performance of the original fuzzy controller.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TORCS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,7 +259,7 @@ Hence, a controller is a program, which runs inside TORCS, that automatically dr
 \subsection{Fuzzy Controller}
 \label{subsec:fuzzy_controller}
 
-The initial proposed controller \cite{evo17_blind} has the same modular architecture as the simple driver of TORCS, however, the target speed and steering angle are computed by means of two modular and specialized fuzzy sub-controllers, which consider five position sensors. This is the controller which will be improved by means of a GA in this work. The two sub-controllers are summarized in the following paragraphs.\\
+The initial proposed controller \cite{evo17} has the same modular architecture as the simple driver of TORCS, however, the target speed and steering angle are computed by means of two modular and specialized fuzzy sub-controllers, which consider five position sensors. This is the controller which will be improved by means of a GA in this work. The two sub-controllers are summarized in the following paragraphs.\\
 
 %-----------------------------------------------
 \noindent
@@ -488,7 +486,7 @@ In that GA, every individual is a vector of 18 values/parameters, 6 per variable
 	\end{center}	
 \end{figure}
 
-The initialization of the chromosomes (first population) is performed assigning random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17_blind}.
+The initialization of the chromosomes (first population) is performed assigning random values inside a range of variation \cite{GAs_Goldberg89}, in order to start from feasible values \cite{evo17}.
 Tournament based selection has been used to elect chromosomes as parents for genetic operators, while simple arithmetic two point crossover \cite{crossGA2017} and non uniform mutation \cite{mutation1997} have been chosen, as two of the most contrasted methods in the literature.
 
 %***********************************************
@@ -544,7 +542,7 @@ fuzzy-genetic controller, called \textit{FGC}.
 We will first need to choose whose tracks and cars are going to be used in the
 experiment among the ones TORCS provides; in our case, we have selected the E-Track5 circuit as it is a
 quite complex one, with multiple turns. \textit{car1-tbr1} has been
-selected as the driving car \cite{evo17_blind}. According to previous
+selected as the driving car \cite{evo17}. According to previous
 experiments, this is a fair choice due to its moderate
 performance. This will lead our controller to be prepared to drive in the most usual conditions. 
 
@@ -555,7 +553,7 @@ comparing them for racing performance. We have considered the following bots in 
 \begin{itemize}
 \item \textbf{GFC1}: GA-Fuzzy controller with fitness 1 (Equation \ref{fit1}).
 \item \textbf{GFC2}: GA-Fuzzy controller with fitness 2 (Equation \ref{fit2}).
-\item \textbf{AD}: Fuzzy controller \cite{evo17_blind}.
+\item \textbf{AD}: Fuzzy controller \cite{evo17}.
 \end{itemize}
 %
 %\begin{table}[!ht]	
@@ -576,7 +574,7 @@ comparing them for racing performance. We have considered the following bots in 
 The coefficients $\alpha$ and $\beta$ are chosen to be $1$  and
 $10*MaxSpeed$ respectively, where $MaxSpeed $ is the maximum value of
 speed that \textit{car1-tbr1}  could take ($MaxSpeed=300$)
-\cite{evo17_blind}, this choice is motivated by the fact to normalize
+\cite{evo17}, this choice is motivated by the fact to normalize
 the Top speed values and make them in the same level as other fitness
 terms. 
  The results of these runs are shown in Table \ref{tab:runsresults}.
@@ -628,7 +626,7 @@ terms.
 }
 \end{table}
 % Mohammed - Best values and TopSpeed added
- From The Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution, as we used the same random start population to compare the two fitness functions. %Pablo: important! do not use so much parantheses, I have removed them. Check if the meaning of this paragraph is still correct
+ From the Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution, as we used the same random start population to compare the two fitness functions. %Pablo: important! do not use so much parantheses, I have removed them. Check if the meaning of this paragraph is still correct
 % Mohammed - ok, it's correct
  The worst values are obtained by $1^{st}$ Run for fitness 1 and $4^{th}$ run for the second fitness, thee bad values are produced by the damage when the car was in stuck or chocked with the track corner.
  The second fitness has given  higher Top Speed values  which minimize the Laptime and makes the controller operates at higher performances. Also, implying late breaking in turns which maximize the Top Speed.
@@ -677,7 +675,7 @@ We represented the resulted membership functions of these two optimal individual
 \end{figure}
 
 The shapes of the obtained memberships are completely different from
-those obtained by Trial/Error in the previous work \cite{evo17_blind}
+those obtained by Trial/Error in the previous work \cite{evo17}
 where the Medium linguistic variable of the new functions has bigger
 range. This makes the controller very sensitive to the middle
 distances of the inputs, like for a real driver who considers most of
@@ -836,7 +834,7 @@ Both controllers have dealt very well for not being damaged, which even the winn
 
 These results are a confirmation of the good optimization done by the GA and mainly when the Top Speed was considered in the fitness. 
 The obtained results in real race with opponents from tough teams from TORCS are encouraging even the optimization process was in practice races.
-This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17_blind}. 
+This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of rivals in the track \cite{evo17}. 
 The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the opponents with no damage or stuck.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  CONCLUSIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -845,7 +843,7 @@ The enhancement of that driver by the optimal values of the membership function 
 
 In this work, we presented a Genetic Algorithm implementation to
 optimize and improve AD, an existing fuzzy driver for TORCS simulator
-\cite{evo17_blind}, which combines two sub-controllers, one to
+\cite{evo17}, which combines two sub-controllers, one to
 calculate the target speed and the other for the direction (steer). 
 
 In the evolutionary approach, we tested two fitness functions which use the results obtained in a race conducted by the controller being optimized. 
