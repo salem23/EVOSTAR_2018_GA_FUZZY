@@ -57,18 +57,10 @@
 	
 	% the affiliations are given next; don't give your e-mail address
 	% unless you accept that it will be published
-\institute{Department of Computer Sciences\\
-	University of Mascara, Algeria\\
-  \mailsa\\
-  Department of Computer Sciences and Technology, ESIT,\\
-  International University of La Rioja (UNIR), Spain\\
-  \mailsb\\
-  Department of Architecture and Computer Technology\\
-  University of Granada, Spain\\
-  \mailsc\\
-  Department of Computer Sciences\\
-  University of C\'adiz, Spain\\
-  \mailsd\\
+\institute{Department of Computer Sciences,	University of Mascara, Algeria,  \mailsa \and
+  Department of Computer Sciences and Technology, ESIT, International University of La Rioja (UNIR), Spain, \mailsb \and
+  Department of Architecture and Computer Technology, University of Granada, Spain, \mailsc \and
+  Department of Computer Science, ESI, University of C\'adiz, Spain, \mailsd
 }
 % Antonio - Mohammed, Pablo revise your affiliations
 %Mohammed : done
@@ -186,7 +178,7 @@ structure/architecture of the models \cite{evol,neurone}, working
 offline, or online (during the game)
 \cite{TanOnline08,Cardamone_Online_NN}.
 % FUZZY + EAs
-Our approach is focused in this line, proposing the application of an off-line genetic algorithm for the improvement of the parameters which determine the behavior of a controller for TORCS. We have focused on a Fuzzy-based model, as it is one of the best options for modeling human-like decisions and actions, as others authors have also used this kind of technique in the literature with good results \cite{torcs_Onieva2011}. 
+Our approach is focused in this line, proposing the application of an off-line genetic algorithm for the improvement of the parameters which determine the behavior of a controller for TORCS. We have focused on a Fuzzy-based model, as it is one of the best options for modeling human-like decisions and actions, as others authors have also used this kind of technique in the literature with good results \cite{CarRacing_Pelta09}. 
 For instance, in \cite{Guadarrama2008}, a fuzzy rule-based car controller for a Car Racing Competition was built and tuned with co-evolutionary genetic algorithms. Two fuzzy sub-controllers were designed (acceleration and turning angle). %Pablo: in previous phrase you said one controller, not two
  But this approach was applied to a simpler simulator than TORCS which is a more realistic and time-constrained simulator. 
 
@@ -232,7 +224,7 @@ interval \textit{[minSpeed, maxSpeed]} km/h.
 
 This fuzzy controller has an output, the speed, and three input values:
 \begin{itemize}
-	\item Front = Track[9]: front distance to the track border (angle 0º). 
+	\item Front = Track[9]: front distance to the track border (angle 0º).  %Pablo: in PDF Track[9] seems a paper citation, change it to Track\_9 instead
 	\item M5 = max (Track[8], Track[10]): max distance to the track border in an angle of +5º and -5º with respect to Front.
 	\item M10 = max (Track[7], Track[11]): max distance to track border in an angle of +10º and -10º.
 \end{itemize}
@@ -243,7 +235,7 @@ description of these fuzzy inputs and output are represented in Table
 \ref{tab:flouevar}. In \cite{evo17} we set the values by hand;
 previously we had made initial tests using an evolutionary
 algorithm. In this paper we will try to improve obtained results by
-fine-tuning this evolutionary algorithm. 
+fine-tuning this evolutionary algorithm. %Pablo: extend this phrase, also explaining the validation experiments. For example "Moreover, we are also validating our approach by testing the evolved controllores in different types of tracks and against other controllers, to understand the obtained behaviour." or something like that
 
 \begin{table}
   {\scriptsize
@@ -501,7 +493,7 @@ heuristics to derive two possible fitness functions:
 	f_{2}= Min & damage + &\alpha \cdot Min & LapTime + & Min & \beta \cdot \frac{1}{TopSpeed}
 	\end{array}
 	\end{equation}	
-\end{description}
+\end{description} %Pablo: I think the "Min" should not be before damage or LapTime, because we are minimizing the function f_1 in general. In fact, I would remove all the "Min" appearances.
 
 $\alpha$ and $\beta$ are two heuristic weights. The main difference is
 in the use of the $TopSpeed$ in the fitness to enhance the controller performances in straight lines aiming to reduce lap time and the overall race time.
@@ -529,9 +521,9 @@ selected as the driving car \cite{evo17}. According to previous
 experiments, this is a fair choice due to its moderate
 performance. This will lead our controller to be prepared to drive in the most usual conditions. 
 
-We have evaluated the FGC with the two proposed fitness functions,
-comparing them for racing performance. We have  carried out two experimentation , in the first one, the following bots in the experiments will make 20 evolutionary runs for every one in , with the configuration: Population size=20, Generations=50, Crossover rate=0.7, Mutation rate=0.3.
-In the second experiment, we increase the population size to 50.
+We have evaluated the FGC with the two proposed fitness functions, %Pablo: I rewrote this paragraph completely
+comparing them for racing performance. Also, we have  carried out two algorithm executions with two different population sizes: 20 and 50, respectively. The rest of the parameters are: Generations=50, Crossover rate=0.7, Mutation rate=0.3, number of runs per configuration = 20.
+
 %shown in Table \ref{tab:GA_config}: 
 %	
 \begin{itemize}
@@ -571,7 +563,7 @@ terms.
 	{
 		\begin{tabular}{|c||c|c|c|c||c|c|c|c|}
 			\hline
-	 &\multicolumn{8}{c||}{ with population size 20 ( EVO)}\\
+	 &\multicolumn{8}{c||}{ with population size 20 ( EVO)}\\ %Pablo: Remove EVO and put a reference to it, instead
 		\hline
 			 &\multicolumn{4}{c||}{Fitness 1}&\multicolumn{4}{c|}{Fitness 2}\\
 			\cline{2-9}
@@ -672,14 +664,14 @@ provide a higher diversity in the output values.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Pablo: I suggest create subsection for each new experiment for validation, and explain before its purpose.
 The two best genetic based fuzzy controllers obtained in the previous
-experiments, one per fitness function and thus named $GFC1$ and
-$GFC2$, are going to be tested
-in a practice race together. They will run
+experiments, one per fitness function, and thus named $GFC1$ and
+$GFC2$, have been tested
+in a practice race together. They have been run %Pablo: do not use future, if you are using past tense stick with it (past perfect can also be used)
 each one for 20 laps in E-Track5 circuit, which was the one used during the
 evolution; then, they will be tested also in a practice race in
-E-Road, a track they had not encountered previously. The obtained results are presented
+E-Road, a track not used previously. The obtained results are presented
 in Table \ref{resultat20}. 
 
 \begin{table}[!ht]
@@ -711,11 +703,11 @@ in Table \ref{resultat20}.
 			\hline 
 		\end{tabular}
 	}
-\end{table}
+\end{table} %PABLO: why AD is not compared in CG Track2?
 
 From the table, we can see that the fuzzy controllers optimized by the
 GA yield the best results, obtaining very good overall global race
-times and eliminating damagem, which is reduced to 0. For the sake of
+times and eliminating damage, which is reduced to 0. For the sake of
 comparison, we include the hand-designed AD controller \cite{evo17},
 which finished the practice race where it was tested with a lot of
 damage, implying that it could, in some difficult cases, not finish
@@ -803,8 +795,8 @@ $GFC1$ and $GFC2$ controllers are quite competitive in these races;
 GFC2 has got an excellent second position in the track used during optimization (E-Track), and it has also got a remarkable third rank in the unknown track (E-Road). 
 Both controllers have dealt very well for not being damaged, which even the winner, {\tt bt 3}, could not avoid. 
 
-These results are a confirmation of the good optimization done by the GA and mainly when the Top Speed was considered in the fitness. 
-The obtained results in real race with opponents from tough teams of TORCS are encouraging even if the optimization process was in practice races.
+These results are a confirmation of the proper optimization done by the GA and mainly when the Top Speed was considered in the fitness. 
+The obtained results in real races with opponents from tough teams of TORCS are encouraging even if the optimization process was in practice races.
 This good adaptation of the proposed controller in races with rivals is due to the fact the modular fuzzy controller takes into consideration the presence of opponents in the track \cite{evo17}. 
 The enhancement of that driver by the optimal values of the membership function values, allows it to detect and overtake the other cars with no damage or stuck.
 
@@ -840,9 +832,9 @@ The fact that the car has a worse average speed compared to the others and that 
 
 In this work, we have presented an improved Genetic Algorithm implementation that optimizes and improves an autonomous driver using fuzzy systems for TORCS simulator \cite{evo17}. It combines two sub-controllers, one to calculate the target speed and the other for the direction, that is, for driving the steering wheel.
 
-After initial tests, that showed the promise of using evolutionary algorithms with two different fitness functions, one considering the average lap time and the car damage and another adding the top speed reached, we have fine-tuned some algorithm parameters to obtain better results.
+After initial tests, that showed the promise of using evolutionary algorithms with two different fitness functions, one considering the average lap time and the car damage and another adding the top speed reached, we have fine-tuned some algorithm parameters to obtain better results. %PABLO: "Also, in order to validate the obtained controllers, different experiments have also been carried out on tracks not used for training ."
 
-The yielded results are very good since the optimized controllers (one per fitness function) were ranked among the first ones in three different evaluation races with rivals, with the minimum of damage.
+The yielded results are very promising since the optimized controllers (one per fitness function) were ranked among the first ones in three different evaluation races with rivals, with the minimum of damage.
 
 % Say something about how much better this one was compared with the first.
 % Antonio - written
