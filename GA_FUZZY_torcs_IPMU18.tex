@@ -530,7 +530,8 @@ experiments, this is a fair choice due to its moderate
 performance. This will lead our controller to be prepared to drive in the most usual conditions. 
 
 We have evaluated the FGC with the two proposed fitness functions,
-comparing them for racing performance. We have considered the following bots in the experiments, making 20 evolutionary runs for every one, with the configuration: Population size=20, Generations=50, Crossover rate=0.7, Mutation rate=0.3.
+comparing them for racing performance. We have  carried out two experimentation , in the first one, the following bots in the experiments will make 20 evolutionary runs for every one in , with the configuration: Population size=20, Generations=50, Crossover rate=0.7, Mutation rate=0.3.
+In the second experiment, we increase the population size to 50.
 %shown in Table \ref{tab:GA_config}: 
 %	
 \begin{itemize}
@@ -570,6 +571,8 @@ terms.
 	{
 		\begin{tabular}{|c||c|c|c|c||c|c|c|c|}
 			\hline
+	 &\multicolumn{8}{c||}{ with population size 20 ( EVO)}\\
+		\hline
 			 &\multicolumn{4}{c||}{Fitness 1}&\multicolumn{4}{c|}{Fitness 2}\\
 			\cline{2-9}
 			& Min fit. 1 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
@@ -596,18 +599,30 @@ terms.
 			\hline
 			Mean &33.88 &30.79 &3.10&227.43&   44.14&  30.14 &   2.70&267.30\\ 
 			St. Dev.&5.61&1.18&4.58&32.55&6.73&0.78 &5.81  & 22.03\\
+						\hline
+							\hline
+			&\multicolumn{8}{c||}{ with population size 50 ( new)}\\
+			\hline
+			&\multicolumn{4}{c||}{Fitness 1}&\multicolumn{4}{c|}{Fitness 2}\\
+			\cline{2-9}
+			& Min fit. 1 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
+			\hline
+			Best &\textbf{28.78}& 28.78& 0&233&\textbf{28.11} & 38.52& 0& 288\\
+\hline
+			Mean &33.14 &29.89 &4.14&230.19&   42.93&  29.57 &   3.46&271.74\\ 
+			St. Dev.&4.98&1.32&4.22&31.14&5.63&0.93 &5.19  & 23.90\\
 			\hline
 			
 		\end{tabular}
 	}\label{tab:runsresults}
 }
 \end{table}
- From The Table, we can see that the $3^{rd}$ run has given the best fitness value for the two considered fitness functions and obtained the minimal Laptime and damage and for the second fitness , the higher TopSpeed in the track.  The fact that the GA  gave the minimum for two fitness functions  in the same run is due to the random initialization of the start population in a favorite region of the space search so the GA has found the optimal solution, as we used the same random start population to compare the two fitness functions. The worst values are obtained by $1^{st}$ Run for fitness 1 and $4^{th}$ run for the second fitness, thee bad values are produced by the damage when the car was in stuck or chocked with the track corner.
- The second fitness has given  higher Top Speed values  which minimize the Laptime and makes the controller operates at higher performances. Also, implying late braking in turns which maximize the Top Speed.
- Wilcoxon rank sum non-parametric test \cite{garcia09} is used to reject or accept the null hypothesis of equality of medians of the values of the two fitness functions for the 10 runs. The obtained p-value was $p =  0.0017$ and the  test statistic is $stats = -3.1371$, this results lead to the rejection of null hypothesis with a threshold $\alpha=0.01$ which allows us to conclude that the two samples sets are different.
- 
- The best solution obtained with each fitness function from these runs
-will be used in races against selected oponents. 
+ Wilcoxon rank sum non-parametric test \cite{garcia09} is used to reject or accept the null hypothesis of equality of medians of the values of the two fitness functions for the 20 runs with 50 chromosomes. The obtained p-value was $p =  0.0011$, this result lead to the rejection of null hypothesis with a threshold $\alpha=0.01$ which allows us to conclude that the two samples sets are different.
+
+Since the \textbf{GFC2} controller also optimizes the TopSpeed, we can notice that it is clearly superior to that of \textbf{GFC1} which surely influences the overall Lap time. This improvement in Top speed greatly increases the performance of the the \textbf{GFC2}.\\
+When we increased the size of the population, the optimal values of the two controllers decreased, giving better values for lap time, speed and damage. This increase in the population size has allowed a better coverage of the research space, thus getting closer to the optimal solution
+The best solution obtained with each fitness function from these runs
+will be used in races against selected opponents. 
 %We represented the resulted membership functions of these two optimal individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
 % \begin{figure}%
 % 	\centering
