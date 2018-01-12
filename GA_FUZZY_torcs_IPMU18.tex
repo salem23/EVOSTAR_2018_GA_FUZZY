@@ -1,20 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%% file typeinst.tex %%%%%%%%%%%%%%%%%%%%%%%%%
-%5
-% This is the LaTeX source for the instructions to authors using
-% the LaTeX document class 'llncs.cls' for contributions to
-% the Lecture Notes in Computer Sciences series.
-% http://www.springer.com/lncs       Springer Heidelberg 2006/05/04
-%
-% It may be used as a template for your own input - copy it
-% to a new file with a new name and use it as the basis
-% for your article.
-%
-% NB: the document class 'llncs' has its own and detailed documentation, see
-% ftp://ftp.springer.de/data/pubftp/pub/tex/latex/llncs/latex2e/llncsdoc.pdf
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \documentclass[runningheads,a4paper]{llncs}
 
 \usepackage[latin1]{inputenc}
@@ -44,9 +27,7 @@
 
 \begin{document}
 	
-\mainmatter  % start of an individual contribution
-	
-	% first the title is needed
+\mainmatter 
 \title{Applying Genetic Algorithms for the Improvement of an Autonomous Fuzzy Driver for Simulated Car Racing}
 	
 \titlerunning{Applying GAs for Improving Autonomous Fuzzy Car Drivers}
@@ -489,13 +470,13 @@ but since we want to obtain a single controller, we will have to use
 heuristics to derive two possible fitness functions:
 
 \begin{description}
-	\item[Fitness 1:]  
+	\item[GFC1:]  
 	\begin{equation} \label{fit1}
 	\begin{array}{lllll}
 	f_{1} =  Min & damage + &\alpha \cdot Min & LapTime 
 	\end{array}
 	\end{equation}
-	\item[Fitness 2:] 
+	\item[GFC2:] 
 	\begin{equation} \label{fit2}
 	\begin{array}{llllll}
 	f_{2}= Min & damage + &\alpha \cdot Min & LapTime + & Min & \beta \cdot \frac{1}{TopSpeed}
@@ -575,7 +556,7 @@ terms.
 		\hline
 			 &\multicolumn{4}{c||}{Fitness 1}&\multicolumn{4}{c|}{Fitness 2}\\
 			\cline{2-9}
-			& Min fit. 1 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
+			& Min GFC1 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
 			\hline
 			% 1 &46.42& 33.42& 13& 43.8005 & 30.98& 0& 234\\
 			
@@ -605,7 +586,7 @@ terms.
 			\hline
 			&\multicolumn{4}{c||}{Fitness 1}&\multicolumn{4}{c|}{Fitness 2}\\
 			\cline{2-9}
-			& Min fit. 1 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
+			& Min GFC2 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
 			\hline
 			Best &\textbf{28.78}& 28.78& 0&233&\textbf{28.11} & 38.52& 0& 288\\
 \hline
@@ -617,7 +598,12 @@ terms.
 	}\label{tab:runsresults}
 }
 \end{table}
- Wilcoxon rank sum non-parametric test \cite{garcia09} is used to reject or accept the null hypothesis of equality of medians of the values of the two fitness functions for the 20 runs with 50 chromosomes. The obtained p-value was $p =  0.0011$, this result lead to the rejection of null hypothesis with a threshold $\alpha=0.01$ which allows us to conclude that the two samples sets are different.
+ Wilcoxon rank sum non-parametric test is used to reject or accept the
+ null hypothesis of equality of medians of the values of the two
+ fitness functions for the 20 runs with 50 chromosomes. The obtained
+ p-value was $p =  0.0011$, this result lead to the rejection of null
+ hypothesis with a threshold $\alpha=0.01$ which allows us to conclude
+ that the two samples sets are different. 
 
 Since the \textbf{GFC2} controller also optimizes the TopSpeed, we can notice that it is clearly superior to that of \textbf{GFC1} which surely influences the overall Lap time. This improvement in Top speed greatly increases the performance of the the \textbf{GFC2}.\\
 When we increased the size of the population, the optimal values of the two controllers decreased, giving better values for lap time, speed and damage. This increase in the population size has allowed a better coverage of the research space, thus getting closer to the optimal solution
