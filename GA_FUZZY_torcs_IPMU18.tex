@@ -549,7 +549,7 @@ terms.
 	 %Mohammed could we cite evo before  the final version?, I just put EVO  to explain that theese data is our previous work
 	 
 		\hline
-			 &\multicolumn{4}{c||}{Fitness 1}&\multicolumn{4}{c|}{Fitness 2}\\
+			 &\multicolumn{4}{c||}{GFC1}&\multicolumn{4}{c|}{GFC2}\\
 			\cline{2-9}
 			& Min GFC1 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
 			\hline
@@ -579,7 +579,7 @@ terms.
 							\hline
 			&\multicolumn{8}{c||}{ with population size 50 ( new)}\\
 			\hline
-			&\multicolumn{4}{c||}{Fitness 1}&\multicolumn{4}{c|}{Fitness 2}\\
+			&\multicolumn{4}{c||}{GFC1}&\multicolumn{4}{c|}{GFC2}\\
 			\cline{2-9}
 			& Min GFC2 & $LapTime$ & $Damage$ & $TopSpeed$& Min fit. 2& $LapTime$ & $Damage$ & $TopSpeed$\\
 			\hline
@@ -600,8 +600,16 @@ terms.
  hypothesis with a threshold $\alpha=0.01$ which allows us to conclude
  that the two samples sets are different. 
 
-Since the \textbf{GFC2} controller also optimizes the TopSpeed, we can notice that it is clearly superior to that of \textbf{GFC1} which surely influences the overall Lap time. This improvement in Top speed greatly increases the performance of the the \textbf{GFC2}.\\
-Increasing the population size to 50  has led to optimal values of the two controllers, giving better values for lap time, speed and damage. This increase in the population size has allowed a better coverage of the research space, thus getting closer to the optimal solution
+Since the \textbf{GFC2} controller also optimizes the TopSpeed, we can
+notice that it is clearly superior to that of \textbf{GFC1} which
+surely influences the overall Lap time. This improvement in TopSpeed
+greatly increases the performance of the the \textbf{GFC2}.
+
+Increasing the population size to 50  has led to better values of the
+two controllers, yielding better values for lap time, speed and
+damage. This increase in the population size has allowed a better
+coverage of the research space, thus getting closer to the optimal
+solution.  
 The best solution obtained with each fitness function from these runs
 will be used in races against selected opponents. 
 %We represented the resulted membership functions of these two optimal individuals considering the different fitness functions in Figures \ref{fig:mffront}, \ref{fig:mfmax5} and \ref{fig:MFMAX10}.
@@ -641,7 +649,7 @@ will be used in races against selected opponents.
 % 		\label{fig:MFMAX10}%
 % \end{figure}
 %
-The shapes of the obtained memberships are completely different from
+The shapes of the obtained membership functions are completely different from
 those obtained by Trial/Error in the previous work \cite{evo17}
 where the Medium linguistic variable of the new functions has bigger
 range. This makes the controller very sensitive to the middle
@@ -723,7 +731,7 @@ According to these results, GFC2 seems to be the best controller.
 Comparing average lap time gives us an overall idea of which
 controller performs the best; however, at the end of the day in a
 racing game the race has to be won. That is why we have tested every
-fuzzy separately from the others in a real race against five standard controllers from each team integrated with TORCS. Tables \ref{tab:gfc1real} and \ref{tab:gfc2real}   illustrate their performance in two 5 laps real races.  % Which track? - JJ
+fuzzy separately from the others in a real race against five standard controllers from each team integrated with TORCS. Tables \ref{tab:gfc1real} and \ref{tab:gfc2real}   illustrate their performance in two 5 laps real races. 
 \begin{table}[!ht]
 	\centering
 	{\scriptsize
@@ -800,7 +808,7 @@ The fact that the car has a worse average speed compared to the others and that 
 \begin{table}[!ht]
 	\centering
 	{\scriptsize
-		\caption{Results of GFC2 in a real races (5 laps)}
+		\caption{Results of GFC2 in a real race (5 laps)}
 		\label{tab:gfc2real2}
 		\begin{tabular}{|p{2 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|p{1.5 cm}|}
 			\hline \textbf{A-Speedway} & \textbf{GFC2}&\textbf{berwin 10} & \textbf{bt 3} &\textbf{damned 2} & \textbf{inferno 5} & \textbf{tita 10}  \\
